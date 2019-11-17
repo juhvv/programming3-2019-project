@@ -10,8 +10,12 @@
 
 #include <map>
 
+#include "core/worldgenerator.h"
 #include "interfaces/igameeventhandler.h"
 #include "graphics/simplegamescene.h"
+#include "gameeventhandler.hh"
+#include "tiles/forest.h"
+#include "startwindow.hh"
 
 namespace Ui {
 class MapWindow;

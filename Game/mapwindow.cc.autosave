@@ -22,15 +22,6 @@ MapWindow::MapWindow(QWidget *parent,
     Startwindow* startti = new Startwindow();
     startti->show();
 
-
-
-
-
-
-
-
-
-
     //std::shared_ptr<Course::iObjectManager> manager;
     //std::shared_ptr<Course::iGameEventHandler> handler2;
     //Course::WorldGenerator& generaattori = Course::WorldGenerator::getInstance();
