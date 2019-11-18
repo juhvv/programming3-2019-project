@@ -7,10 +7,10 @@ CONFIG += c++14
 
 SOURCES += \
     main.cpp \
-    mapwindow.cc \
     objectmanager.cpp \
     gameeventhandler.cpp \
-    startwindow.cpp
+    startwindow.cpp \
+    mapwindow.cpp
 
 HEADERS += \
     mapwindow.hh \

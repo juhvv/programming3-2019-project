@@ -4,6 +4,8 @@
 #include "graphics/simplemapitem.h"
 
 #include "startwindow.hh"
+#include "core/worldgenerator.h"
+#include "tiles/forest.h"
 
 #include <math.h>
 
@@ -20,6 +22,7 @@ MapWindow::MapWindow(QWidget *parent,
 
 
     Startwindow* startti = new Startwindow();
+    startti->setModal(true);
     startti->show();
 
 
@@ -30,12 +33,12 @@ MapWindow::MapWindow(QWidget *parent,
 
 
 
+    std::shared_ptr<ObjectManager> manager = std::make_shared<ObjectManager>();
+    std::shared_ptr<GameEventHandler> handler2 = std::make_shared<GameEventHandler>();
+    Course::WorldGenerator& generaattori = Course::WorldGenerator::getInstance();
 
-    //std::shared_ptr<Course::iObjectManager> manager;
-    //std::shared_ptr<Course::iGameEventHandler> handler2;
-    //Course::WorldGenerator& generaattori = Course::WorldGenerator::getInstance();
     //generaattori.addConstructor<Course::Forest>(12);
-    //generaattori.generateMap(5, 5, 5, manager, handler2);
+    generaattori.generateMap(1, 1, 5, manager, handler2);
 
 
     m_ui->setupUi(this);

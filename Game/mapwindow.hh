@@ -10,10 +10,10 @@
 
 #include <map>
 
-#include "core/worldgenerator.h"
 #include "interfaces/igameeventhandler.h"
 #include "graphics/simplegamescene.h"
 #include "gameeventhandler.hh"
+#include "objectmanager.hh"
 #include "tiles/forest.h"
 #include "startwindow.hh"
 
