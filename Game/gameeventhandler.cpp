@@ -26,3 +26,4 @@ unsigned int GameEventHandler::getTurnNumber()
 {
     return turnNumber_;
 }
+

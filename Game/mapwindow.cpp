@@ -28,7 +28,7 @@ MapWindow::MapWindow(QWidget *parent,
     Course::WorldGenerator& generaattori = Course::WorldGenerator::getInstance();
 
     generaattori.addConstructor<Course::Forest>(1);
-    generaattori.addConstructor<Course::Forest>(2);
+    generaattori.addConstructor<Course::Grassland>(2);
     generaattori.generateMap(7,7,231,manager, m_GEHandler);
 
 
@@ -81,6 +81,7 @@ void MapWindow::showStartWindow()
     Startwindow* startti = new Startwindow();
     startti->setModal(true);
     startti->show();
+    connect(startti, &Startwindow::sendPlayerNames, this, &MapWindow::addPlayerNames);
 }
 
 void MapWindow::switchTurn()
@@ -91,6 +92,12 @@ void MapWindow::switchTurn()
     m_ui->textBox->insertPlainText(sad);
     eventhandler_->nextTurn();
 }
+
+void MapWindow::addPlayerNames(std::vector<std::string>)
+{
+    qDebug() << "data virraa!";
+}
+
 
 void MapWindow::removeItem(std::shared_ptr<Course::GameObject> obj)
 {

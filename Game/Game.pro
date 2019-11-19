@@ -12,7 +12,8 @@ SOURCES += \
     startwindow.cpp \
     mapwindow.cpp \
     buildings/goldmine.cpp \
-    buildings/sawmill.cpp
+    buildings/sawmill.cpp \
+    player.cpp
 
 HEADERS += \
     mapwindow.hh \
@@ -20,7 +21,8 @@ HEADERS += \
     gameeventhandler.hh \
     startwindow.hh \
     buildings/goldmine.h \
-    buildings/sawmill.h
+    buildings/sawmill.h \
+    player.hh
 
 win32:CONFIG(release, debug|release): LIBS += \
     -L$$OUT_PWD/../Course/CourseLib/release/ -lCourseLib

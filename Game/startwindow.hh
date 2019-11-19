@@ -2,6 +2,7 @@
 #define STARTWINDOW_HH
 
 #include <QDialog>
+#include <QDebug>
 
 namespace Ui {
 class Startwindow;
@@ -15,8 +16,14 @@ public:
     explicit Startwindow(QWidget *parent = 0);
     ~Startwindow();
 
+public slots:
+    void startBtnPushed();
+
 private:
     Ui::Startwindow *ui;
+
+signals:
+    void sendPlayerNames(std::vector<std::string>);
 };
 
 #endif // STARTWINDOW_HH

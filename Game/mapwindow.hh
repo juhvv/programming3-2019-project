@@ -15,6 +15,7 @@
 #include "gameeventhandler.hh"
 #include "objectmanager.hh"
 #include "tiles/forest.h"
+#include "tiles/grassland.h"
 #include "startwindow.hh"
 
 namespace Ui {
@@ -44,6 +45,7 @@ public:
 public slots:
     void showStartWindow();
     void switchTurn();
+    void addPlayerNames(std::vector<std::string>);
 
 private:
     Ui::MapWindow* m_ui;

@@ -43,6 +43,7 @@ public:
     unsigned int getTurnNumber();   // returns current turn number
 signals:
 
+
 private:
     unsigned int turnNumber_;
     unsigned int maxTurns_;
