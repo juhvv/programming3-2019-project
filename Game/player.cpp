@@ -9,5 +9,9 @@ Player::Player(const std::string &name,
     Course::PlayerBase(name,
                        objects)
 {
+    m_name = name;
+}
 
+std::string Player::getName(){
+    return m_name;
 }

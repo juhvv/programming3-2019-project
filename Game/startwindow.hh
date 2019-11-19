@@ -23,7 +23,7 @@ private:
     Ui::Startwindow *ui;
 
 signals:
-    void sendPlayerNames(std::vector<std::string>);
+    void sendPlayerNames(std::vector<std::string> nameVct);
 };
 
 #endif // STARTWINDOW_HH

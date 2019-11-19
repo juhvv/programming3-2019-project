@@ -45,7 +45,7 @@ public:
 public slots:
     void showStartWindow();
     void switchTurn();
-    void addPlayerNames(std::vector<std::string>);
+    void addPlayerNames(std::vector<std::string> nameVct);
 
 private:
     Ui::MapWindow* m_ui;

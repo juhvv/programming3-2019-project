@@ -88,14 +88,15 @@ void MapWindow::switchTurn()
 {
     char msgBuffer[100] = "asd";
     QString sad = "Turn ";
-    sad.append(std::to_string(eventhandler_->getTurnNumber()).c_str()); sad.append(" ended\n");
-    m_ui->textBox->insertPlainText(sad);
+    sad.append(std::to_string(eventhandler_->getTurnNumber()).c_str()); sad.append(" ended, now it is turn of ");
     eventhandler_->nextTurn();
+    sad.append(QString::fromStdString(eventhandler_->getCurrentPlayer()->getName())); sad.append(" \n");
+    m_ui->textBox->insertPlainText(sad);
 }
 
-void MapWindow::addPlayerNames(std::vector<std::string>)
+void MapWindow::addPlayerNames(std::vector<std::string> nameVct)
 {
-    qDebug() << "data virraa!";
+    eventhandler_->addNewPlayers(nameVct); //Add new players to gameeventhandler
 }
 
 

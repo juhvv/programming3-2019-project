@@ -12,6 +12,11 @@ public:
 
     Player(const std::string& name,
            const std::vector<std::shared_ptr<Course::GameObject> > objects ={});
+
+    std::string getName();
+
+private:
+    std::string m_name;
 };
 
 #endif // PLAYER_HH
