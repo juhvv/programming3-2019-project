@@ -41,10 +41,14 @@ public:
     void removeItem( std::shared_ptr<Course::GameObject> obj);
     void updateItem( std::shared_ptr<Course::GameObject> obj);
 
+public slots:
+    void showStartWindow();
+    void switchTurn();
 
 private:
     Ui::MapWindow* m_ui;
     std::shared_ptr<Course::iGameEventHandler> m_GEHandler = nullptr;
+    std::shared_ptr<GameEventHandler> eventhandler_;
     std::shared_ptr<Course::SimpleGameScene> m_simplescene = nullptr;
 
 };

@@ -1,7 +1,11 @@
-#ifndef GAMEEVENTHANDLER_HH
+﻿#ifndef GAMEEVENTHANDLER_HH
 #define GAMEEVENTHANDLER_HH
 
 #include <QObject>
+#include <QMainWindow>
+#include <QTextBrowser>
+#include <QDebug>
+#include <QPushButton>
 #include "interfaces/igameeventhandler.h"
 #include "tiles/tilebase.h"
 
@@ -33,6 +37,15 @@ public:
      */
     bool modifyResources(std::shared_ptr<Course::PlayerBase> player,
                                  Course::ResourceMap resources) final;
+
+    void nextTurn();    // called when a turn ends
+
+    unsigned int getTurnNumber();   // returns current turn number
+signals:
+
+private:
+    unsigned int turnNumber_;
+    unsigned int maxTurns_;
 };
 
 #endif // GAMEEVENTHANDLER_HH

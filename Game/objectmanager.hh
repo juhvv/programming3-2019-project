@@ -3,11 +3,13 @@
 
 #include <QObject>
 #include "interfaces/iobjectmanager.h"
+#include "tiles/tilebase.h"
+#include "graphics/simplegamescene.h"
 
 class ObjectManager : public Course::iObjectManager
 {
 public:
-    ObjectManager();
+    ObjectManager(Course::SimpleGameScene* sgsPtr = NULL);
 
     /**
      * @brief Adds new tiles to the ObjectManager.
@@ -41,6 +43,10 @@ public:
      */
     std::vector<std::shared_ptr<Course::TileBase>> getTiles(
             const std::vector<Course::Coordinate>& coordinates) final;
+
+private:
+    std::vector<std::shared_ptr<Course::TileBase>> tiles_;
+    Course::SimpleGameScene* sgsPtr_;
 };
 
 #endif // OBJECTMANAGER_HH

@@ -10,13 +10,17 @@ SOURCES += \
     objectmanager.cpp \
     gameeventhandler.cpp \
     startwindow.cpp \
-    mapwindow.cpp
+    mapwindow.cpp \
+    buildings/goldmine.cpp \
+    buildings/sawmill.cpp
 
 HEADERS += \
     mapwindow.hh \
     objectmanager.hh \
     gameeventhandler.hh \
-    startwindow.hh
+    startwindow.hh \
+    buildings/goldmine.h \
+    buildings/sawmill.h
 
 win32:CONFIG(release, debug|release): LIBS += \
     -L$$OUT_PWD/../Course/CourseLib/release/ -lCourseLib

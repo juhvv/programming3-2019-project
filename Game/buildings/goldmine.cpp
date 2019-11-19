@@ -1,0 +1,1 @@
+#include "goldmine.h"
