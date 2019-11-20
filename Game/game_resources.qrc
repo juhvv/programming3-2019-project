@@ -2,5 +2,8 @@
     <qresource prefix="/">
         <file>resources/placeholder.PNG</file>
         <file>resources/vaakuna.png</file>
+        <file>resources/tilebase.PNG</file>
+        <file>resources/forest.PNG</file>
+        <file>resources/grass.PNG</file>
     </qresource>
 </RCC>

@@ -15,6 +15,10 @@ SOURCES += \
     buildings/sawmill.cpp \
     player.cpp \
     ui/graphicsviewport.cpp \
+    ui/customgraphicsitem.cpp \
+    tiles/graphicstilebase.cpp \
+    tiles/foresttileitem.cpp \
+    tiles/grasstileitem.cpp
 
 HEADERS += \
     mapwindow.hh \
@@ -25,6 +29,10 @@ HEADERS += \
     buildings/sawmill.h \
     player.hh \
     ui/graphicsviewport.h \
+    ui/customgraphicsitem.h \
+    tiles/graphicstilebase.h \
+    tiles/foresttileitem.h \
+    tiles/grasstileitem.h
 
 
 win32:CONFIG(release, debug|release): LIBS += \
