@@ -9,10 +9,11 @@
 #include "interfaces/igameeventhandler.h"
 #include "tiles/tilebase.h"
 
-class GameEventHandler : public Course::iGameEventHandler
+class GameEventHandler : public QObject, public Course::iGameEventHandler
 {
+    Q_OBJECT
 public:
-    GameEventHandler();
+    explicit GameEventHandler();
 
     /**
      * @brief Modify Player's resource. Can be used to both sum or subtract.
@@ -36,11 +37,13 @@ public:
      * False - Modification failed. \n
      */
     bool modifyResources(std::shared_ptr<Course::PlayerBase> player,
-                                 Course::ResourceMap resources) final;
+                                 Course::ResourceMap resources);
 
     void nextTurn();    // called when a turn ends
 
     unsigned int getTurnNumber();   // returns current turn number
+
+    void resetData();   // resets data
 signals:
 
 

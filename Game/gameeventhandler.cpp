@@ -27,3 +27,8 @@ unsigned int GameEventHandler::getTurnNumber()
     return turnNumber_;
 }
 
+void GameEventHandler::resetData()
+{
+    turnNumber_ = 1;
+}
+

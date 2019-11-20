@@ -12,6 +12,7 @@
 
 #include "interfaces/igameeventhandler.h"
 #include "graphics/simplegamescene.h"
+#include "ui/graphicsviewport.h"
 #include "gameeventhandler.hh"
 #include "objectmanager.hh"
 #include "tiles/forest.h"
@@ -46,11 +47,14 @@ public slots:
     void showStartWindow();
     void switchTurn();
     void addPlayerNames(std::vector<std::string>);
+    void startNewGame(unsigned int seed);
 
 private:
     Ui::MapWindow* m_ui;
+    GraphicsViewPort* viewPortPtr_;
     std::shared_ptr<Course::iGameEventHandler> m_GEHandler = nullptr;
     std::shared_ptr<GameEventHandler> eventhandler_;
+    std::shared_ptr<ObjectManager> objectManager_;
     std::shared_ptr<Course::SimpleGameScene> m_simplescene = nullptr;
 
 };

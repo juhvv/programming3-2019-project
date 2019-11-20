@@ -36,3 +36,8 @@ std::vector<std::shared_ptr<Course::TileBase> > ObjectManager::getTiles(const st
 {
     return {};
 }
+
+void ObjectManager::resetData()
+{
+    tiles_.clear();
+}

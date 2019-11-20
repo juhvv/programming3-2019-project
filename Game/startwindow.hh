@@ -24,6 +24,7 @@ private:
 
 signals:
     void sendPlayerNames(std::vector<std::string>);
+    void sendSeed(unsigned int seed);
 };
 
 #endif // STARTWINDOW_HH
