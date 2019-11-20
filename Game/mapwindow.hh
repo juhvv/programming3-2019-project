@@ -46,7 +46,7 @@ public:
 public slots:
     void showStartWindow();
     void switchTurn();
-    void addPlayerNames(std::vector<std::string>);
+    void addPlayerNames(std::vector<std::string> nameVct);
     void startNewGame(unsigned int seed);
 
 private:

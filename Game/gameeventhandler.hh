@@ -6,6 +6,8 @@
 #include <QTextBrowser>
 #include <QDebug>
 #include <QPushButton>
+#include <vector>
+#include "player.hh"
 #include "interfaces/igameeventhandler.h"
 #include "tiles/tilebase.h"
 
@@ -43,13 +45,20 @@ public:
 
     unsigned int getTurnNumber();   // returns current turn number
 
-    void resetData();   // resets data
+    std::shared_ptr<Player> getCurrentPlayer();
+
+    void addNewPlayers(std::vector<std::string> nameVct); //adds new players to the game
+
+
 signals:
 
 
 private:
     unsigned int turnNumber_;
     unsigned int maxTurns_;
+    std::vector<std::shared_ptr<Player>> playerVector_;
+    std::shared_ptr<Player> currentPlayer_;
+
 };
 
 #endif // GAMEEVENTHANDLER_HH

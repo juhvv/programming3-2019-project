@@ -24,17 +24,15 @@ Startwindow::~Startwindow()
 }
 
 void Startwindow::startBtnPushed(){
-    std::string player1 = ui->player1Line->text().toUtf8().constData();
-    std::string player2 = ui->player2Line->text().toUtf8().constData();
     std::string seed = ui->seedLine->text().toUtf8().constData();
 
-    qDebug() << "pelaaja1" << ui->player1Line->text();
-    qDebug() << "pelaaja2" << ui->player2Line->text();
+    std::string player1 = ui->player1Line->text().toUtf8().constData(); //Change qString to std::string
+    std::string player2 = ui->player2Line->text().toUtf8().constData();
 
     std::vector<std::string> nameVct;
     nameVct.push_back(player1);
     nameVct.push_back(player2);
-    emit sendPlayerNames(nameVct);
+    emit sendPlayerNames(nameVct);    //Emit vector of player names to mapwindow
     emit sendSeed(stoi(seed));
 
 }
