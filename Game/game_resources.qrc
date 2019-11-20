@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resources/placeholder.PNG</file>
+        <file>resources/vaakuna.png</file>
+    </qresource>
+</RCC>

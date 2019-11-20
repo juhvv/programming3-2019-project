@@ -1,5 +1,5 @@
 TEMPLATE = app
-TARGET = TheGame
+TARGET = CONQUEST
 
 QT += core gui widgets
 
@@ -13,7 +13,8 @@ SOURCES += \
     mapwindow.cpp \
     buildings/goldmine.cpp \
     buildings/sawmill.cpp \
-    player.cpp
+    player.cpp \
+    ui/graphicsviewport.cpp \
 
 HEADERS += \
     mapwindow.hh \
@@ -22,7 +23,9 @@ HEADERS += \
     startwindow.hh \
     buildings/goldmine.h \
     buildings/sawmill.h \
-    player.hh
+    player.hh \
+    ui/graphicsviewport.h \
+
 
 win32:CONFIG(release, debug|release): LIBS += \
     -L$$OUT_PWD/../Course/CourseLib/release/ -lCourseLib
@@ -51,3 +54,8 @@ else:unix: PRE_TARGETDEPS += \
 FORMS += \
     mapwindow.ui \
     startwindow.ui
+
+DISTFILES +=
+
+RESOURCES += \
+    game_resources.qrc

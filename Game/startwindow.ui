@@ -17,7 +17,11 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>START GAME</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="game_resources.qrc">
+    <normaloff>:/resources/vaakuna.png</normaloff>:/resources/vaakuna.png</iconset>
   </property>
   <widget class="QFrame" name="headerFrame">
    <property name="geometry">
@@ -150,7 +154,41 @@ VERSION POTATO</string>
     </rect>
    </property>
   </widget>
+  <widget class="QLineEdit" name="seedLine">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>230</y>
+     <width>113</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>1234</string>
+   </property>
+   <property name="maxLength">
+    <number>5</number>
+   </property>
+   <property name="placeholderText">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="player2Lbl_2">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>240</y>
+     <width>51</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Seed:</string>
+   </property>
+  </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="game_resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

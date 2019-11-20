@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>CONQUEST</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="game_resources.qrc">
+    <normaloff>:/resources/vaakuna.png</normaloff>:/resources/vaakuna.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -21,17 +25,7 @@
        <number>6</number>
       </property>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
-        <item>
-         <widget class="QGraphicsView" name="graphicsView">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-         </widget>
-        </item>
+       <layout class="QVBoxLayout" name="viewTxtboxLayout">
         <item>
          <widget class="QTextBrowser" name="textBox">
           <property name="sizePolicy">
@@ -123,7 +117,7 @@
      <x>0</x>
      <y>0</y>
      <width>869</width>
-     <height>24</height>
+     <height>25</height>
     </rect>
    </property>
    <property name="font">
@@ -200,6 +194,8 @@
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="game_resources.qrc"/>
+ </resources>
  <connections/>
 </ui>
