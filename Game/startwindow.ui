@@ -143,6 +143,9 @@ VERSION POTATO</string>
      <height>28</height>
     </rect>
    </property>
+   <property name="text">
+    <string>Player 1</string>
+   </property>
   </widget>
   <widget class="QLineEdit" name="player2Line">
    <property name="geometry">
@@ -152,6 +155,9 @@ VERSION POTATO</string>
      <width>113</width>
      <height>28</height>
     </rect>
+   </property>
+   <property name="text">
+    <string>Player 2</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="seedLine">

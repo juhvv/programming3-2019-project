@@ -32,8 +32,8 @@ void Startwindow::startBtnPushed(){
     std::vector<std::string> nameVct;
     nameVct.push_back(player1);
     nameVct.push_back(player2);
-    emit sendPlayerNames(nameVct);    //Emit vector of player names to mapwindow
     emit sendSeed(stoi(seed));
+    emit sendPlayerNames(nameVct);    //Emit vector of player names to mapwindow
 
 }
 

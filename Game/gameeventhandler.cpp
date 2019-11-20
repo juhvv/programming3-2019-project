@@ -52,5 +52,7 @@ void GameEventHandler::addNewPlayers(std::vector<std::string> nameVct)
 void GameEventHandler::resetData()
 {
     turnNumber_ = 1;
+    playerVector_.clear();
+    currentPlayer_ = NULL;
 }
 

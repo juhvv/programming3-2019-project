@@ -49,6 +49,7 @@ public:
 
     void addNewPlayers(std::vector<std::string> nameVct); //adds new players to the game
 
+    void resetData();   // resets stored data
 
 signals:
 
