@@ -2,6 +2,7 @@
 #define OBJECTMANAGER_HH
 
 //#include <QObject>
+
 #include "interfaces/iobjectmanager.h"
 #include "tiles/tilebase.h"
 #include "graphics/simplegamescene.h"
@@ -10,7 +11,7 @@ class ObjectManager : public QObject, public Course::iObjectManager
 {
     Q_OBJECT
 public:
-    explicit ObjectManager(Course::SimpleGameScene* sgsPtr = NULL);
+    explicit ObjectManager(Course::SimpleGameScene* sgsPtr = NULL,  QGraphicsScene* scenePtr = NULL);
 
     /**
      * @brief Adds new tiles to the ObjectManager.
@@ -50,6 +51,7 @@ public:
 private:
     std::vector<std::shared_ptr<Course::TileBase>> tiles_;
     Course::SimpleGameScene* sgsPtr_;
+    QGraphicsScene* scenePtr_;
 };
 
 #endif // OBJECTMANAGER_HH

@@ -12,7 +12,6 @@ GraphicsViewPort::GraphicsViewPort(QWidget* parent) :
 void GraphicsViewPort::wheelEvent(QWheelEvent *event)
 {
     QPoint degrees = event->angleDelta();
-    qDebug() << "Degrees: " << degrees.x() << ", " << degrees.y();
     if (degrees.y() != 0) {
         zoom(event->pos(), degrees.y() > 0);
     }
@@ -22,17 +21,15 @@ void GraphicsViewPort::zoom(QPoint centerLoc, bool isZoomIn)
 {
     if (isZoomIn) {
         if (zoomLevel_ < 2) {
-            zoomLevel_ *= 1.1;
-            this->scale(1.1, 1.1);
+            zoomLevel_ *= 1.05;
+            this->scale(1.05, 1.05);
             centerOn(centerLoc);
-            qDebug() << "Zoomed in";
         }
     } else {
-        if (zoomLevel_ > 0.5) {
-            zoomLevel_ *= 0.9;
-            this->scale(0.9, 0.9);
+        if (zoomLevel_ > 0.3) {
+            zoomLevel_ *= 0.95;
+            this->scale(0.95, 0.95);
             centerOn(centerLoc);
-            qDebug() << "Zoomed out";
         }
     }
 }

@@ -1,7 +1,8 @@
 #include "objectmanager.hh"
+#include "tiles/graphicstilebase.h"
 
-ObjectManager::ObjectManager(Course::SimpleGameScene* sgsPtr):
-    sgsPtr_(sgsPtr)
+ObjectManager::ObjectManager(Course::SimpleGameScene* sgsPtr, QGraphicsScene* scenePtr):
+    sgsPtr_(sgsPtr), scenePtr_(scenePtr)
 {
 
 }
@@ -9,10 +10,16 @@ ObjectManager::ObjectManager(Course::SimpleGameScene* sgsPtr):
 void ObjectManager::addTiles(const std::vector<std::shared_ptr<Course::TileBase> > &tiles)
 {
     for (auto tile : tiles) {
-        sgsPtr_->drawItem(tile);
-        sgsPtr_->update();
-        std::shared_ptr<Course::Coordinate> coord = tile->getCoordinatePtr();
-        qDebug() << "Tile Coordinates: x=" << coord->x() << " y=" << coord->y();
+        //sgsPtr_->drawItem(tile);
+        //sgsPtr_->update();
+
+        Course::TileBase* rawPtr = tile.get();
+        GraphicsTileBase* newItem = static_cast<GraphicsTileBase*>(rawPtr);
+        scenePtr_->addItem(newItem);
+        Course::Coordinate newCoord = newItem->getCoordinate();
+        newItem->setPos(newCoord.x() * 128, newCoord.y() * 128);
+        newItem->update();
+        scenePtr_->update();
     }
     tiles_ = tiles;
 }

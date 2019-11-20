@@ -13,10 +13,9 @@
 #include "interfaces/igameeventhandler.h"
 #include "graphics/simplegamescene.h"
 #include "ui/graphicsviewport.h"
+#include "tiles/graphicstilebase.h"
 #include "gameeventhandler.hh"
 #include "objectmanager.hh"
-#include "tiles/forest.h"
-#include "tiles/grassland.h"
 #include "startwindow.hh"
 
 namespace Ui {
@@ -51,7 +50,9 @@ public slots:
 
 private:
     Ui::MapWindow* m_ui;
+
     GraphicsViewPort* viewPortPtr_;
+    QGraphicsScene* scene_;
     std::shared_ptr<Course::iGameEventHandler> m_GEHandler = nullptr;
     std::shared_ptr<GameEventHandler> eventhandler_;
     std::shared_ptr<ObjectManager> objectManager_;

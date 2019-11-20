@@ -6,6 +6,8 @@
 #include "startwindow.hh"
 #include "core/worldgenerator.h"
 #include "tiles/forest.h"
+#include "tiles/foresttileitem.h"
+#include "tiles/grasstileitem.h"
 
 #include <math.h>
 #include <QAction>
@@ -15,12 +17,13 @@ MapWindow::MapWindow(QWidget *parent,
     QMainWindow(parent),
     m_ui(new Ui::MapWindow),
     viewPortPtr_(new GraphicsViewPort(this)),
+    scene_(new QGraphicsScene(viewPortPtr_)),
     m_GEHandler(NULL),
     eventhandler_(std::make_shared<GameEventHandler>()),
     m_simplescene(new Course::SimpleGameScene(this, 20,20))
 {
     Course::SimpleGameScene* sgs_rawptr = m_simplescene.get();
-    objectManager_ = std::make_shared<ObjectManager>(sgs_rawptr);
+    objectManager_ = std::make_shared<ObjectManager>(sgs_rawptr, scene_);
     m_GEHandler = eventhandler_;
 
     m_ui->setupUi(this);
@@ -35,16 +38,19 @@ MapWindow::MapWindow(QWidget *parent,
 
     Course::WorldGenerator& generaattori = Course::WorldGenerator::getInstance();
 
-    generaattori.addConstructor<Course::Forest>(2);
-    generaattori.addConstructor<Course::Grassland>(2);
+    generaattori.addConstructor<GrassTileItem>(1);
+    generaattori.addConstructor<ForestTileItem>(3);
 
-    viewPortPtr_->setScene(dynamic_cast<QGraphicsScene*>(sgs_rawptr));
+    //viewPortPtr_->setScene(dynamic_cast<QGraphicsScene*>(sgs_rawptr));
+    viewPortPtr_->setScene(scene_);
     MapWindow::showStartWindow();
 }
 
 MapWindow::~MapWindow()
 {
     delete m_ui;
+    delete viewPortPtr_;
+    delete scene_;
 }
 
 void MapWindow::setGEHandler(
@@ -86,11 +92,11 @@ void MapWindow::showStartWindow()
 
 void MapWindow::switchTurn()
 {
-    QString sad = "Turn ";
-    sad.append(std::to_string(eventhandler_->getTurnNumber()).c_str()); sad.append(" ended, now it is turn of ");
+    QString msg = "Turn ";
+    msg.append(std::to_string(eventhandler_->getTurnNumber()).c_str()); msg.append(" ended, now it is turn of ");
     eventhandler_->nextTurn();
-    sad.append(QString::fromStdString(eventhandler_->getCurrentPlayer()->getName())); sad.append(" \n");
-    m_ui->textBox->insertPlainText(sad);
+    msg.append(eventhandler_->getCurrentPlayer()->getName().c_str()); msg.append(" \n");
+    m_ui->textBox->insertPlainText(msg);
 }
 
 void MapWindow::addPlayerNames(std::vector<std::string> nameVct)
