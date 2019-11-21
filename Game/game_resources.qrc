@@ -5,5 +5,7 @@
         <file>resources/tilebase.PNG</file>
         <file>resources/forest.PNG</file>
         <file>resources/grass.PNG</file>
+        <file>resources/overlay faction1.PNG</file>
+        <file>resources/overlay faction2.PNG</file>
     </qresource>
 </RCC>
