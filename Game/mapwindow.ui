@@ -81,7 +81,7 @@
         <item>
          <widget class="QPushButton" name="turnSwitchBtn">
           <property name="enabled">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -105,6 +105,12 @@
           </property>
           <property name="text">
            <string>END TURN</string>
+          </property>
+          <property name="default">
+           <bool>false</bool>
+          </property>
+          <property name="flat">
+           <bool>false</bool>
           </property>
          </widget>
         </item>

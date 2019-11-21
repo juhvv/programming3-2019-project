@@ -108,6 +108,7 @@ void MapWindow::addPlayerNames(std::vector<std::string> nameVct)
 
 void MapWindow::startNewGame(unsigned int seed)
 {
+    m_ui->turnSwitchBtn->setDisabled(false);
     m_ui->textBox->insertPlainText("<<<STARTED NEW GAME>>>\n");
     qDebug() << "started new game";
     objectManager_->resetData();
