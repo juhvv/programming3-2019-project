@@ -13,6 +13,7 @@
 #include "tiles/graphicstilebase.h"
 #include "objectmanager.hh"
 
+
 class GameEventHandler : public QObject, public Course::iGameEventHandler
 {
     Q_OBJECT
@@ -53,9 +54,12 @@ public:
 
     void resetData();   // resets stored data
 
+
 public slots:
     void claimTile(GraphicsTileBase *tile);
 
+signals:
+    void signalUpdateVisibleResources();
 
 private:
     unsigned int turnNumber_;

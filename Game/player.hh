@@ -16,6 +16,8 @@ public:
 
     std::string getName();
 
+    int getResourceValue(Course::BasicResource resource);
+
 private:
     std::string m_name;
     Course::ResourceMap m_playerResources;

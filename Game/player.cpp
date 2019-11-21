@@ -23,3 +23,8 @@ Player::Player(const std::string &name,
 std::string Player::getName(){
     return m_name;
 }
+
+int Player::getResourceValue(Course::BasicResource resource)
+{
+    return m_playerResources[resource];
+}
