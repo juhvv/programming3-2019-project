@@ -17,6 +17,7 @@
 #include "gameeventhandler.hh"
 #include "objectmanager.hh"
 #include "startwindow.hh"
+#include "ui/customgraphicsscene.h"
 
 namespace Ui {
 class MapWindow;
@@ -52,7 +53,7 @@ private:
     Ui::MapWindow* m_ui;
 
     GraphicsViewPort* viewPortPtr_;
-    QGraphicsScene* scene_;
+    CustomGraphicsScene* scene_;
     std::shared_ptr<Course::iGameEventHandler> m_GEHandler = nullptr;
     std::shared_ptr<GameEventHandler> eventhandler_;
     std::shared_ptr<ObjectManager> objectManager_;

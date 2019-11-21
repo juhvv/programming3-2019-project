@@ -17,20 +17,22 @@ MapWindow::MapWindow(QWidget *parent,
     QMainWindow(parent),
     m_ui(new Ui::MapWindow),
     viewPortPtr_(new GraphicsViewPort(this)),
-    scene_(new QGraphicsScene(viewPortPtr_)),
+    scene_(new CustomGraphicsScene(viewPortPtr_)),
     m_GEHandler(NULL),
-    eventhandler_(std::make_shared<GameEventHandler>()),
+    eventhandler_(NULL),
     m_simplescene(new Course::SimpleGameScene(this, 20,20))
 {
     Course::SimpleGameScene* sgs_rawptr = m_simplescene.get();
     objectManager_ = std::make_shared<ObjectManager>(sgs_rawptr, scene_);
+    eventhandler_ = std::make_shared<GameEventHandler>(objectManager_);
     m_GEHandler = eventhandler_;
 
     m_ui->setupUi(this);
+
+    // setup graphics view
     m_ui->viewTxtboxLayout->insertWidget(0,viewPortPtr_);
     viewPortPtr_->setRenderHint(QPainter::Antialiasing);
     viewPortPtr_->setBackgroundBrush(QPixmap(":/resources/placeholder.PNG"));
-    //GameEventHandler* eventHandlerPtr = handler2.get();
 
     connect(m_ui->actionExit, &QAction::triggered, this, &MapWindow::close);
     connect(m_ui->actionStart, &QAction::triggered, this, &MapWindow::showStartWindow);
@@ -39,7 +41,7 @@ MapWindow::MapWindow(QWidget *parent,
     Course::WorldGenerator& generaattori = Course::WorldGenerator::getInstance();
 
     generaattori.addConstructor<GrassTileItem>(1);
-    generaattori.addConstructor<ForestTileItem>(3);
+    generaattori.addConstructor<ForestTileItem>(1);
 
     //viewPortPtr_->setScene(dynamic_cast<QGraphicsScene*>(sgs_rawptr));
     viewPortPtr_->setScene(scene_);
