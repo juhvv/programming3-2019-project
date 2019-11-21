@@ -1,8 +1,9 @@
 #include "gameeventhandler.hh"
 
-GameEventHandler::GameEventHandler():
+GameEventHandler::GameEventHandler(std::shared_ptr<ObjectManager> objectMngr):
     turnNumber_(1),
-    maxTurns_(30)
+    maxTurns_(30),
+    objectMngr_(objectMngr)
 {
 
 }
@@ -54,5 +55,10 @@ void GameEventHandler::resetData()
     turnNumber_ = 1;
     playerVector_.clear();
     currentPlayer_ = NULL;
+}
+
+void GameEventHandler::claimTile(GraphicsTileBase *tile)
+{
+    objectMngr_->setOwnerMarker(tile);
 }
 

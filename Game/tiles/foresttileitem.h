@@ -3,8 +3,6 @@
 
 #include "tiles/graphicstilebase.h"
 
-static const unsigned int TEX_OFFSET = 10;
-
 class ForestTileItem : public GraphicsTileBase
 {
 public:
@@ -20,9 +18,11 @@ public:
 
     // virtual void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) override;
 
-    virtual QRectF boundingRect() const override;
+    // virtual QRectF boundingRect() const override;
 
     virtual std::string getType() const override;
+
+    virtual DrawBias getDrawBias() override;
 
 public slots:
     // virtual void sendInfo() override;

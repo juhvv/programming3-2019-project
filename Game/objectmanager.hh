@@ -6,12 +6,13 @@
 #include "interfaces/iobjectmanager.h"
 #include "tiles/tilebase.h"
 #include "graphics/simplegamescene.h"
+#include "ui/customgraphicsscene.h"
 
 class ObjectManager : public QObject, public Course::iObjectManager
 {
     Q_OBJECT
 public:
-    explicit ObjectManager(Course::SimpleGameScene* sgsPtr = NULL,  QGraphicsScene* scenePtr = NULL);
+    explicit ObjectManager(Course::SimpleGameScene* sgsPtr = NULL,  CustomGraphicsScene* scenePtr = NULL);
 
     /**
      * @brief Adds new tiles to the ObjectManager.
@@ -48,10 +49,15 @@ public:
 
     void resetData();   // resets data
 
+    void setOwnerMarker(GraphicsTileBase* tile);
+
+public slots:
+    // void addOwnersipMarker(unsigned int ID);
+
 private:
     std::vector<std::shared_ptr<Course::TileBase>> tiles_;
     Course::SimpleGameScene* sgsPtr_;
-    QGraphicsScene* scenePtr_;
+    CustomGraphicsScene* scenePtr_;
 };
 
 #endif // OBJECTMANAGER_HH

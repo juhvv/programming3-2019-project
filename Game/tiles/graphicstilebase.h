@@ -6,6 +6,18 @@
 
 static const unsigned int TILE_SIZE = 128;  // defines tile size (px)
 
+/**
+ * @brief The DrawBias enum defines when a tile is drawn to th map scene
+ */
+enum DrawBias {
+    DEFAULT = 0,
+    LAST = 1,
+};
+
+/**
+ * @brief The GraphicsTileBase class CustomGraphicsItem and TileBase derived
+ * class that acts as the tile's graphics item and contains tile's data
+ */
 class GraphicsTileBase : public CustomGraphicsItem, public Course::TileBase
 {
 public:
@@ -21,13 +33,20 @@ public:
 
 
 
-    //virtual QPainterPath shape() const override;
-    virtual QRectF boundingRect() const override;
+    virtual QPainterPath shape() const override;
+    // virtual QRectF boundingRect() const override;
 
     virtual void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) override;
 
+    virtual DrawBias getDrawBias() = 0;
+
 public slots:
+
     virtual void sendInfo();
+    virtual void sendPtr();
+
+protected:
+    const std::shared_ptr<Course::iGameEventHandler> eventhandlerProtected_;
 };
 
 #endif // GRAPHICSTILEBASE_H

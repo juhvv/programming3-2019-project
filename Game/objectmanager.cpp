@@ -1,7 +1,7 @@
 #include "objectmanager.hh"
 #include "tiles/graphicstilebase.h"
 
-ObjectManager::ObjectManager(Course::SimpleGameScene* sgsPtr, QGraphicsScene* scenePtr):
+ObjectManager::ObjectManager(Course::SimpleGameScene* sgsPtr, CustomGraphicsScene* scenePtr):
     sgsPtr_(sgsPtr), scenePtr_(scenePtr)
 {
 
@@ -9,6 +9,7 @@ ObjectManager::ObjectManager(Course::SimpleGameScene* sgsPtr, QGraphicsScene* sc
 
 void ObjectManager::addTiles(const std::vector<std::shared_ptr<Course::TileBase> > &tiles)
 {
+    /*
     for (auto tile : tiles) {
         //sgsPtr_->drawItem(tile);
         //sgsPtr_->update();
@@ -21,6 +22,8 @@ void ObjectManager::addTiles(const std::vector<std::shared_ptr<Course::TileBase>
         newItem->update();
         scenePtr_->update();
     }
+    */
+    scenePtr_->setupMap(tiles);
     tiles_ = tiles;
 }
 
@@ -47,4 +50,14 @@ std::vector<std::shared_ptr<Course::TileBase> > ObjectManager::getTiles(const st
 void ObjectManager::resetData()
 {
     tiles_.clear();
+}
+
+void ObjectManager::setOwnerMarker(GraphicsTileBase *tile)
+{
+    QGraphicsPixmapItem* markerItem =
+            new QGraphicsPixmapItem(QPixmap(":/resources/overlay faction1.PNG"));
+    markerItem->setZValue(10);
+    scenePtr_->addItem(markerItem);
+    markerItem->setPos(tile->x(), tile->y());
+    scenePtr_->update();
 }

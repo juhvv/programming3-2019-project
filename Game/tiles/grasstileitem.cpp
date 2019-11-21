@@ -12,17 +12,16 @@ GrassTileItem::GrassTileItem(const Course::Coordinate &location,
                              const Course::ResourceMap &production) :
     GraphicsTileBase (location, eventhandler, objectmanager, pixmap, parent, max_build, max_work, production)
 {
-
-}
-
-QRectF GrassTileItem::boundingRect() const
-{
-    QRectF boundingRect = QRectF(0, 0, TILE_SIZE, TILE_SIZE);
-    return boundingRect;
+    setOffset(-5,-5);
 }
 
 std::string GrassTileItem::getType() const
 {
     return "Grass tile";
+}
+
+DrawBias GrassTileItem::getDrawBias()
+{
+    return DEFAULT;
 }
 

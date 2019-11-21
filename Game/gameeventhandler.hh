@@ -10,12 +10,14 @@
 #include "player.hh"
 #include "interfaces/igameeventhandler.h"
 #include "tiles/tilebase.h"
+#include "tiles/graphicstilebase.h"
+#include "objectmanager.hh"
 
 class GameEventHandler : public QObject, public Course::iGameEventHandler
 {
     Q_OBJECT
 public:
-    explicit GameEventHandler();
+    explicit GameEventHandler(std::shared_ptr<ObjectManager> objectMngr);
 
     /**
      * @brief Modify Player's resource. Can be used to both sum or subtract.
@@ -51,12 +53,15 @@ public:
 
     void resetData();   // resets stored data
 
-signals:
+public slots:
+    void claimTile(GraphicsTileBase *tile);
 
 
 private:
     unsigned int turnNumber_;
     unsigned int maxTurns_;
+    std::shared_ptr<ObjectManager> objectMngr_;
+
     std::vector<std::shared_ptr<Player>> playerVector_;
     std::shared_ptr<Player> currentPlayer_;
 

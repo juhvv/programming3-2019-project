@@ -3,7 +3,7 @@
 CustomGraphicsItem::CustomGraphicsItem(const QPixmap &pixmap, QGraphicsItem *parent) :
     QGraphicsPixmapItem (pixmap, parent)
 {
-    setFlag(CustomGraphicsItem::ItemIsMovable, true);
+
 }
 
 
