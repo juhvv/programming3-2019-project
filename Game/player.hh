@@ -15,11 +15,11 @@ public:
            const std::vector<std::shared_ptr<Course::GameObject> > objects ={}
            );
 
+    virtual ~Player() = default;
+
     std::string getName();
     void setMarker(int index);
     void getIcon(QPixmap &icon);
-
-    int getResourceValue(Course::BasicResource resource);
 
     int getResourceValue(Course::BasicResource resource);
 

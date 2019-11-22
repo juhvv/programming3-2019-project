@@ -16,13 +16,13 @@ public:
                      const unsigned int& max_work = 3,
                             const Course::ResourceMap& production = Course::ConstResourceMaps::FOREST_BP);
 
+    virtual ~ForestTileItem() = default;
+
     // virtual void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) override;
 
     // virtual QRectF boundingRect() const override;
 
     virtual std::string getType() const override;
-
-    virtual DrawBias getDrawBias() override;
 
 public slots:
     // virtual void sendInfo() override;

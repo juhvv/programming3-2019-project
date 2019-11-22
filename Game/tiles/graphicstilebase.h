@@ -31,7 +31,7 @@ public:
                      const unsigned int& max_work = 3,
                      const Course::ResourceMap& production = {});
 
-
+    virtual ~GraphicsTileBase() = default;
 
     virtual QPainterPath shape() const override;
     // virtual QRectF boundingRect() const override;
@@ -43,7 +43,8 @@ public:
 
     virtual bool isSelectable() override;
 
-    virtual DrawBias getDrawBias() = 0;
+    virtual bool isMovable() override;
+
 
 public slots:
 

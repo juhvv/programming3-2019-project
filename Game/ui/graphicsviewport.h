@@ -18,6 +18,8 @@ public:
      */
     explicit GraphicsViewPort(QWidget* parent = 0);
 
+    virtual ~GraphicsViewPort() = default;
+
     /**
      * @brief This method handles QWheelEvents to zoom the view
      * @param event QWheelEvent to be handled

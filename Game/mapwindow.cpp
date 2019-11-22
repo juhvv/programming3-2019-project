@@ -8,6 +8,7 @@
 #include "tiles/forest.h"
 #include "tiles/foresttileitem.h"
 #include "tiles/grasstileitem.h"
+#include "units/graphicsunitbase.h"
 
 #include <math.h>
 #include <QAction>
@@ -45,6 +46,19 @@ MapWindow::MapWindow(QWidget *parent,
     generaattori.addConstructor<GrassTileItem>(1);
     generaattori.addConstructor<ForestTileItem>(1);
 
+    for (unsigned int x = 0; x < 20; ++x)
+    {
+        for (unsigned int y = 0; y < 20; ++y)
+        {
+            Course::Coordinate coord = Course::Coordinate(x,y);
+            ForestTileItem* newItem = new ForestTileItem(coord, eventhandler_, objectManager_);
+            scene_->addItem(newItem);
+            newItem->setPos(coord.x() * 128, coord.y() *128);
+        }
+    }
+
+    GraphicsUnitBase* newUnit = new GraphicsUnitBase(eventhandler_, objectManager_, NULL);
+    scene_->addItem(newUnit);
     //viewPortPtr_->setScene(dynamic_cast<QGraphicsScene*>(sgs_rawptr));
     viewPortPtr_->setScene(scene_);
     MapWindow::showStartWindow();
@@ -52,9 +66,7 @@ MapWindow::MapWindow(QWidget *parent,
 
 MapWindow::~MapWindow()
 {
-    delete m_ui;
-    delete viewPortPtr_;
-    delete scene_;
+
 }
 
 void MapWindow::setGEHandler(

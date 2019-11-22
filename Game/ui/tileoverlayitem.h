@@ -7,6 +7,8 @@ class TileOverlayItem : public QGraphicsPixmapItem
 {
 public:
     TileOverlayItem() = delete;
+
+    virtual ~TileOverlayItem() = default;
     explicit TileOverlayItem(const QPixmap &pixmap, QGraphicsItem *parent = nullptr);
 
     virtual QPainterPath shape() const override;

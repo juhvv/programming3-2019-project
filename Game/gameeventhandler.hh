@@ -20,6 +20,8 @@ class GameEventHandler : public QObject, public Course::iGameEventHandler
 public:
     explicit GameEventHandler(std::shared_ptr<ObjectManager> objectMngr);
 
+    virtual ~GameEventHandler() = default;
+
     /**
      * @brief Modify Player's resource. Can be used to both sum or subtract.
      * @param player Pointer to the Player whose resource is being modified.

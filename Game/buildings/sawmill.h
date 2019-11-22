@@ -7,6 +7,7 @@ class SawMill : public Course::BuildingBase
 {
 public:
     SawMill() = delete;
+    virtual ~SawMill() = default;
 };
 
 #endif // SAWMILL_H

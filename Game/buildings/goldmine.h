@@ -7,6 +7,7 @@ class GoldMine : public Course::BuildingBase
 {
 public:
     GoldMine() = delete;
+    virtual ~GoldMine() = default;
 };
 
 #endif // GOLDMINE_H

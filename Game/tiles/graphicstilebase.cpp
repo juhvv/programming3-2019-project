@@ -60,6 +60,12 @@ bool GraphicsTileBase::isSelectable()
     GameEventHandler* eventHndlr = static_cast<GameEventHandler*>(rwPtr);
     return !(eventHndlr->getCurrentPlayer() != getOwner() && getOwner() != NULL);
 }
+
+bool GraphicsTileBase::isMovable()
+{
+    return false;
+}
+
 /*
 void GraphicsTileBase::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 {

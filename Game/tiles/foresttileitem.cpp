@@ -22,8 +22,3 @@ std::string ForestTileItem::getType() const
     return "Forest Tile";
 }
 
-DrawBias ForestTileItem::getDrawBias()
-{
-    return LAST;
-}
-

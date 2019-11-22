@@ -14,12 +14,15 @@ class ObjectManager : public QObject, public Course::iObjectManager
 public:
     explicit ObjectManager(Course::SimpleGameScene* sgsPtr = NULL,  CustomGraphicsScene* scenePtr = NULL);
 
+    virtual ~ObjectManager() = default;
     /**
      * @brief Adds new tiles to the ObjectManager.
      * @param tiles contains the tiles to be added.
      */
     void addTiles(
             const std::vector<std::shared_ptr<Course::TileBase>>& tiles);
+
+
 
     /**
      * @brief Returns a pointer to a Tile that has specified coordinate.

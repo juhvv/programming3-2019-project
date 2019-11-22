@@ -20,8 +20,3 @@ std::string GrassTileItem::getType() const
     return "Grass tile";
 }
 
-DrawBias GrassTileItem::getDrawBias()
-{
-    return DEFAULT;
-}
-

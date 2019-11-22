@@ -10,6 +10,8 @@ class CustomGraphicsScene : public QGraphicsScene
 public:
     CustomGraphicsScene(QObject *parent = nullptr);
 
+    virtual ~CustomGraphicsScene() = default;
+
     void setupMap(const std::vector<std::shared_ptr<Course::TileBase>>& tiles);
 
     virtual void contextMenuEvent(QGraphicsSceneContextMenuEvent *contextMenuEvent) override;
