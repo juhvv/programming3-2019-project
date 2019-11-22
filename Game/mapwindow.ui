@@ -27,12 +27,25 @@
       <item>
        <layout class="QVBoxLayout" name="viewTxtboxLayout">
         <item>
+         <widget class="QCommandLinkButton" name="commandLinkButton">
+          <property name="text">
+           <string>CommandLinkButton</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QTextBrowser" name="textBox">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <family>Linux Libertine Mono O</family>
+            <pointsize>11</pointsize>
+           </font>
           </property>
           <property name="textInteractionFlags">
            <set>Qt::NoTextInteraction</set>
