@@ -11,6 +11,18 @@ public:
     CustomGraphicsScene(QObject *parent = nullptr);
 
     void setupMap(const std::vector<std::shared_ptr<Course::TileBase>>& tiles);
+
+    virtual void contextMenuEvent(QGraphicsSceneContextMenuEvent *contextMenuEvent) override;
+
+
+    virtual void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
+
+public slots:
+    void enterMovementMode();
+
+protected:
+    bool movementModeFlag_ = false;
+    CustomGraphicsItem *lastClickedItem_ = NULL;
 };
 
 #endif // CUSTOMGRAPHICSSCENE_H

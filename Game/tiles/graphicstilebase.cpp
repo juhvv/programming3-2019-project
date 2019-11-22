@@ -19,6 +19,7 @@ GraphicsTileBase::GraphicsTileBase(const Course::Coordinate& location,
     eventhandlerProtected_(eventhandler)
 {
     setOffset(5,5);
+    // setFlag(QGraphicsItem::ItemIsSelectable, true);
 }
 
 QPainterPath GraphicsTileBase::shape() const
@@ -29,19 +30,62 @@ QPainterPath GraphicsTileBase::shape() const
     return shapePath;
 }
 
+Course::iGameEventHandler *GraphicsTileBase::getEventHandlerPtr() const
+{
+
+    return eventhandlerProtected_.get();
+}
+
+void GraphicsTileBase::getMenuItems(QMenu &menu)
+{
+    Course::iGameEventHandler* rwPtr = eventhandlerProtected_.get();
+    GameEventHandler* eventHndlr = static_cast<GameEventHandler*>(rwPtr);
+
+    QAction *infoAction = menu.addAction("Info");
+    menu.addSeparator();
+    // tile can only be claimed if it has no owner
+    if (getOwner() == NULL) {
+        QAction *claimAction = menu.addAction("Claim");
+        connect(claimAction, &QAction::triggered, this, &GraphicsTileBase::sendPtr);
+    }
+    //QAction *claimAction = menu.addAction("Claim");
+    connect(infoAction, &QAction::triggered, this, &GraphicsTileBase::sendInfo);
+    // connect(claimAction, &QAction::triggered, this, &GraphicsTileBase::sendPtr);
+
+}
+
+bool GraphicsTileBase::isSelectable()
+{
+    Course::iGameEventHandler* rwPtr = eventhandlerProtected_.get();
+    GameEventHandler* eventHndlr = static_cast<GameEventHandler*>(rwPtr);
+    return !(eventHndlr->getCurrentPlayer() != getOwner() && getOwner() != NULL);
+}
+/*
 void GraphicsTileBase::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 {
+
+    Course::iGameEventHandler* rwPtr = eventhandlerProtected_.get();
+    GameEventHandler* eventHndlr = static_cast<GameEventHandler*>(rwPtr);
+
+    if (eventHndlr->getCurrentPlayer() != getOwner() && getOwner() != NULL) {
+        return;
+    }
     QMenu menu;
     QAction *infoAction = menu.addAction("Info");
     menu.addSeparator();
     QAction *moveAction = menu.addAction("Move");
-    QAction *claimAction = menu.addAction("Claim");
+    // tile can only be claimed if it has no owner
+    if (getOwner() == NULL) {
+        QAction *claimAction = menu.addAction("Claim");
+        connect(claimAction, &QAction::triggered, this, &GraphicsTileBase::sendPtr);
+    }
+    //QAction *claimAction = menu.addAction("Claim");
     connect(infoAction, &QAction::triggered, this, &GraphicsTileBase::sendInfo);
     connect(moveAction, SIGNAL(triggered()), this, SLOT(move()));
-    connect(claimAction, &QAction::triggered, this, &GraphicsTileBase::sendPtr);
+    // connect(claimAction, &QAction::triggered, this, &GraphicsTileBase::sendPtr);
     menu.exec(event->screenPos());
 }
-
+*/
 void GraphicsTileBase::sendInfo()
 {
     qDebug() << "BoundingRect: " << boundingRect();
@@ -53,10 +97,8 @@ void GraphicsTileBase::sendInfo()
 
 void GraphicsTileBase::sendPtr()
 {
-    qDebug() << "sending ptr";
     Course::iGameEventHandler* rwPtr = eventhandlerProtected_.get();
     GameEventHandler* eventHndlr = static_cast<GameEventHandler*>(rwPtr);
     eventHndlr->claimTile(this);
-
 }
 

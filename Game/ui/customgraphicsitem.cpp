@@ -14,6 +14,16 @@ QPainterPath CustomGraphicsItem::shape() const
     return path;
 }
 
+bool CustomGraphicsItem::isMovable()
+{
+    return true;
+}
+/*
+void CustomGraphicsItem::showContextMenu(QGraphicsSceneContextMenuEvent *contextEvent)
+{
+    contextMenuEvent(contextEvent);
+}
+*/
 void CustomGraphicsItem::move()
 {
     QPointF newPoint = QPointF(x()+1, y()+1);

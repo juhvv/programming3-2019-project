@@ -36,7 +36,12 @@ public:
     virtual QPainterPath shape() const override;
     // virtual QRectF boundingRect() const override;
 
-    virtual void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) override;
+    // virtual void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) override;
+    virtual Course::iGameEventHandler *getEventHandlerPtr() const override;
+
+    virtual void getMenuItems(QMenu &menu) override;
+
+    virtual bool isSelectable() override;
 
     virtual DrawBias getDrawBias() = 0;
 

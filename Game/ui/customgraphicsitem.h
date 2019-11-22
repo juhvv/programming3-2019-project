@@ -7,6 +7,8 @@
 #include <QDebug>
 #include <QMenu>
 #include <QGraphicsSceneContextMenuEvent>
+#include "interfaces/igameeventhandler.h"
+#include "core/playerbase.h"
 
 class CustomGraphicsItem : public QObject, public QGraphicsPixmapItem
 {
@@ -16,6 +18,16 @@ public:
     explicit CustomGraphicsItem(const QPixmap &pixmap, QGraphicsItem *parent = nullptr);
 
     virtual QPainterPath shape() const override;
+
+    virtual bool isMovable();
+
+    virtual void getMenuItems(QMenu &menu) = 0;
+
+    virtual bool isSelectable() {return true;}
+
+    virtual Course::iGameEventHandler *getEventHandlerPtr() const {return NULL;}
+
+    // void showContextMenu(QGraphicsSceneContextMenuEvent *contextEvent);
 
 public slots:
     void move();
