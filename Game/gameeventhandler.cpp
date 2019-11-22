@@ -76,3 +76,8 @@ void signalUpdateVisibleResources()
 
 }
 
+void signalUpdateVisibleResources()
+{
+
+}
+

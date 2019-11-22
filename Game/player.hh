@@ -21,6 +21,8 @@ public:
 
     int getResourceValue(Course::BasicResource resource);
 
+    int getResourceValue(Course::BasicResource resource);
+
 private:
     std::string m_name;
     QPixmap marker_;
