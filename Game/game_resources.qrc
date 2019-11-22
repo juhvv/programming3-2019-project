@@ -7,5 +7,6 @@
         <file>resources/grass.PNG</file>
         <file>resources/overlay faction1.PNG</file>
         <file>resources/overlay faction2.PNG</file>
+        <file>resources/units/worker.PNG</file>
     </qresource>
 </RCC>
