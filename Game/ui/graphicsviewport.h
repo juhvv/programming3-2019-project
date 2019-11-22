@@ -24,8 +24,6 @@ public:
      */
     virtual void wheelEvent(QWheelEvent *event) override;
 
-    // virtual void scrollContentsBy(int dx, int dy) override;
-
 public slots:
     void zoom(QPoint centerLoc, bool isZoomIn);
 

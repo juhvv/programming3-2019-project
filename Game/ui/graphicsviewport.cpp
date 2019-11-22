@@ -19,25 +19,16 @@ void GraphicsViewPort::wheelEvent(QWheelEvent *event)
     }
 }
 
-/*
-void GraphicsViewPort::scrollContentsBy(int dx, int dy)
-{
-    qDebug() << "Drag x y: " << dx << ", " << dy;
-    //centerOn(x() + dx, y() + dy);
-    this->updateSceneRect(sceneRect());
-}
-*/
-
 void GraphicsViewPort::zoom(QPoint centerLoc, bool isZoomIn)
 {
+    /*
     qDebug() << "Zoomcoord: " << centerLoc;
 
     QPoint fromScene = mapFromScene(centerLoc);
     QPointF toScene = mapToScene(centerLoc);
     qDebug() << "Transformed Coord: " << fromScene;
     qDebug() << "Mapped from Coord: " << toScene.toPoint();
-
-    // this->scene()->update(sceneRect());
+    */
 
     if (isZoomIn) {
         if (zoomLevel_ < 2) {
