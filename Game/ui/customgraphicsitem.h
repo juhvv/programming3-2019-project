@@ -17,7 +17,9 @@ public:
     CustomGraphicsItem() = delete;
     explicit CustomGraphicsItem(const QPixmap &pixmap, QGraphicsItem *parent = nullptr);
 
-    virtual QPainterPath shape() const override;
+    virtual ~CustomGraphicsItem() = default;
+
+    // virtual QPainterPath shape() const override;
 
     virtual bool isMovable();
 
@@ -26,8 +28,6 @@ public:
     virtual bool isSelectable() {return true;}
 
     virtual Course::iGameEventHandler *getEventHandlerPtr() const {return NULL;}
-
-    // void showContextMenu(QGraphicsSceneContextMenuEvent *contextEvent);
 
 public slots:
     void move();

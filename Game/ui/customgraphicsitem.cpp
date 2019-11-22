@@ -7,12 +7,6 @@ CustomGraphicsItem::CustomGraphicsItem(const QPixmap &pixmap, QGraphicsItem *par
 }
 
 
-QPainterPath CustomGraphicsItem::shape() const
-{
-    QPainterPath path;
-    path.addRect(boundingRect());
-    return path;
-}
 
 bool CustomGraphicsItem::isMovable()
 {
