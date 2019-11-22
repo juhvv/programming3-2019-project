@@ -20,6 +20,7 @@ bool GameEventHandler::modifyResources(std::shared_ptr<Course::PlayerBase> playe
 
 void GameEventHandler::nextTurn()
 {
+
     ++turnNumber_;
     if(currentPlayer_==playerVector_[0]){
         currentPlayer_=playerVector_[1];
@@ -27,6 +28,7 @@ void GameEventHandler::nextTurn()
     else{
         currentPlayer_=playerVector_[0];
     }
+    signalUpdateVisibleResources();
 }
 
 unsigned int GameEventHandler::getTurnNumber()
@@ -58,6 +60,8 @@ void GameEventHandler::resetData()
     currentPlayer_ = NULL;
 }
 
+
+
 void GameEventHandler::claimTile(GraphicsTileBase *tile)
 {
     tile->setOwner(currentPlayer_);
@@ -65,5 +69,10 @@ void GameEventHandler::claimTile(GraphicsTileBase *tile)
     QPixmap pixmap;
     currentPlayer_->getIcon(pixmap);
     objectMngr_->setOwnerMarker(tile, &pixmap);
+}
+
+void signalUpdateVisibleResources()
+{
+
 }
 

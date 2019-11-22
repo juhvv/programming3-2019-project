@@ -38,6 +38,8 @@ MapWindow::MapWindow(QWidget *parent,
     connect(m_ui->actionStart, &QAction::triggered, this, &MapWindow::showStartWindow);
     connect(m_ui->turnSwitchBtn, &QPushButton::clicked, this, &MapWindow::switchTurn);
 
+    //connect(eventhandler_, &GameEventHandler::signalUpdateVisibleResources, this, &MapWindow::updateVisibleResources);
+
     Course::WorldGenerator& generaattori = Course::WorldGenerator::getInstance();
 
     generaattori.addConstructor<GrassTileItem>(1);
@@ -76,6 +78,17 @@ void MapWindow::resize()
     m_simplescene->resize();
 }
 
+void MapWindow::updateVisibleResources()
+{
+    std::shared_ptr<Player> currentPlayer = eventhandler_->getCurrentPlayer();
+    QString goldValue= QString::number(currentPlayer->getResourceValue(Course::MONEY));
+    QString foodValue= QString::number(currentPlayer->getResourceValue(Course::FOOD));
+    QString woodValue= QString::number(currentPlayer->getResourceValue(Course::WOOD));
+    m_ui->goldValueLbl->setText(goldValue);
+    m_ui->foodValueLbl->setText(foodValue);
+    m_ui->woodValueLbl->setText(woodValue);
+}
+
 void MapWindow::updateItem(std::shared_ptr<Course::GameObject> obj)
 {
     m_simplescene->updateItem(obj);
@@ -100,11 +113,13 @@ void MapWindow::switchTurn()
     eventhandler_->nextTurn();
     msg.append(eventhandler_->getCurrentPlayer()->getName().c_str()); msg.append(" \n");
     m_ui->textBox->insertPlainText(msg);
+    updateVisibleResources();
 }
 
 void MapWindow::addPlayerNames(std::vector<std::string> nameVct)
 {
     // eventhandler_->addNewPlayers(nameVct); //Add new players to gameeventhandler
+    updateVisibleResources();
 }
 
 void MapWindow::startNewGame(playerInfo info, unsigned int seed)
