@@ -87,8 +87,9 @@ void MapWindow::showStartWindow()
     startti->setModal(true);
     startti->show();
 
-    connect(startti, &Startwindow::sendPlayerNames, this, &MapWindow::addPlayerNames);
-    connect(startti, &Startwindow::sendSeed, this, &MapWindow::startNewGame);
+    //connect(startti, &Startwindow::sendPlayerNames, this, &MapWindow::addPlayerNames);
+    //connect(startti, &Startwindow::sendSeed, this, &MapWindow::startNewGame);
+    connect(startti, &Startwindow::startGame, this, &MapWindow::startNewGame);
     //connect(startti, SIGNAL(accept()), this, SLOT(startNewGame()));
 }
 
@@ -103,16 +104,17 @@ void MapWindow::switchTurn()
 
 void MapWindow::addPlayerNames(std::vector<std::string> nameVct)
 {
-    eventhandler_->addNewPlayers(nameVct); //Add new players to gameeventhandler
+    // eventhandler_->addNewPlayers(nameVct); //Add new players to gameeventhandler
 }
 
-void MapWindow::startNewGame(unsigned int seed)
+void MapWindow::startNewGame(playerInfo info, unsigned int seed)
 {
     m_ui->turnSwitchBtn->setDisabled(false);
     m_ui->textBox->insertPlainText("<<<STARTED NEW GAME>>>\n");
     qDebug() << "started new game";
     objectManager_->resetData();
     eventhandler_->resetData();
+    eventhandler_->addNewPlayers(info);
     Course::WorldGenerator& generaattori = Course::WorldGenerator::getInstance();
     generaattori.generateMap(20,20,seed,objectManager_, m_GEHandler);
 }

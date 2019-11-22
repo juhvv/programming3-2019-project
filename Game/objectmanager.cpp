@@ -1,5 +1,6 @@
 #include "objectmanager.hh"
 #include "tiles/graphicstilebase.h"
+#include "ui/tileoverlayitem.h"
 
 ObjectManager::ObjectManager(Course::SimpleGameScene* sgsPtr, CustomGraphicsScene* scenePtr):
     sgsPtr_(sgsPtr), scenePtr_(scenePtr)
@@ -52,10 +53,10 @@ void ObjectManager::resetData()
     tiles_.clear();
 }
 
-void ObjectManager::setOwnerMarker(GraphicsTileBase *tile)
+void ObjectManager::setOwnerMarker(GraphicsTileBase *tile, const QPixmap* marker)
 {
-    QGraphicsPixmapItem* markerItem =
-            new QGraphicsPixmapItem(QPixmap(":/resources/overlay faction1.PNG"));
+    TileOverlayItem* markerItem =
+            new TileOverlayItem(*marker);
     markerItem->setZValue(10);
     scenePtr_->addItem(markerItem);
     markerItem->setPos(tile->x(), tile->y());

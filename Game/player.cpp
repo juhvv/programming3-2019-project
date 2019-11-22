@@ -15,3 +15,17 @@ Player::Player(const std::string &name,
 std::string Player::getName(){
     return m_name;
 }
+
+void Player::setMarker(int index)
+{
+    if (index == 0) {
+        marker_ = QPixmap(":/resources/overlay faction1.PNG");
+    } else {
+        marker_ = QPixmap(":/resources/overlay faction2.PNG");
+    }
+}
+
+void Player::getIcon(QPixmap &icon)
+{
+    icon = marker_;
+}

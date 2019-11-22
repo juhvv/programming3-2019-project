@@ -49,7 +49,7 @@ public:
 
     void resetData();   // resets data
 
-    void setOwnerMarker(GraphicsTileBase* tile);
+    void setOwnerMarker(GraphicsTileBase* tile, const QPixmap* marker);
 
 public slots:
     // void addOwnersipMarker(unsigned int ID);

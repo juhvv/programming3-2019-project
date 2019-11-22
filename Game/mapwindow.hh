@@ -47,7 +47,7 @@ public slots:
     void showStartWindow();
     void switchTurn();
     void addPlayerNames(std::vector<std::string> nameVct);
-    void startNewGame(unsigned int seed);
+    void startNewGame(playerInfo info, unsigned int seed);
 
 private:
     Ui::MapWindow* m_ui;

@@ -49,7 +49,7 @@ public:
 
     std::shared_ptr<Player> getCurrentPlayer();
 
-    void addNewPlayers(std::vector<std::string> nameVct); //adds new players to the game
+    void addNewPlayers(std::vector<std::pair<std::string, int>>); //adds new players to the game
 
     void resetData();   // resets stored data
 

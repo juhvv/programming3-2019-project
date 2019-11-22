@@ -8,6 +8,8 @@ namespace Ui {
 class Startwindow;
 }
 
+using playerInfo = std::vector<std::pair<std::string, int>>;
+
 class Startwindow : public QDialog
 {
     Q_OBJECT
@@ -23,6 +25,7 @@ private:
     Ui::Startwindow *ui;
 
 signals:
+    void startGame(playerInfo, unsigned int seed);
     void sendPlayerNames(std::vector<std::string> nameVct);
     void sendSeed(unsigned int seed);
 };

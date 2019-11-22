@@ -39,11 +39,12 @@ std::shared_ptr<Player> GameEventHandler::getCurrentPlayer()
     return currentPlayer_;
 }
 
-void GameEventHandler::addNewPlayers(std::vector<std::string> nameVct)
+void GameEventHandler::addNewPlayers(std::vector<std::pair<std::string, int>> nameVct)
 {
     for(long unsigned int i=0; i<nameVct.size(); i++){
-        std::string nameOfPlayer = nameVct[i];
+        std::string nameOfPlayer = nameVct[i].first;
         std::shared_ptr<Player> playerPtr = std::make_shared<Player>(nameOfPlayer);
+        playerPtr->setMarker(nameVct[i].second);
         playerVector_.push_back(playerPtr);
     }
         currentPlayer_ = playerVector_[0];
@@ -59,6 +60,10 @@ void GameEventHandler::resetData()
 
 void GameEventHandler::claimTile(GraphicsTileBase *tile)
 {
-    objectMngr_->setOwnerMarker(tile);
+    tile->setOwner(currentPlayer_);
+    QPixmap pixmapDef = QPixmap(":/resources/overlay faction1.PNG");
+    QPixmap pixmap;
+    currentPlayer_->getIcon(pixmap);
+    objectMngr_->setOwnerMarker(tile, &pixmap);
 }
 

@@ -3,6 +3,7 @@
 
 #include "core/playerbase.h"
 #include "core/gameobject.h"
+#include <QPixmap>
 
 
 class Player : public Course::PlayerBase
@@ -14,9 +15,12 @@ public:
            const std::vector<std::shared_ptr<Course::GameObject> > objects ={});
 
     std::string getName();
+    void setMarker(int index);
+    void getIcon(QPixmap &icon);
 
 private:
     std::string m_name;
+    QPixmap marker_;
 };
 
 #endif // PLAYER_HH

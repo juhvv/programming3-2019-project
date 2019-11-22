@@ -19,7 +19,8 @@ SOURCES += \
     tiles/graphicstilebase.cpp \
     tiles/foresttileitem.cpp \
     tiles/grasstileitem.cpp \
-    ui/customgraphicsscene.cpp
+    ui/customgraphicsscene.cpp \
+    ui/tileoverlayitem.cpp
 
 HEADERS += \
     mapwindow.hh \
@@ -34,7 +35,8 @@ HEADERS += \
     tiles/graphicstilebase.h \
     tiles/foresttileitem.h \
     tiles/grasstileitem.h \
-    ui/customgraphicsscene.h
+    ui/customgraphicsscene.h \
+    ui/tileoverlayitem.h
 
 
 win32:CONFIG(release, debug|release): LIBS += \
