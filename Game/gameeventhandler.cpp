@@ -20,7 +20,7 @@ bool GameEventHandler::modifyResources(std::shared_ptr<Course::PlayerBase> playe
 
 void GameEventHandler::nextTurn()
 {
-
+    calculateResources();
     ++turnNumber_;
     if(currentPlayer_==playerVector_[0]){
         currentPlayer_=playerVector_[1];
@@ -28,7 +28,13 @@ void GameEventHandler::nextTurn()
     else{
         currentPlayer_=playerVector_[0];
     }
-    signalUpdateVisibleResources();
+    //signalUpdateVisibleResources();
+}
+
+void GameEventHandler::calculateResources()
+{
+    std::vector<std::shared_ptr<Course::TileBase>> tiles = objectMngr_->getAllTiles();
+
 }
 
 unsigned int GameEventHandler::getTurnNumber()

@@ -48,6 +48,8 @@ public:
 
     void nextTurn();    // called when a turn ends
 
+    void calculateResources(); //calculates and changes resources for current player
+
     unsigned int getTurnNumber();   // returns current turn number
 
     std::shared_ptr<Player> getCurrentPlayer();
