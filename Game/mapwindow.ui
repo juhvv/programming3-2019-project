@@ -27,13 +27,6 @@
       <item>
        <layout class="QVBoxLayout" name="viewTxtboxLayout">
         <item>
-         <widget class="QCommandLinkButton" name="commandLinkButton">
-          <property name="text">
-           <string>CommandLinkButton</string>
-          </property>
-         </widget>
-        </item>
-        <item>
          <widget class="QTextBrowser" name="textBox">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
@@ -178,7 +171,7 @@
      <x>0</x>
      <y>0</y>
      <width>874</width>
-     <height>24</height>
+     <height>25</height>
     </rect>
    </property>
    <property name="font">

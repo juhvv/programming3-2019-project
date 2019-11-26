@@ -3,6 +3,7 @@
 
 #include "ui/customgraphicsitem.h"
 #include "tiles/tilebase.h"
+#include "units/graphicsunitbase.h"
 
 static const unsigned int TILE_SIZE = 128;  // defines tile size (px)
 
@@ -45,11 +46,17 @@ public:
 
     virtual bool isMovable() override;
 
+    virtual bool generateResources() override;
+
 
 public slots:
 
     virtual void sendInfo();
     virtual void sendPtr();
+
+private:
+    std::vector<std::weak_ptr<GraphicsUnitBase>> m_workers;
+    std::vector<std::weak_ptr<Course::BuildingBase>> m_buildings;
 
 protected:
     const std::shared_ptr<Course::iGameEventHandler> eventhandlerProtected_;

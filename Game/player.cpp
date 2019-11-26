@@ -42,3 +42,25 @@ void Player::getIcon(QPixmap &icon)
 {
     icon = marker_;
 }
+bool Player::modifyResources(Course::ResourceMap resources)
+{
+    Course::ResourceMap resourceSum = Course::mergeResourceMaps(resources, m_playerResources);
+    for(auto it = resourceSum.begin(); it != resourceSum.end(); it++)
+        if(it->second < 0){
+            return false;
+        }
+    m_playerResources = resourceSum;
+    return true;
+}
+
+bool Player::modifyResource(Course::BasicResource resource, int amount)
+{
+    if(m_playerResources[resource]+amount > 0){
+        m_playerResources[resource]=m_playerResources[resource]+amount;
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+

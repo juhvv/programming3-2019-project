@@ -22,6 +22,7 @@ public:
 
     virtual ~GameEventHandler() = default;
 
+
     /**
      * @brief Modify Player's resource. Can be used to both sum or subtract.
      * @param player Pointer to the Player whose resource is being modified.
@@ -32,7 +33,7 @@ public:
      * True - Modification was succesful. \n
      * False - Modification failed. \n
      */
-    bool modifyResource(std::shared_ptr<Course::PlayerBase> player,
+     bool modifyResource(std::shared_ptr<Course::PlayerBase> player,
                                 Course::BasicResource resource,
                                 int amount) final;
     /**
@@ -43,10 +44,13 @@ public:
      * True - Modification was succesful. \n
      * False - Modification failed. \n
      */
-    bool modifyResources(std::shared_ptr<Course::PlayerBase> player,
+     bool modifyResources(std::shared_ptr<Course::PlayerBase> player,
                                  Course::ResourceMap resources);
 
+
     void nextTurn();    // called when a turn ends
+
+    void calculateResources(); //calculates and changes resources for current player
 
     unsigned int getTurnNumber();   // returns current turn number
 

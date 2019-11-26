@@ -19,12 +19,15 @@ public:
 
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
 
+    void getAdjacentTiles(std::vector<GraphicsTileBase*> &tileVec);
+
 public slots:
     void enterMovementMode();
 
 protected:
     bool movementModeFlag_ = false;
-    CustomGraphicsItem *lastClickedItem_ = NULL;
+    CustomGraphicsItem *lastClickedItem_ = nullptr;
+    std::vector<GraphicsTileBase*> tileVec_ = {};
 };
 
 #endif // CUSTOMGRAPHICSSCENE_H

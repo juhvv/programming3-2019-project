@@ -1,8 +1,8 @@
-#include "grasstileitem.h"
+#include "watertileitem.h"
 
 
 
-GrassTileItem::GrassTileItem(const Course::Coordinate &location,
+WaterTileItem::WaterTileItem(const Course::Coordinate &location,
                              const std::shared_ptr<Course::iGameEventHandler> &eventhandler,
                              const std::shared_ptr<Course::iObjectManager> &objectmanager,
                              const QPixmap &pixmap,
@@ -12,12 +12,11 @@ GrassTileItem::GrassTileItem(const Course::Coordinate &location,
                              const Course::ResourceMap &production) :
     GraphicsTileBase (location, eventhandler, objectmanager, pixmap, parent, max_build, max_work, production)
 {
-    setOffset(-5,-5);
-    setZValue(1);
+    // setOffset(-5,-5);
+    // setZValue(1);
 }
 
-std::string GrassTileItem::getType() const
+std::string WaterTileItem::getType() const
 {
-    return "Grass tile";
+    return "Water tile";
 }
-

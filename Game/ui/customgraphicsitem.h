@@ -27,7 +27,9 @@ public:
 
     virtual bool isSelectable() {return true;}
 
-    virtual Course::iGameEventHandler *getEventHandlerPtr() const {return NULL;}
+    virtual Course::iGameEventHandler *getEventHandlerPtr() const {return nullptr;}
+
+    virtual void toggleHighlight(bool state) const;
 
 public slots:
     void move();

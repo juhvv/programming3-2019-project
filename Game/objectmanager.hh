@@ -42,13 +42,17 @@ public:
     std::shared_ptr<Course::TileBase> getTile(const Course::ObjectId& id) final;
 
     /**
-     * @brief Returns a vector of pointers to Tiles specified by Coordinates.
+     * @brief Returns a vector of pointers to Tiles
      * @param coordinates
      * @return
      * @post Exception Guarantee: Basic
      */
-    std::vector<std::shared_ptr<Course::TileBase>> getTiles(
-            const std::vector<Course::Coordinate>& coordinates) final;
+     std::vector<std::shared_ptr<Course::TileBase>> getTiles(
+            const std::vector<Course::Coordinate>& coordinates
+            ) final;
+
+    std::vector<std::shared_ptr<Course::TileBase>> getAllTiles();
+
 
     void resetData();   // resets data
 

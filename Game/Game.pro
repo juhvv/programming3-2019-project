@@ -21,7 +21,9 @@ SOURCES += \
     tiles/grasstileitem.cpp \
     ui/customgraphicsscene.cpp \
     ui/tileoverlayitem.cpp \
-    units/graphicsunitbase.cpp
+    units/graphicsunitbase.cpp \
+    tiles/watertileitem.cpp \
+    tiles/mountaintileitem.cpp
 
 HEADERS += \
     mapwindow.hh \
@@ -38,7 +40,10 @@ HEADERS += \
     tiles/grasstileitem.h \
     ui/customgraphicsscene.h \
     ui/tileoverlayitem.h \
-    units/graphicsunitbase.h
+    units/graphicsunitbase.h \
+    tiles/watertileitem.h \
+    tiles/mountaintileitem.h \
+    gameresourcemaps.hh
 
 
 win32:CONFIG(release, debug|release): LIBS += \

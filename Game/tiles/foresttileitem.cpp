@@ -13,7 +13,7 @@ ForestTileItem::ForestTileItem(const Course::Coordinate &location,
                       max_build, max_work, production)
 {
     setOffset(-10,-10);
-    setZValue(1);
+    setZValue(2);
 
 }
 
