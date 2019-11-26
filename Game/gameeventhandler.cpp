@@ -8,15 +8,6 @@ GameEventHandler::GameEventHandler(std::shared_ptr<ObjectManager> objectMngr):
 
 }
 
-bool GameEventHandler::modifyResource(std::shared_ptr<Course::PlayerBase> player, Course::BasicResource resource, int amount)
-{
-    return true;
-}
-
-bool GameEventHandler::modifyResources(std::shared_ptr<Course::PlayerBase> player, Course::ResourceMap resources)
-{
-    return true;
-}
 
 void GameEventHandler::nextTurn()
 {
@@ -33,8 +24,24 @@ void GameEventHandler::nextTurn()
 
 void GameEventHandler::calculateResources()
 {
-    std::vector<std::shared_ptr<Course::TileBase>> tiles = objectMngr_->getAllTiles();
-
+    std::vector<std::shared_ptr<Course::TileBase>> tileVector = objectMngr_->getAllTiles();
+    //int lukema = 0;
+    for(auto tile: tileVector){
+        //std::string tiletype = tile->getType();
+        //lukema++;
+        //qDebug() << lukema;
+       /* if(tile->getOwner()==currentPlayer_){
+            int workerAmount = tile->getWorkerCount();
+            Course::ConstResourceMaps tileRecourseMap =
+            Course::ResourceMapDouble combinedWorkerEfficiency = NULL;
+            Course::ResourceMap resourcesToBeAdded = NULL;
+            for(int i=0; i<workerAmount; i++){
+                combinedWorkerEfficiency = Course::mergeResourceMapDoubles(combinedWorkerEfficiency, Course::ConstResourceMaps::BW_WORKER_EFFICIENCY);
+            }
+            resourcesToBeAdded = Course::multiplyResourceMap()
+        }
+        */
+    }
 }
 
 unsigned int GameEventHandler::getTurnNumber()
@@ -76,6 +83,18 @@ void GameEventHandler::claimTile(GraphicsTileBase *tile)
     currentPlayer_->getIcon(pixmap);
     objectMngr_->setOwnerMarker(tile, &pixmap);
 }
+
+//Empty implementations, not used
+bool GameEventHandler::modifyResource(std::shared_ptr<Course::PlayerBase> player, Course::BasicResource resource, int amount)
+{
+    return true;
+}
+
+bool GameEventHandler::modifyResources(std::shared_ptr<Course::PlayerBase> player, Course::ResourceMap resources)
+{
+    return true;
+}
+
 
 void signalUpdateVisibleResources()
 {

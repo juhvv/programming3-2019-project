@@ -38,7 +38,8 @@ HEADERS += \
     tiles/grasstileitem.h \
     ui/customgraphicsscene.h \
     ui/tileoverlayitem.h \
-    units/graphicsunitbase.h
+    units/graphicsunitbase.h \
+    gameresourcemaps.hh
 
 
 win32:CONFIG(release, debug|release): LIBS += \
