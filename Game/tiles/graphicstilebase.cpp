@@ -66,6 +66,39 @@ bool GraphicsTileBase::isMovable()
     return false;
 }
 
+bool GraphicsTileBase::generateResources()
+{
+    Course::ResourceMapDouble worker_efficiency;
+    Course::ResourceMap total_production;
+
+    for( auto work_it = m_workers.begin();
+         work_it != m_workers.end();
+         ++work_it)
+    {
+        Course::ResourceMapDouble current_efficiency = work_it->lock()->tileWorkAction();
+
+        worker_efficiency = Course::mergeResourceMapDoubles(worker_efficiency, current_efficiency);
+    }
+
+    total_production = Course::multiplyResourceMap(BASE_PRODUCTION, worker_efficiency);
+
+    for( auto build_it = m_buildings.begin();
+         build_it != m_buildings.end();
+         ++build_it)
+    {
+        Course::ResourceMap current_production = build_it->lock()->getProduction();
+
+        total_production = Course::mergeResourceMaps(total_production,
+                                             current_production);
+    }
+
+
+    return lockEventHandler()->modifyResources(getOwner(), total_production);
+
+}
+
+
+
 /*
 void GraphicsTileBase::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 {

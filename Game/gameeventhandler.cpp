@@ -25,8 +25,43 @@ void GameEventHandler::nextTurn()
 void GameEventHandler::calculateResources()
 {
     std::vector<std::shared_ptr<Course::TileBase>> tileVector = objectMngr_->getAllTiles();
-    //int lukema = 0;
+    int lukema = 0;
+    QString testeri = "";
+    qDebug()<<"calculoidaan...";
     for(auto tile: tileVector){
+        lukema++;
+        std::shared_ptr<Course::PlayerBase>tileOwner = tile->getOwner();
+        //std::string nimi = tileOwner->getName();
+
+        if(tile->getOwner() == NULL){
+
+        }
+
+        else if(tile->getOwner() != NULL){
+            qDebug()<<"ei tyhja";
+        }
+
+        else{
+            QString testeri = "JES";
+        }
+    }
+
+    qDebug()<<testeri;
+
+
+
+
+        /*
+        if(tile->getOwner()==currentPlayer_){
+            qDebug()<<"oikeaomistaja!";
+            tile->generateResources();
+        }
+
+
+
+*/
+
+
         //std::string tiletype = tile->getType();
         //lukema++;
         //qDebug() << lukema;
@@ -41,7 +76,7 @@ void GameEventHandler::calculateResources()
             resourcesToBeAdded = Course::multiplyResourceMap()
         }
         */
-    }
+
 }
 
 unsigned int GameEventHandler::getTurnNumber()
@@ -63,6 +98,7 @@ void GameEventHandler::addNewPlayers(std::vector<std::pair<std::string, int>> na
         playerVector_.push_back(playerPtr);
     }
         currentPlayer_ = playerVector_[0];
+
 
 }
 
