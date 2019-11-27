@@ -11,7 +11,7 @@ GameEventHandler::GameEventHandler(std::shared_ptr<ObjectManager> objectMngr):
 
 void GameEventHandler::nextTurn()
 {
-    calculateResources();
+    calculateAddProduction();
     ++turnNumber_;
     if(currentPlayer_==playerVector_[0]){
         currentPlayer_=playerVector_[1];
@@ -19,64 +19,32 @@ void GameEventHandler::nextTurn()
     else{
         currentPlayer_=playerVector_[0];
     }
-    //signalUpdateVisibleResources();
+    signalUpdateVisibleResources();
 }
 
-void GameEventHandler::calculateResources()
+Course::ResourceMap GameEventHandler::calculateProduction()
 {
     std::vector<std::shared_ptr<Course::TileBase>> tileVector = objectMngr_->getAllTiles();
-    int lukema = 0;
-    QString testeri = "";
-    qDebug()<<"calculoidaan...";
+    Course::ResourceMap totalProduction;
     for(auto tile: tileVector){
-        lukema++;
         std::shared_ptr<Course::PlayerBase>tileOwner = tile->getOwner();
-        //std::string nimi = tileOwner->getName();
+        if(tileOwner == currentPlayer_){
+            qDebug()<<"meil on samat hei...";
+            std::shared_ptr<GraphicsTileBase> newerTile = std::dynamic_pointer_cast<GraphicsTileBase>(tile);
 
-        if(tile->getOwner() == NULL){
+            Course::ResourceMap tileProduction = newerTile->generatedResources();
 
+            Course::mergeResourceMaps(totalProduction, tileProduction);
         }
-
-        else if(tile->getOwner() != NULL){
-            qDebug()<<"ei tyhja";
-        }
-
-        else{
-            QString testeri = "JES";
-        }
+    return totalProduction;
     }
+}
 
-    qDebug()<<testeri;
-
-
-
-
-        /*
-        if(tile->getOwner()==currentPlayer_){
-            qDebug()<<"oikeaomistaja!";
-            tile->generateResources();
-        }
-
-
-
-*/
-
-
-        //std::string tiletype = tile->getType();
-        //lukema++;
-        //qDebug() << lukema;
-       /* if(tile->getOwner()==currentPlayer_){
-            int workerAmount = tile->getWorkerCount();
-            Course::ConstResourceMaps tileRecourseMap =
-            Course::ResourceMapDouble combinedWorkerEfficiency = NULL;
-            Course::ResourceMap resourcesToBeAdded = NULL;
-            for(int i=0; i<workerAmount; i++){
-                combinedWorkerEfficiency = Course::mergeResourceMapDoubles(combinedWorkerEfficiency, Course::ConstResourceMaps::BW_WORKER_EFFICIENCY);
-            }
-            resourcesToBeAdded = Course::multiplyResourceMap()
-        }
-        */
-
+void GameEventHandler::calculateAddProduction()
+{
+    Course::ResourceMap totalProduction = calculateProduction();
+    currentPlayer_->modifyResources(totalProduction);
+    qDebug()<<"kalkuloidaan...";
 }
 
 unsigned int GameEventHandler::getTurnNumber()
@@ -98,8 +66,6 @@ void GameEventHandler::addNewPlayers(std::vector<std::pair<std::string, int>> na
         playerVector_.push_back(playerPtr);
     }
         currentPlayer_ = playerVector_[0];
-
-
 }
 
 void GameEventHandler::resetData()
@@ -118,6 +84,10 @@ void GameEventHandler::claimTile(GraphicsTileBase *tile)
     QPixmap pixmap;
     currentPlayer_->getIcon(pixmap);
     objectMngr_->setOwnerMarker(tile, &pixmap);
+
+    //Just testing that resources work
+    currentPlayer_->modifyResource(Course::MONEY, -10);
+    signalUpdateVisibleResources();
 }
 
 //Empty implementations, not used

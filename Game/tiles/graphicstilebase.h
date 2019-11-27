@@ -48,6 +48,8 @@ public:
 
     virtual bool generateResources() override;
 
+    Course::ResourceMap generatedResources();
+
 
 public slots:
 

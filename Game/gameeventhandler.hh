@@ -12,6 +12,7 @@
 #include "tiles/tilebase.h"
 #include "tiles/graphicstilebase.h"
 #include "objectmanager.hh"
+#include "workers/basicworker.h"
 
 
 class GameEventHandler : public QObject, public Course::iGameEventHandler
@@ -50,7 +51,9 @@ public:
 
     void nextTurn();    // called when a turn ends
 
-    void calculateResources(); //calculates and changes resources for current player
+    Course::ResourceMap calculateProduction(); //calculates production for current player
+
+    void calculateAddProduction(); //calculates and adds production for current player
 
     unsigned int getTurnNumber();   // returns current turn number
 
