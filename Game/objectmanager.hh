@@ -7,6 +7,7 @@
 #include "tiles/tilebase.h"
 #include "graphics/simplegamescene.h"
 #include "ui/customgraphicsscene.h"
+#include "tiles/graphicstilebase.h"
 
 class ObjectManager : public QObject, public Course::iObjectManager
 {

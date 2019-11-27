@@ -5,6 +5,7 @@
 #include "core/gameobject.h"
 #include <QPixmap>
 #include "core/basicresources.h"
+#include "ui/customgraphicsitem.h"
 
 
 class Player : public Course::PlayerBase
@@ -37,10 +38,15 @@ public:
 
     int getResourceValue(Course::BasicResource resource);
 
+    void addGraphicsItem(CustomGraphicsItem *newItem);
+
+    void addNewObject(std::shared_ptr<Course::GameObject> newObject);
+
 private:
     std::string m_name;
     QPixmap marker_;
     Course::ResourceMap m_playerResources;
+    std::vector<CustomGraphicsItem*> playerObjects_ = {};
 };
 
 #endif // PLAYER_HH

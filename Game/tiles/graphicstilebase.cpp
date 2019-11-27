@@ -9,19 +9,18 @@
 GraphicsTileBase::GraphicsTileBase(const Course::Coordinate& location,
                                    const std::shared_ptr<Course::iGameEventHandler>& eventhandler,
                                    const std::shared_ptr<Course::iObjectManager>& objectmanager,
-                                   const QPixmap &pixmap,
-                                   QGraphicsItem *parent,
+                                   CustomGraphicsScene* scene,
                                    const unsigned int& max_build,
                                    const unsigned int& max_work,
                                    const Course::ResourceMap& production) :
-    CustomGraphicsItem (pixmap, parent),
+    GameObjectBase(scene),
     Course::TileBase (location, eventhandler, objectmanager, max_build, max_work, production),
     eventhandlerProtected_(eventhandler)
 {
-    setOffset(5,5);
+    // graphicsItem_->setOffset(5,5);
     // setFlag(QGraphicsItem::ItemIsSelectable, true);
 }
-
+/*
 QPainterPath GraphicsTileBase::shape() const
 {
     QRectF shapeRect = QRectF(0,0, TILE_SIZE, TILE_SIZE);
@@ -29,7 +28,7 @@ QPainterPath GraphicsTileBase::shape() const
     shapePath.addRect(shapeRect);
     return shapePath;
 }
-
+*/
 Course::iGameEventHandler *GraphicsTileBase::getEventHandlerPtr() const
 {
 
@@ -54,16 +53,21 @@ void GraphicsTileBase::getMenuItems(QMenu &menu)
 
 }
 
-bool GraphicsTileBase::isSelectable()
+bool GraphicsTileBase::getIsSelectable() const
 {
     Course::iGameEventHandler* rwPtr = eventhandlerProtected_.get();
     GameEventHandler* eventHndlr = static_cast<GameEventHandler*>(rwPtr);
-    return !(eventHndlr->getCurrentPlayer() != getOwner() && getOwner() != NULL);
+    return !(eventHndlr->getCurrentPlayer() != getOwner() && getOwner() != nullptr);
 }
 
 bool GraphicsTileBase::isMovable()
 {
     return false;
+}
+
+unsigned int GraphicsTileBase::getMovementCost()
+{
+    return 1;
 }
 
 bool GraphicsTileBase::generateResources()
@@ -97,6 +101,28 @@ bool GraphicsTileBase::generateResources()
 
 }
 
+void GraphicsTileBase::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene)
+{
+    graphicsItem_ = graphicsItem;
+    scene_ = scene;
+
+    //graphicsObject_->setPixmap(QPixmap(":/resources/tilebase.PNG"));
+    /*
+    qreal newX = this->getCoordinate().x() * TILE_SIZE;
+    qreal newY = this->getCoordinate().y() * TILE_SIZE;
+
+    scene_->addItem(graphicsItem_);
+    graphicsItem_->setPos(newX, newY);
+    */
+    // graphicsObject_->setPixmap(QPixmap(":/resources/tilebase.PNG"));
+    scene_->update();
+}
+
+QPointF GraphicsTileBase::getSceneCoord()
+{
+    return graphicsItem_->pos();
+}
+
 
 
 /*
@@ -127,10 +153,10 @@ void GraphicsTileBase::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 */
 void GraphicsTileBase::sendInfo()
 {
-    qDebug() << "BoundingRect: " << boundingRect();
+    // qDebug() << "BoundingRect: " << boundingRect();
     //qDebug() << "Shape: " << shape().boundingRect();
     // qDebug() << "Type: " << getType().c_str();
-    qDebug() << "Loc " << x() << ", " << y();
+    qDebug() << "Loc " << graphicsItem_->x() << ", " << graphicsItem_->y();
     qDebug() << "ID: " << this->ID;
 }
 

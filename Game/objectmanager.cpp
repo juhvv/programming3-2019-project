@@ -1,6 +1,7 @@
 #include "objectmanager.hh"
 #include "tiles/graphicstilebase.h"
 #include "ui/tileoverlayitem.h"
+#include "core/playerbase.h"
 
 ObjectManager::ObjectManager(Course::SimpleGameScene* sgsPtr, CustomGraphicsScene* scenePtr):
     sgsPtr_(sgsPtr), scenePtr_(scenePtr)
@@ -10,7 +11,7 @@ ObjectManager::ObjectManager(Course::SimpleGameScene* sgsPtr, CustomGraphicsScen
 
 void ObjectManager::addTiles(const std::vector<std::shared_ptr<Course::TileBase> > &tiles)
 {
-
+    /*
     for (auto tile : tiles) {
         //sgsPtr_->drawItem(tile);
         //sgsPtr_->update();
@@ -27,8 +28,8 @@ void ObjectManager::addTiles(const std::vector<std::shared_ptr<Course::TileBase>
         graphicTile->update();
         scenePtr_->update();
     }
-
-    // scenePtr_->setupMap(tiles);
+    */
+    scenePtr_->setupMap(tiles);
     tiles_ = tiles;
 
 }
@@ -69,7 +70,7 @@ void ObjectManager::setOwnerMarker(GraphicsTileBase *tile, const QPixmap* marker
             new TileOverlayItem(*marker);
     markerItem->setZValue(10);
     scenePtr_->addItem(markerItem);
-    markerItem->setPos(tile->x(), tile->y());
+    markerItem->setPos(tile->getSceneCoord());
     scenePtr_->update();
     qDebug() << tile->getOwner()->getName().c_str();
 }

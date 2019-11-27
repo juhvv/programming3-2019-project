@@ -41,7 +41,7 @@ MapWindow::MapWindow(QWidget *parent,
     connect(m_ui->actionStart, &QAction::triggered, this, &MapWindow::showStartWindow);
     connect(m_ui->turnSwitchBtn, &QPushButton::clicked, this, &MapWindow::switchTurn);
 
-    //connect(eventhandler_, &GameEventHandler::signalUpdateVisibleResources, this, &MapWindow::updateVisibleResources);
+    connect(eventhandler_.get(), &GameEventHandler::signalUpdateVisibleResources, this, &MapWindow::updateVisibleResources);
 
     Course::WorldGenerator& generaattori = Course::WorldGenerator::getInstance();
 
@@ -63,8 +63,8 @@ MapWindow::MapWindow(QWidget *parent,
         }
     }
     */
-    GraphicsUnitBase* newUnit = new GraphicsUnitBase(eventhandler_, objectManager_, nullptr);
-    scene_->addItem(newUnit);
+    //GraphicsUnitBase* newUnit = new GraphicsUnitBase(eventhandler_, objectManager_, nullptr);
+    //scene_->addItem(newUnit);
     //viewPortPtr_->setScene(dynamic_cast<QGraphicsScene*>(sgs_rawptr));
     viewPortPtr_->setScene(scene_);
     MapWindow::showStartWindow();
@@ -137,6 +137,7 @@ void MapWindow::addPlayerNames(std::vector<std::string> nameVct)
 {
     // eventhandler_->addNewPlayers(nameVct); //Add new players to gameeventhandler
     updateVisibleResources();
+
 }
 
 void MapWindow::startNewGame(playerInfo info, unsigned int seed)
@@ -144,11 +145,18 @@ void MapWindow::startNewGame(playerInfo info, unsigned int seed)
     m_ui->turnSwitchBtn->setDisabled(false);
     m_ui->textBox->insertPlainText("<<<STARTED NEW GAME>>>\n");
     qDebug() << "started new game";
+
     objectManager_->resetData();
     eventhandler_->resetData();
     eventhandler_->addNewPlayers(info);
+
     Course::WorldGenerator& generaattori = Course::WorldGenerator::getInstance();
     generaattori.generateMap(20,20,seed,objectManager_, m_GEHandler);
+    eventhandler_->getCurrentPlayer();
+    /*
+    GraphicsUnitBase* newUnit = new GraphicsUnitBase(eventhandler_, objectManager_, eventhandler_->getCurrentPlayer());
+    scene_->addItem(newUnit);
+    */
 }
 
 

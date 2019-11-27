@@ -23,7 +23,8 @@ SOURCES += \
     ui/tileoverlayitem.cpp \
     units/graphicsunitbase.cpp \
     tiles/watertileitem.cpp \
-    tiles/mountaintileitem.cpp
+    tiles/mountaintileitem.cpp \
+    gameobjectbase.cpp
 
 HEADERS += \
     mapwindow.hh \
@@ -43,7 +44,8 @@ HEADERS += \
     units/graphicsunitbase.h \
     tiles/watertileitem.h \
     tiles/mountaintileitem.h \
-    gameresourcemaps.hh
+    gameresourcemaps.hh \
+    gameobjectbase.h
 
 
 win32:CONFIG(release, debug|release): LIBS += \

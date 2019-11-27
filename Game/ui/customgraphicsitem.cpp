@@ -1,8 +1,11 @@
 #include "customgraphicsitem.h"
 #include <QGraphicsEffect>
 
-CustomGraphicsItem::CustomGraphicsItem(const QPixmap &pixmap, QGraphicsItem *parent) :
-    QGraphicsPixmapItem (pixmap, parent)
+CustomGraphicsItem::CustomGraphicsItem( std::shared_ptr<GameObjectBase> parentObject,
+                                         QPixmap pixmap,
+                                       QGraphicsItem *parent) :
+    QGraphicsPixmapItem (pixmap, parent),
+    parentObject_(parentObject)
 {
     setCursor(Qt::PointingHandCursor);
     QGraphicsColorizeEffect* highlightEffect = new QGraphicsColorizeEffect();
@@ -12,11 +15,34 @@ CustomGraphicsItem::CustomGraphicsItem(const QPixmap &pixmap, QGraphicsItem *par
     highlightEffect->setEnabled(false);
 }
 
+QPainterPath CustomGraphicsItem::shape() const
+{
+    if (shapePref_ == DEFAULT) {
+        return QGraphicsPixmapItem::shape();
+
+    } else if (shapePref_ == NO_SHAPE) {
+        QRectF shapeRect = QRectF(0,0,0,0);
+        QPainterPath shapePath;
+        shapePath.addRect(shapeRect);
+        return shapePath;
+    }
+}
+
 
 
 bool CustomGraphicsItem::isMovable()
 {
-    return true;
+    return parentObject_->getIsMovable();
+}
+
+void CustomGraphicsItem::getMenuItems(QMenu &menu)
+{
+    parentObject_->getMenuItems(menu);
+}
+
+bool CustomGraphicsItem::isSelectable()
+{
+    return parentObject_->getIsSelectable();
 }
 
 void CustomGraphicsItem::toggleHighlight(bool state) const
@@ -28,15 +54,8 @@ void CustomGraphicsItem::toggleHighlight(bool state) const
 
 }
 
-/*
-void CustomGraphicsItem::showContextMenu(QGraphicsSceneContextMenuEvent *contextEvent)
+std::shared_ptr<GameObjectBase> CustomGraphicsItem::getParentObject() const
 {
-    contextMenuEvent(contextEvent);
-}
-*/
-void CustomGraphicsItem::move()
-{
-    QPointF newPoint = QPointF(x()+1, y()+1);
-    this->setPos(newPoint);
+    return parentObject_;
 }
 

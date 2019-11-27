@@ -29,6 +29,11 @@ int Player::getResourceValue(Course::BasicResource resource)
     return m_playerResources[resource];
 }
 
+void Player::addGraphicsItem(CustomGraphicsItem *newItem)
+{
+    playerObjects_.push_back(newItem);
+}
+
 void Player::setMarker(int index)
 {
     if (index == 0) {

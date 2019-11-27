@@ -3,7 +3,10 @@
 
 #include <QObject>
 #include <QGraphicsScene>
-#include "tiles/graphicstilebase.h"
+#include <memory>
+#include "tiles/tilebase.h"
+
+class CustomGraphicsItem;
 
 class CustomGraphicsScene : public QGraphicsScene
 {
@@ -16,10 +19,9 @@ public:
 
     virtual void contextMenuEvent(QGraphicsSceneContextMenuEvent *contextMenuEvent) override;
 
-
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
 
-    void getAdjacentTiles(std::vector<GraphicsTileBase*> &tileVec);
+    void getAdjacentTiles(std::vector<CustomGraphicsItem*> &tileVec);
 
 public slots:
     void enterMovementMode();
@@ -27,7 +29,7 @@ public slots:
 protected:
     bool movementModeFlag_ = false;
     CustomGraphicsItem *lastClickedItem_ = nullptr;
-    std::vector<GraphicsTileBase*> tileVec_ = {};
+    std::vector<CustomGraphicsItem*> tileVec_ = {};
 };
 
 #endif // CUSTOMGRAPHICSSCENE_H

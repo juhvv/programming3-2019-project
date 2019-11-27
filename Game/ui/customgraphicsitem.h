@@ -7,32 +7,44 @@
 #include <QDebug>
 #include <QMenu>
 #include <QGraphicsSceneContextMenuEvent>
-#include "interfaces/igameeventhandler.h"
-#include "core/playerbase.h"
+//#include "interfaces/igameeventhandler.h"
+#include <memory>
+#include "gameobjectbase.h"
+
+enum ShapePref {
+    NO_SHAPE,
+    DEFAULT
+};
+
 
 class CustomGraphicsItem : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:
     CustomGraphicsItem() = delete;
-    explicit CustomGraphicsItem(const QPixmap &pixmap, QGraphicsItem *parent = nullptr);
+    explicit CustomGraphicsItem(std::shared_ptr<GameObjectBase> parentObject,
+                                QPixmap pixmap = QPixmap(":/resources/tilebase.PNG"),
+                                QGraphicsItem *parent = nullptr);
 
     virtual ~CustomGraphicsItem() = default;
 
-    // virtual QPainterPath shape() const override;
+    virtual QPainterPath shape() const override;
 
     virtual bool isMovable();
 
-    virtual void getMenuItems(QMenu &menu) = 0;
+    virtual void getMenuItems(QMenu &menu);
 
-    virtual bool isSelectable() {return true;}
-
-    virtual Course::iGameEventHandler *getEventHandlerPtr() const {return nullptr;}
+    virtual bool isSelectable();
 
     virtual void toggleHighlight(bool state) const;
 
-public slots:
-    void move();
+    std::shared_ptr<GameObjectBase> getParentObject() const;
+
+private:
+    // bool isMovable_;
+    // bool isSelectable_;
+    std::shared_ptr<GameObjectBase> parentObject_;
+    ShapePref shapePref_ = DEFAULT;
 };
 
 #endif // CUSTOMGRAPHICSITEM_H

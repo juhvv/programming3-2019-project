@@ -20,6 +20,14 @@ void GameEventHandler::nextTurn()
         currentPlayer_=playerVector_[0];
     }
     //signalUpdateVisibleResources();
+
+    for (auto gameObject : currentPlayer_->getObjects()) {
+        GraphicsUnitBase* unit = dynamic_cast<GraphicsUnitBase*>(gameObject.get());
+        if (unit != nullptr) {
+            unit->switchTurn();
+        }
+    }
+
 }
 
 void GameEventHandler::calculateResources()
@@ -130,10 +138,3 @@ bool GameEventHandler::modifyResources(std::shared_ptr<Course::PlayerBase> playe
 {
     return true;
 }
-
-
-void signalUpdateVisibleResources()
-{
-
-}
-
