@@ -42,6 +42,7 @@ public:
 
     virtual bool generateResources() override;
 
+    Course::ResourceMap generatedResources();
     virtual void setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene) override;
 
     virtual QPointF getSceneCoord();

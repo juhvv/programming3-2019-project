@@ -43,7 +43,7 @@ void GraphicsTileBase::getMenuItems(QMenu &menu)
     QAction *infoAction = menu.addAction("Info");
     menu.addSeparator();
     // tile can only be claimed if it has no owner
-    if (getOwner() == nullptr) {
+    if (getOwner() == NULL) {
         QAction *claimAction = menu.addAction("Claim");
         connect(claimAction, &QAction::triggered, this, &GraphicsTileBase::sendPtr);
     }
@@ -72,6 +72,11 @@ unsigned int GraphicsTileBase::getMovementCost()
 
 bool GraphicsTileBase::generateResources()
 {
+    return true;
+}
+
+Course::ResourceMap GraphicsTileBase::generatedResources()
+{
     Course::ResourceMapDouble worker_efficiency;
     Course::ResourceMap total_production;
 
@@ -97,8 +102,8 @@ bool GraphicsTileBase::generateResources()
     }
 
 
-    return lockEventHandler()->modifyResources(getOwner(), total_production);
 
+    return total_production;
 }
 
 void GraphicsTileBase::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene)

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>874</width>
+    <width>1013</width>
     <height>785</height>
    </rect>
   </property>
@@ -63,56 +63,77 @@
       <property name="bottomMargin">
        <number>20</number>
       </property>
-      <item row="2" column="2">
-       <widget class="QLabel" name="foodValueLbl">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLabel" name="goldNameLbl">
-        <property name="text">
-         <string>Gold</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QLabel" name="woodNameLbl">
-        <property name="text">
-         <string>Ore</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
+      <item row="2" column="0">
        <widget class="QLabel" name="foodNameLbl">
         <property name="text">
          <string>Food</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="2">
-       <widget class="QLabel" name="resourceLbl">
+      <item row="3" column="0">
+       <widget class="QLabel" name="woodNameLbl">
         <property name="text">
-         <string>Resources:</string>
+         <string>Wood</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="2">
+      <item row="2" column="1">
+       <widget class="QLabel" name="foodValueLbl">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
        <widget class="QLabel" name="woodValueLbl">
         <property name="text">
          <string/>
         </property>
        </widget>
       </item>
-      <item row="1" column="2">
+      <item row="0" column="3">
+       <widget class="QLabel" name="productionLbl">
+        <property name="text">
+         <string>Production:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QLabel" name="goldProductionLbl">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3">
+       <widget class="QLabel" name="foodProductionLbl">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
        <widget class="QLabel" name="goldValueLbl">
         <property name="text">
          <string/>
         </property>
        </widget>
       </item>
-      <item row="5" column="2">
+      <item row="1" column="0">
+       <widget class="QLabel" name="goldNameLbl">
+        <property name="text">
+         <string>Gold</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="resourceLbl">
+        <property name="text">
+         <string>Resources:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="3">
        <widget class="QPushButton" name="turnSwitchBtn">
         <property name="enabled">
          <bool>false</bool>
@@ -148,7 +169,7 @@
         </property>
        </widget>
       </item>
-      <item row="4" column="2">
+      <item row="4" column="3">
        <spacer name="verticalSpacer">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
@@ -161,6 +182,34 @@
         </property>
        </spacer>
       </item>
+      <item row="3" column="3">
+       <widget class="QLabel" name="woodProductionLbl">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="Line" name="line">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="Line" name="line_2">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="Line" name="line_3">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
    </layout>
@@ -170,8 +219,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>874</width>
-     <height>25</height>
+     <width>1013</width>
+     <height>24</height>
     </rect>
    </property>
    <property name="font">
