@@ -18,6 +18,7 @@
 #include "objectmanager.hh"
 #include "startwindow.hh"
 #include "ui/customgraphicsscene.h"
+#include "unitconstructor.h"
 
 namespace Ui {
 class MapWindow;
@@ -54,10 +55,12 @@ private:
 
     GraphicsViewPort* viewPortPtr_;
     CustomGraphicsScene* scene_;
+
     std::shared_ptr<Course::iGameEventHandler> m_GEHandler = nullptr;
     std::shared_ptr<GameEventHandler> eventhandler_;
     std::shared_ptr<ObjectManager> objectManager_;
     std::shared_ptr<Course::SimpleGameScene> m_simplescene = nullptr;
+    std::shared_ptr<UnitConstructor> unitConstructor_;
 
 };
 

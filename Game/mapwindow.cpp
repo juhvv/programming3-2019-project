@@ -23,12 +23,16 @@ MapWindow::MapWindow(QWidget *parent,
     scene_(new CustomGraphicsScene(viewPortPtr_)),
     m_GEHandler(nullptr),
     eventhandler_(nullptr),
-    m_simplescene(new Course::SimpleGameScene(this, 20,20))
+    m_simplescene(new Course::SimpleGameScene(this, 20,20)),
+    unitConstructor_(nullptr)
 {
     Course::SimpleGameScene* sgs_rawptr = m_simplescene.get();
+    unitConstructor_ = std::make_shared<UnitConstructor>();
     objectManager_ = std::make_shared<ObjectManager>(sgs_rawptr, scene_);
-    eventhandler_ = std::make_shared<GameEventHandler>(objectManager_);
-    m_GEHandler = eventhandler_;
+    eventhandler_ = std::make_shared<GameEventHandler>(objectManager_, unitConstructor_);
+
+    unitConstructor_->setEventHandler(eventhandler_);
+    unitConstructor_->setObjectManager(objectManager_);
 
     m_ui->setupUi(this);
 
@@ -137,6 +141,7 @@ void MapWindow::switchTurn()
     eventhandler_->nextTurn();
     msg.append(eventhandler_->getCurrentPlayer()->getName().c_str()); msg.append(" \n");
     m_ui->textBox->insertPlainText(msg);
+    qDebug() << eventhandler_.use_count();
     //updateVisibleResources();
 }
 
@@ -150,10 +155,12 @@ void MapWindow::startNewGame(playerInfo info, unsigned int seed)
 
     objectManager_->resetData();
     eventhandler_->resetData();
-    eventhandler_->addNewPlayers(info);
 
     Course::WorldGenerator& generaattori = Course::WorldGenerator::getInstance();
-    generaattori.generateMap(20,20,seed,objectManager_, m_GEHandler);
+    generaattori.generateMap(20,20,seed,objectManager_, eventhandler_);
+
+    qDebug() << eventhandler_.use_count();
+    eventhandler_->addNewPlayers(info);
     eventhandler_->getCurrentPlayer();
     /*
     GraphicsUnitBase* newUnit = new GraphicsUnitBase(eventhandler_, objectManager_, eventhandler_->getCurrentPlayer());

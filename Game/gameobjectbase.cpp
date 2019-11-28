@@ -12,6 +12,11 @@ GameObjectBase::~GameObjectBase()
 
 }
 
+void GameObjectBase::getMenuItems(QMenu &menu)
+{
+
+}
+
 bool GameObjectBase::getIsMovable() const
 {
     return isMovable_;
@@ -20,4 +25,9 @@ bool GameObjectBase::getIsMovable() const
 bool GameObjectBase::getIsSelectable() const
 {
     return isSelectable_;
+}
+
+void GameObjectBase::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene)
+{
+
 }

@@ -8,6 +8,12 @@
 
 class CustomGraphicsItem;
 
+class GameEventHandler;
+
+class ObjectManager;
+
+class GameObjectBase;
+
 class CustomGraphicsScene : public QGraphicsScene
 {
 public:
@@ -23,6 +29,8 @@ public:
 
     void getAdjacentTiles(std::vector<CustomGraphicsItem*> &tileVec);
 
+    void addObject(std::shared_ptr<GameObjectBase> &newObject);
+
 public slots:
     void enterMovementMode();
 
@@ -30,6 +38,9 @@ protected:
     bool movementModeFlag_ = false;
     CustomGraphicsItem *lastClickedItem_ = nullptr;
     std::vector<CustomGraphicsItem*> tileVec_ = {};
+
+    std::shared_ptr<GameEventHandler> eventHandler_;
+    std::shared_ptr<ObjectManager> objectManager_;
 };
 
 #endif // CUSTOMGRAPHICSSCENE_H

@@ -1,13 +1,16 @@
 #include "gameeventhandler.hh"
+#include "buildings/gamebuildingbase.h"
 
-GameEventHandler::GameEventHandler(std::shared_ptr<ObjectManager> objectMngr):
+GameEventHandler::GameEventHandler(std::shared_ptr<ObjectManager> objectMngr,
+                                   std::weak_ptr<UnitConstructor> unitConstructor):
+    Course::iGameEventHandler(),
     turnNumber_(1),
     maxTurns_(30),
-    objectMngr_(objectMngr)
+    objectMngr_(objectMngr),
+    unitConstructor_(unitConstructor)
 {
 
 }
-
 
 void GameEventHandler::nextTurn()
 {
@@ -67,13 +70,31 @@ std::shared_ptr<Player> GameEventHandler::getCurrentPlayer()
 
 void GameEventHandler::addNewPlayers(std::vector<std::pair<std::string, int>> nameVct)
 {
+    Course::Coordinate startCoord = Course::Coordinate(1,1);
     for(long unsigned int i=0; i<nameVct.size(); i++){
         std::string nameOfPlayer = nameVct[i].first;
         std::shared_ptr<Player> playerPtr = std::make_shared<Player>(nameOfPlayer);
         playerPtr->setMarker(nameVct[i].second);
         playerVector_.push_back(playerPtr);
+        // add starter base
+
+        std::shared_ptr<GraphicsTileBase> startTile =
+                std::dynamic_pointer_cast<GraphicsTileBase>(objectMngr_->getTile(startCoord));
+        std::shared_ptr<GameBuildingBase> startBuilding =
+                unitConstructor_.lock()->constructBuilding(playerPtr);
+
+        std::shared_ptr<GameObjectBase> gameObject = std::dynamic_pointer_cast<GameObjectBase>(startBuilding);
+
+        currentPlayer_ = playerPtr;
+        startTile->addBuilding(startBuilding);
+        claimTile(startTile.get());
+        objectMngr_->setGraphicsObject(gameObject);
+
+        startCoord.set_x(startCoord.x() + 15);
+        startCoord.set_y(startCoord.y() + 15);
     }
-        currentPlayer_ = playerVector_[0];
+
+    currentPlayer_ = playerVector_[0];
 }
 
 void GameEventHandler::resetData()

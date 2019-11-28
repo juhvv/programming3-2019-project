@@ -13,13 +13,16 @@
 #include "tiles/graphicstilebase.h"
 #include "objectmanager.hh"
 #include "workers/basicworker.h"
+#include "unitconstructor.h"
 
 
-class GameEventHandler : public QObject, public Course::iGameEventHandler
+class GameEventHandler :
+        public QObject, public Course::iGameEventHandler
 {
     Q_OBJECT
 public:
-    explicit GameEventHandler(std::shared_ptr<ObjectManager> objectMngr);
+    explicit GameEventHandler(std::shared_ptr<ObjectManager> objectMngr,
+                              std::weak_ptr<UnitConstructor> unitConstructor);
 
     virtual ~GameEventHandler() = default;
 
@@ -77,6 +80,8 @@ private:
 
     std::vector<std::shared_ptr<Player>> playerVector_;
     std::shared_ptr<Player> currentPlayer_;
+
+    std::weak_ptr<UnitConstructor> unitConstructor_;
 
 };
 

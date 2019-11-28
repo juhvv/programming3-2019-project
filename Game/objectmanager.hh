@@ -59,6 +59,8 @@ public:
 
     void setOwnerMarker(GraphicsTileBase* tile, const QPixmap* marker);
 
+    void setGraphicsObject(std::shared_ptr<GameObjectBase> &gameObject);
+
 public slots:
     // void addOwnersipMarker(unsigned int ID);
 

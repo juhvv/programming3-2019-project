@@ -29,9 +29,14 @@ int Player::getResourceValue(Course::BasicResource resource)
     return m_playerResources[resource];
 }
 
-void Player::addGraphicsItem(CustomGraphicsItem *newItem)
+void Player::addGameObject(CustomGraphicsItem *newItem)
 {
-    playerObjects_.push_back(newItem);
+    // playerObjects_.push_back(newItem);
+}
+
+void Player::addNewBuilding(std::shared_ptr<GameBuildingBase> newBuilding)
+{
+    playerBuildings_.push_back(newBuilding);
 }
 
 void Player::setMarker(int index)

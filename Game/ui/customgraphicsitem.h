@@ -13,7 +13,8 @@
 
 enum ShapePref {
     NO_SHAPE,
-    DEFAULT
+    DEFAULT,
+    SQUARE_128
 };
 
 
@@ -39,6 +40,8 @@ public:
     virtual void toggleHighlight(bool state) const;
 
     std::shared_ptr<GameObjectBase> getParentObject() const;
+
+    void setShapePref(const ShapePref &shapePref);
 
 private:
     // bool isMovable_;

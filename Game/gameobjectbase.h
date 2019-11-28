@@ -18,13 +18,13 @@ public:
 
     ~GameObjectBase();
 
-    virtual void getMenuItems(QMenu &menu) = 0;
+    virtual void getMenuItems(QMenu &menu);
 
     virtual bool getIsMovable() const;
 
     virtual bool getIsSelectable() const;
 
-    virtual void setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene) = 0;
+    virtual void setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene);
 
 protected:
     bool isMovable_;
