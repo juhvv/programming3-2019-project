@@ -24,7 +24,9 @@ SOURCES += \
     units/graphicsunitbase.cpp \
     tiles/watertileitem.cpp \
     tiles/mountaintileitem.cpp \
-    gameobjectbase.cpp
+    gameobjectbase.cpp \
+    buildings/gamebuildingbase.cpp \
+    unitconstructor.cpp
 
 HEADERS += \
     mapwindow.hh \
@@ -45,7 +47,9 @@ HEADERS += \
     tiles/watertileitem.h \
     tiles/mountaintileitem.h \
     gameresourcemaps.hh \
-    gameobjectbase.h
+    gameobjectbase.h \
+    buildings/gamebuildingbase.h \
+    unitconstructor.h
 
 
 win32:CONFIG(release, debug|release): LIBS += \

@@ -39,7 +39,7 @@ void MountainTileItem::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomG
     graphicsItem_->setPos(newX, newY);
     */
     graphicsItem_->setPixmap(QPixmap(":/resources/mountains.PNG"));
-    graphicsItem_->setOffset(-5,-50);
+    graphicsItem_->setOffset(-10,-50);
     graphicsItem_->setZValue(2);
     scene_->update();
 }

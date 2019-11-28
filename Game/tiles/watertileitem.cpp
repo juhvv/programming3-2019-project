@@ -11,8 +11,7 @@ WaterTileItem::WaterTileItem(const Course::Coordinate &location,
                              const Course::ResourceMap &production) :
     GraphicsTileBase (location, eventhandler, objectmanager, scene, max_build, max_work, production)
 {
-    // setOffset(-5,-5);
-    // setZValue(1);
+
 }
 
 unsigned int WaterTileItem::getMovementCost()
@@ -39,7 +38,6 @@ void WaterTileItem::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGrap
     graphicsItem_->setPos(newX, newY);
     */
     graphicsItem_->setPixmap(QPixmap(":/resources/water.PNG"));
-    // setOffset(-5,-5);
-    // setZValue(1);
+    graphicsItem_->setZValue(0);
     scene_->update();
 }

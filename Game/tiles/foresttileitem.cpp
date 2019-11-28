@@ -21,8 +21,10 @@ unsigned int ForestTileItem::getMovementCost()
 
 void ForestTileItem::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene)
 {
-    graphicsItem_ = graphicsItem;
-    scene_ = scene;
+    //graphicsItem_ = graphicsItem;
+    //scene_ = scene;
+
+    GraphicsTileBase::setGraphicsItem(graphicsItem, scene);
 
     //graphicsObject_->setPixmap(QPixmap(":/resources/tilebase.PNG"));
     /*
@@ -33,9 +35,9 @@ void ForestTileItem::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGra
     graphicsItem_->setPos(newX, newY);
     */
     graphicsItem_->setPixmap(QPixmap(":/resources/forest.PNG"));
-    graphicsItem_->setOffset(-10,-10);
+    graphicsItem_->setOffset(-10,-50);
     graphicsItem_->setZValue(2);
-    scene_->update();
+    // scene_->update();
 }
 
 std::string ForestTileItem::getType() const

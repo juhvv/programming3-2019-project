@@ -5,6 +5,7 @@
 #include "gameobjectbase.h"
 #include "tiles/tilebase.h"
 #include "units/graphicsunitbase.h"
+#include "buildings/gamebuildingbase.h"
 
 // static const unsigned int TILE_SIZE = 128;  // defines tile size (px)
 
@@ -39,6 +40,9 @@ public:
     virtual bool isMovable();
 
     virtual unsigned int getMovementCost();
+
+    using Course::TileBase::addBuilding;
+    virtual void addBuilding(const std::shared_ptr<GameBuildingBase>& building);
 
     virtual bool generateResources() override;
 
