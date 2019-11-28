@@ -83,6 +83,12 @@ void GameEventHandler::addNewPlayers(std::vector<std::pair<std::string, int>> na
         // add starter bases
         std::shared_ptr<GraphicsTileBase> startTile =
                 std::dynamic_pointer_cast<GraphicsTileBase>(objectMngr_->getTile(startCoord));
+        // switch start tile if no building can be placed on current start tile
+        while (startTile->getType() == "Water tile") {
+            qDebug() << "tile type for " << currentPlayer_->getName().c_str() << ": " << startTile->getType().c_str();
+            startTile = std::dynamic_pointer_cast<GraphicsTileBase>(objectMngr_->getTile(startTile->ID + 1));
+        }
+        qDebug() << "Final tile type for " << currentPlayer_->getName().c_str() << ": " << startTile->getType().c_str();
         std::shared_ptr<GameBuildingBase> startBuilding =
                 unitConstructor_.lock()->constructBuilding(playerPtr, startTile);
 
