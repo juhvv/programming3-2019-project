@@ -10,5 +10,6 @@
         <file>resources/units/worker.PNG</file>
         <file>resources/water.PNG</file>
         <file>resources/mountains.PNG</file>
+        <file>resources/buildings/base.PNG</file>
     </qresource>
 </RCC>
