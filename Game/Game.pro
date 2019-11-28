@@ -24,7 +24,9 @@ SOURCES += \
     units/graphicsunitbase.cpp \
     tiles/watertileitem.cpp \
     tiles/mountaintileitem.cpp \
-    gameobjectbase.cpp
+    gameobjectbase.cpp \
+    savewindow.cpp \
+    savegame.cpp
 
 HEADERS += \
     mapwindow.hh \
@@ -45,7 +47,9 @@ HEADERS += \
     tiles/watertileitem.h \
     tiles/mountaintileitem.h \
     gameresourcemaps.hh \
-    gameobjectbase.h
+    gameobjectbase.h \
+    savewindow.hh \
+    savegame.hh
 
 
 win32:CONFIG(release, debug|release): LIBS += \
@@ -74,7 +78,8 @@ else:unix: PRE_TARGETDEPS += \
 
 FORMS += \
     mapwindow.ui \
-    startwindow.ui
+    startwindow.ui \
+    savewindow.ui
 
 DISTFILES +=
 

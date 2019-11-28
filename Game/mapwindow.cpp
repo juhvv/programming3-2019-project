@@ -43,6 +43,8 @@ MapWindow::MapWindow(QWidget *parent,
 
     connect(eventhandler_.get(), &GameEventHandler::signalUpdateVisibleResources, this, &MapWindow::updateVisibleResources);
 
+    connect(m_ui->actionSave, &QAction::triggered, this, &MapWindow::showSaveWindow);
+
     Course::WorldGenerator& generaattori = Course::WorldGenerator::getInstance();
 
     generaattori.addConstructor<GrassTileItem>(2);
@@ -116,6 +118,16 @@ void MapWindow::updateVisibleResources()
 void MapWindow::updateItem(std::shared_ptr<Course::GameObject> obj)
 {
     m_simplescene->updateItem(obj);
+}
+
+void MapWindow::showSaveWindow()
+{
+    qDebug()<<"aatteliko jätkä tallentaa häh :DDD";
+    SaveGame* saveGamePtr = new SaveGame(eventhandler_, objectManager_);
+    SaveWindow* savewindow = new SaveWindow();
+    savewindow->setModal(true);
+    savewindow->show();
+    connect(savewindow, &SaveWindow::sendSaveFileName, saveGamePtr, &SaveGame::saveCurrentGame);
 }
 
 void MapWindow::showStartWindow()

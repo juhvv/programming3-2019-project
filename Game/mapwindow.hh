@@ -18,6 +18,8 @@
 #include "objectmanager.hh"
 #include "startwindow.hh"
 #include "ui/customgraphicsscene.h"
+#include "savewindow.hh"
+#include "savegame.hh"
 
 namespace Ui {
 class MapWindow;
@@ -45,6 +47,7 @@ public:
     void updateItem( std::shared_ptr<Course::GameObject> obj);
 
 public slots:
+    void showSaveWindow();
     void showStartWindow();
     void switchTurn();
     void startNewGame(playerInfo info, unsigned int seed);
