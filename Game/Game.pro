@@ -26,7 +26,7 @@ SOURCES += \
     tiles/mountaintileitem.cpp \
     gameobjectbase.cpp \
     buildings/gamebuildingbase.cpp \
-    unitconstructor.cpp
+    unitconstructor.cpp \
     savewindow.cpp \
     savegame.cpp
 
@@ -51,10 +51,9 @@ HEADERS += \
     gameresourcemaps.hh \
     gameobjectbase.h \
     buildings/gamebuildingbase.h \
-    unitconstructor.h
+    unitconstructor.h \
     savewindow.hh \
     savegame.hh
-
 
 win32:CONFIG(release, debug|release): LIBS += \
     -L$$OUT_PWD/../Course/CourseLib/release/ -lCourseLib
