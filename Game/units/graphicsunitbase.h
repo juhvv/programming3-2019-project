@@ -21,7 +21,7 @@ public:
 
     virtual ~GraphicsUnitBase() = default;
 
-    virtual bool isMovable();
+    virtual bool isMovable() const override;
 
     virtual void getMenuItems(QMenu &menu) override;
 
@@ -35,7 +35,9 @@ public:
 
     virtual void switchTurn();
 
-    virtual bool isSelectable();
+    virtual bool isSelectable() const override;
+
+    virtual void setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene) override;
 
 protected:
     unsigned int movePoints_ = 2;

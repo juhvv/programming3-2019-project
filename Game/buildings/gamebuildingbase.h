@@ -3,8 +3,8 @@
 
 #include "buildings/buildingbase.h"
 #include "gameobjectbase.h"
-#include "ui/customgraphicsscene.h"
-#include "units/graphicsunitbase.h"
+//#include "ui/customgraphicsscene.h"
+//#include "units/graphicsunitbase.h"
 
 class GameBuildingBase : public GameObjectBase, public Course::BuildingBase
 {

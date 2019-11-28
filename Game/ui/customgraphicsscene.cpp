@@ -91,8 +91,30 @@ void CustomGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     }
 }
 
-void CustomGraphicsScene::getAdjacentTiles(std::vector<CustomGraphicsItem*> &tileVec)
+void CustomGraphicsScene::getAdjacentTiles(std::vector<std::shared_ptr<GraphicsTileBase>> &tileVec,
+                                           std::shared_ptr<GraphicsTileBase> &tile)
 {
+    // define selection area
+    qreal posx = tile->getSceneCoord().x();
+    qreal posy = tile->getSceneCoord().y();
+    QRectF selectionRect = QRectF(posx - TILE_SIZE/2, posy - TILE_SIZE/2,
+                                  TILE_SIZE * 2, TILE_SIZE * 2);
+
+    QList<QGraphicsItem* > selectedItems = items(selectionRect);
+    for (QGraphicsItem* item : selectedItems) {
+        CustomGraphicsItem* itemPtr = static_cast<CustomGraphicsItem*>(item);
+        std::shared_ptr<GraphicsTileBase> selectedTilePtr =
+                std::dynamic_pointer_cast<GraphicsTileBase>(itemPtr->getParentObject());
+
+        if ( selectedTilePtr != nullptr) {
+            // add all tiles except the center tile
+            if (selectedTilePtr != tile) {
+                qDebug() << "selected tile: " << selectedTilePtr->ID;
+                tileVec.push_back(selectedTilePtr);
+            }
+        }
+    }
+    /*
     if (movementModeFlag_) {
         qreal posx = lastClickedItem_->x();
         qreal posy = lastClickedItem_->y();
@@ -114,7 +136,7 @@ void CustomGraphicsScene::getAdjacentTiles(std::vector<CustomGraphicsItem*> &til
                 qDebug() << "selected tile: " << tilePtr->ID;
             }
         }
-    }
+    }*/
 }
 
 void CustomGraphicsScene::addObject(std::shared_ptr<GameObjectBase> &newObject)
@@ -132,7 +154,7 @@ void CustomGraphicsScene::enterMovementMode()
     tileVec_.clear();
     movementModeFlag_ = true;
     // std::vector<QGraphicsItem*> tileVec = {};
-    getAdjacentTiles(tileVec_);
+    // getAdjacentTiles(tileVec_);
     for (CustomGraphicsItem* tileModel : tileVec_) {// USE FUNCTION
         tileModel->toggleHighlight(true);
     }

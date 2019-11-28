@@ -4,7 +4,8 @@
 #include <QObject>
 #include <QGraphicsScene>
 #include <memory>
-#include "tiles/tilebase.h"
+#include "tiles/graphicstilebase.h"
+#include "ui/customgraphicsitem.h"
 
 class CustomGraphicsItem;
 
@@ -27,7 +28,8 @@ public:
 
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
 
-    void getAdjacentTiles(std::vector<CustomGraphicsItem*> &tileVec);
+    void getAdjacentTiles(std::vector<std::shared_ptr<GraphicsTileBase>> &tileVec,
+                          std::shared_ptr<GraphicsTileBase> &tile);
 
     void addObject(std::shared_ptr<GameObjectBase> &newObject);
 

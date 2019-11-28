@@ -8,9 +8,10 @@ CustomGraphicsItem::CustomGraphicsItem( std::shared_ptr<GameObjectBase> parentOb
     parentObject_(parentObject)
 {
     setCursor(Qt::PointingHandCursor);
+
     QGraphicsColorizeEffect* highlightEffect = new QGraphicsColorizeEffect();
     highlightEffect->setColor(QColor(0,255,0));
-    highlightEffect->setStrength(0.5);
+    highlightEffect->setStrength(0.4);
     setGraphicsEffect(highlightEffect);
     highlightEffect->setEnabled(false);
 }
@@ -31,14 +32,16 @@ QPainterPath CustomGraphicsItem::shape() const
         QPainterPath shapePath;
         shapePath.addRect(shapeRect);
         return shapePath;
+
     }
+    return QGraphicsPixmapItem::shape();
 }
 
 
 
 bool CustomGraphicsItem::isMovable()
 {
-    return parentObject_->getIsMovable();
+    return parentObject_->isMovable();
 }
 
 void CustomGraphicsItem::getMenuItems(QMenu &menu)
@@ -48,7 +51,7 @@ void CustomGraphicsItem::getMenuItems(QMenu &menu)
 
 bool CustomGraphicsItem::isSelectable()
 {
-    return parentObject_->getIsSelectable();
+    return parentObject_->isSelectable();
 }
 
 void CustomGraphicsItem::toggleHighlight(bool state) const

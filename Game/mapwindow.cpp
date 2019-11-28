@@ -20,15 +20,14 @@ MapWindow::MapWindow(QWidget *parent,
     QMainWindow(parent),
     m_ui(new Ui::MapWindow),
     viewPortPtr_(new GraphicsViewPort(this)),
-    scene_(new CustomGraphicsScene(viewPortPtr_)),
+    scenePtr_(new CustomGraphicsScene(viewPortPtr_)),
     m_GEHandler(nullptr),
     eventhandler_(nullptr),
-    m_simplescene(new Course::SimpleGameScene(this, 20,20)),
+    gameScene_(new Course::SimpleGameScene(this, 20,20)),
     unitConstructor_(nullptr)
 {
-    Course::SimpleGameScene* sgs_rawptr = m_simplescene.get();
     unitConstructor_ = std::make_shared<UnitConstructor>();
-    objectManager_ = std::make_shared<ObjectManager>(sgs_rawptr, scene_);
+    objectManager_ = std::make_shared<ObjectManager>(scenePtr_);
     eventhandler_ = std::make_shared<GameEventHandler>(objectManager_, unitConstructor_);
 
     unitConstructor_->setEventHandler(eventhandler_);
@@ -72,7 +71,7 @@ MapWindow::MapWindow(QWidget *parent,
     //GraphicsUnitBase* newUnit = new GraphicsUnitBase(eventhandler_, objectManager_, nullptr);
     //scene_->addItem(newUnit);
     //viewPortPtr_->setScene(dynamic_cast<QGraphicsScene*>(sgs_rawptr));
-    viewPortPtr_->setScene(scene_);
+    viewPortPtr_->setScene(scenePtr_);
     MapWindow::showStartWindow();
 }
 
@@ -88,17 +87,17 @@ void MapWindow::setGEHandler(
 
 void MapWindow::setSize(int width, int height)
 {
-    m_simplescene->setSize(width, height);
+    gameScene_->setSize(width, height);
 }
 
 void MapWindow::setScale(int scale)
 {
-    m_simplescene->setScale(scale);
+    gameScene_->setScale(scale);
 }
 
 void MapWindow::resize()
 {
-    m_simplescene->resize();
+    gameScene_->resize();
 }
 
 void MapWindow::updateVisibleResources()
@@ -121,7 +120,7 @@ void MapWindow::updateVisibleResources()
 
 void MapWindow::updateItem(std::shared_ptr<Course::GameObject> obj)
 {
-    m_simplescene->updateItem(obj);
+    gameScene_->updateItem(obj);
 }
 
 void MapWindow::showSaveWindow()
@@ -137,7 +136,6 @@ void MapWindow::showSaveWindow()
 void MapWindow::showStartWindow()
 {
     Startwindow* startti = new Startwindow();
-    startti->setModal(true);
     startti->show();
 
     //connect(startti, &Startwindow::sendPlayerNames, this, &MapWindow::addPlayerNames);
@@ -183,10 +181,10 @@ void MapWindow::startNewGame(playerInfo info, unsigned int seed)
 
 void MapWindow::removeItem(std::shared_ptr<Course::GameObject> obj)
 {
-    m_simplescene->removeItem(obj);
+    gameScene_->removeItem(obj);
 }
 
 void MapWindow::drawItem( std::shared_ptr<Course::GameObject> obj)
 {
-    m_simplescene->drawItem(obj);
+    gameScene_->drawItem(obj);
 }

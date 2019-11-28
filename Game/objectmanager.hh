@@ -5,7 +5,6 @@
 
 #include "interfaces/iobjectmanager.h"
 #include "tiles/tilebase.h"
-#include "graphics/simplegamescene.h"
 #include "ui/customgraphicsscene.h"
 #include "tiles/graphicstilebase.h"
 
@@ -13,7 +12,7 @@ class ObjectManager : public QObject, public Course::iObjectManager
 {
     Q_OBJECT
 public:
-    explicit ObjectManager(Course::SimpleGameScene* sgsPtr = NULL,  CustomGraphicsScene* scenePtr = NULL);
+    explicit ObjectManager(CustomGraphicsScene* scenePtr = nullptr);
 
     virtual ~ObjectManager() = default;
     /**
@@ -32,6 +31,9 @@ public:
      * @post Exception Guarantee: Basic
      */
     std::shared_ptr<Course::TileBase> getTile(
+            const Course::Coordinate& coordinate);
+
+    std::shared_ptr<GraphicsTileBase> getGTile(
             const Course::Coordinate& coordinate);
 
     /**
@@ -66,7 +68,6 @@ public slots:
 
 private:
     std::vector<std::shared_ptr<Course::TileBase>> tiles_;
-    Course::SimpleGameScene* sgsPtr_;
     CustomGraphicsScene* scenePtr_;
 };
 

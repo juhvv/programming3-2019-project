@@ -7,8 +7,8 @@
 #include <QDebug>
 #include <QMenu>
 #include <QGraphicsSceneContextMenuEvent>
-//#include "interfaces/igameeventhandler.h"
 #include <memory>
+
 #include "gameobjectbase.h"
 
 enum ShapePref {

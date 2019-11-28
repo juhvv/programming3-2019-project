@@ -1,5 +1,7 @@
 #include "gamebuildingbase.h"
+#include "gameeventhandler.hh"
 #include "ui/customgraphicsitem.h"
+#include "ui/customgraphicsscene.h"
 
 GameBuildingBase::GameBuildingBase(const std::shared_ptr<Course::iGameEventHandler> &eventhandler,
                                    const std::shared_ptr<Course::iObjectManager> &objectmanager,
@@ -32,6 +34,19 @@ void GameBuildingBase::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomG
 
 
     scene_->update();
+
+    // std::shared_ptr<Course::TileBase> currentTile = lockObjectManager()->getTile(getCoordinate());
+    std::shared_ptr<GraphicsTileBase> currentTile =
+            std::dynamic_pointer_cast<GraphicsTileBase>(lockObjectManager()->getTile(getCoordinate()));
+    std::vector<std::shared_ptr<GraphicsTileBase>> adjTiles;
+    scene_->getAdjacentTiles(adjTiles, currentTile);
+
+    std::shared_ptr<GameEventHandler> handler =
+            std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler());
+
+    for (auto tile : adjTiles) {
+        handler->claimTile(tile.get());
+    }
 }
 
 void GameBuildingBase::getMenuItems(QMenu &menu)

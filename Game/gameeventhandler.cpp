@@ -47,8 +47,9 @@ Course::ResourceMap GameEventHandler::calculateProduction()
 
             Course::mergeResourceMaps(totalProduction, tileProduction);
         }
-    return totalProduction;
+    // return totalProduction;
     }
+    return totalProduction;
 }
 
 void GameEventHandler::calculateAddProduction()
@@ -70,25 +71,27 @@ std::shared_ptr<Player> GameEventHandler::getCurrentPlayer()
 
 void GameEventHandler::addNewPlayers(std::vector<std::pair<std::string, int>> nameVct)
 {
-    Course::Coordinate startCoord = Course::Coordinate(1,1);
+    Course::Coordinate startCoord = Course::Coordinate(2,2);
+
     for(long unsigned int i=0; i<nameVct.size(); i++){
         std::string nameOfPlayer = nameVct[i].first;
         std::shared_ptr<Player> playerPtr = std::make_shared<Player>(nameOfPlayer);
         playerPtr->setMarker(nameVct[i].second);
         playerVector_.push_back(playerPtr);
-        // add starter base
+        currentPlayer_ = playerPtr;
 
+        // add starter bases
         std::shared_ptr<GraphicsTileBase> startTile =
                 std::dynamic_pointer_cast<GraphicsTileBase>(objectMngr_->getTile(startCoord));
         std::shared_ptr<GameBuildingBase> startBuilding =
-                unitConstructor_.lock()->constructBuilding(playerPtr);
+                unitConstructor_.lock()->constructBuilding(playerPtr, startTile);
 
         std::shared_ptr<GameObjectBase> gameObject = std::dynamic_pointer_cast<GameObjectBase>(startBuilding);
 
-        currentPlayer_ = playerPtr;
-        startTile->addBuilding(startBuilding);
-        claimTile(startTile.get());
-        objectMngr_->setGraphicsObject(gameObject);
+        // currentPlayer_ = playerPtr;
+        // startTile->addBuilding(startBuilding);
+        // claimTile(startTile.get());
+        // objectMngr_->setGraphicsObject(gameObject);
 
         startCoord.set_x(startCoord.x() + 15);
         startCoord.set_y(startCoord.y() + 15);

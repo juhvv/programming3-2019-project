@@ -1,5 +1,6 @@
 #include "gameobjectbase.h"
 #include "ui/customgraphicsitem.h"
+#include "ui/customgraphicsscene.h"
 
 GameObjectBase::GameObjectBase(CustomGraphicsScene *scene):
     scene_(scene)
@@ -17,14 +18,14 @@ void GameObjectBase::getMenuItems(QMenu &menu)
 
 }
 
-bool GameObjectBase::getIsMovable() const
+bool GameObjectBase::isMovable() const
 {
-    return isMovable_;
+    return true;
 }
 
-bool GameObjectBase::getIsSelectable() const
+bool GameObjectBase::isSelectable() const
 {
-    return isSelectable_;
+    return true;
 }
 
 void GameObjectBase::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene)

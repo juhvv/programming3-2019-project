@@ -3,7 +3,10 @@
 
 #include <QObject>
 #include <QMenu>
-#include "ui/customgraphicsscene.h"
+
+class CustomGraphicsScene;
+
+class CustomGraphicsItem;
 
 static const unsigned int TILE_SIZE = 128;  // defines tile size (px)
 
@@ -20,9 +23,9 @@ public:
 
     virtual void getMenuItems(QMenu &menu);
 
-    virtual bool getIsMovable() const;
+    virtual bool isMovable() const;
 
-    virtual bool getIsSelectable() const;
+    virtual bool isSelectable() const;
 
     virtual void setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene);
 

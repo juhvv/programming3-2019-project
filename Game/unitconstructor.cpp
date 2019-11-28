@@ -14,14 +14,17 @@ UnitConstructor::~UnitConstructor()
 
 }
 
-std::shared_ptr<GameBuildingBase> UnitConstructor::constructBuilding(std::shared_ptr<Player> &owner)
+std::shared_ptr<GameBuildingBase> UnitConstructor::constructBuilding(std::shared_ptr<Player> &owner,
+                                                                     std::shared_ptr<GraphicsTileBase> &tile)
 {
-    std::shared_ptr<Course::iGameEventHandler> iHandler =
-            std::dynamic_pointer_cast<Course::iGameEventHandler>(eventHandler_);
+    std::shared_ptr<GameBuildingBase> newBuilding =
+            std::make_shared<GameBuildingBase>(eventHandler_, objectManager_, owner);
+    std::shared_ptr<GameObjectBase> buildingGameObject = newBuilding;
+    tile->addBuilding(newBuilding);
+    objectManager_->setGraphicsObject(buildingGameObject);
+    eventHandler_->claimTile(tile.get());
 
-    std::shared_ptr<Course::iObjectManager> iManager =
-            std::dynamic_pointer_cast<Course::iObjectManager>(objectManager_);
-    return std::make_shared<GameBuildingBase>(eventHandler_, objectManager_, owner);
+    return newBuilding;
 }
 
 void UnitConstructor::setEventHandler(const std::shared_ptr<GameEventHandler> &eventHandler)

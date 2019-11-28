@@ -57,12 +57,12 @@ private:
     Ui::MapWindow* m_ui;
 
     GraphicsViewPort* viewPortPtr_;
-    CustomGraphicsScene* scene_;
+    CustomGraphicsScene* scenePtr_;
 
     std::shared_ptr<Course::iGameEventHandler> m_GEHandler = nullptr;
     std::shared_ptr<GameEventHandler> eventhandler_;
     std::shared_ptr<ObjectManager> objectManager_;
-    std::shared_ptr<Course::SimpleGameScene> m_simplescene = nullptr;
+    std::shared_ptr<Course::SimpleGameScene> gameScene_ = nullptr;
     std::shared_ptr<UnitConstructor> unitConstructor_;
 
 };

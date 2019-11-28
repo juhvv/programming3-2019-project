@@ -4,7 +4,7 @@
 TileOverlayItem::TileOverlayItem(const QPixmap &pixmap, QGraphicsItem *parent):
     QGraphicsPixmapItem (pixmap, parent)
 {
-
+    setZValue(10);
 }
 
 QPainterPath TileOverlayItem::shape() const

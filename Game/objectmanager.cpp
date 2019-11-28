@@ -4,9 +4,8 @@
 #include "core/playerbase.h"
 #include <algorithm>
 
-ObjectManager::ObjectManager(Course::SimpleGameScene* sgsPtr, CustomGraphicsScene* scenePtr):
+ObjectManager::ObjectManager(CustomGraphicsScene* scenePtr):
     Course::iObjectManager(),
-    sgsPtr_(sgsPtr),
     scenePtr_(scenePtr)
 {
 
@@ -26,6 +25,11 @@ std::shared_ptr<Course::TileBase> ObjectManager::getTile(const Course::Coordinat
         }
     }
     return nullptr;
+}
+
+std::shared_ptr<GraphicsTileBase> ObjectManager::getGTile(const Course::Coordinate &coordinate)
+{
+    return std::dynamic_pointer_cast<GraphicsTileBase>(getTile(coordinate));
 }
 
 std::shared_ptr<Course::TileBase> ObjectManager::getTile(const Course::ObjectId &id)
@@ -67,7 +71,6 @@ void ObjectManager::setOwnerMarker(GraphicsTileBase *tile, const QPixmap* marker
 {
     TileOverlayItem* markerItem =
             new TileOverlayItem(*marker);
-    markerItem->setZValue(10);
     scenePtr_->addItem(markerItem);
     markerItem->setPos(tile->getSceneCoord());
     scenePtr_->update();
