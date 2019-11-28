@@ -5,6 +5,7 @@
 #include <QLabel>
 #include <QWidgetAction>
 #include "gameeventhandler.hh"
+#include "ui/customgraphicsscene.h"
 
 GraphicsTileBase::GraphicsTileBase(const Course::Coordinate& location,
                                    const std::shared_ptr<Course::iGameEventHandler>& eventhandler,
@@ -17,18 +18,9 @@ GraphicsTileBase::GraphicsTileBase(const Course::Coordinate& location,
     Course::TileBase (location, eventhandler, objectmanager, max_build, max_work, production),
     eventhandlerProtected_(eventhandler)
 {
-    // graphicsItem_->setOffset(5,5);
-    // setFlag(QGraphicsItem::ItemIsSelectable, true);
+
 }
-/*
-QPainterPath GraphicsTileBase::shape() const
-{
-    QRectF shapeRect = QRectF(0,0, TILE_SIZE, TILE_SIZE);
-    QPainterPath shapePath;
-    shapePath.addRect(shapeRect);
-    return shapePath;
-}
-*/
+
 Course::iGameEventHandler *GraphicsTileBase::getEventHandlerPtr() const
 {
 
@@ -43,7 +35,7 @@ void GraphicsTileBase::getMenuItems(QMenu &menu)
     // tile can only be claimed if it has no owner
     if (getOwner() == nullptr) {
         QAction *claimAction = menu.addAction("Claim");
-        connect(claimAction, &QAction::triggered, this, &GraphicsTileBase::sendPtr);
+        connect(claimAction, &QAction::triggered, this, &GraphicsTileBase::claimTile);
     }
     for (auto building : getBuildings()) {
         std::shared_ptr<GameBuildingBase> buildingPtr = std::dynamic_pointer_cast<GameBuildingBase>(building);
@@ -53,19 +45,19 @@ void GraphicsTileBase::getMenuItems(QMenu &menu)
 
 }
 
-bool GraphicsTileBase::getIsSelectable() const
+bool GraphicsTileBase::isSelectable() const
 {
     std::shared_ptr<GameEventHandler> eventHndlr =
             std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler());
     return !(eventHndlr->getCurrentPlayer() != getOwner() && getOwner() != nullptr);
 }
 
-bool GraphicsTileBase::isMovable()
+bool GraphicsTileBase::isMovable() const
 {
     return false;
 }
 
-unsigned int GraphicsTileBase::getMovementCost()
+unsigned int GraphicsTileBase::getMovementCost() const
 {
     return 1;
 }
@@ -132,39 +124,11 @@ void GraphicsTileBase::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomG
     // scene_->update();
 }
 
-QPointF GraphicsTileBase::getSceneCoord()
+QPointF GraphicsTileBase::getSceneCoord() const
 {
     return graphicsItem_->pos();
 }
 
-
-
-/*
-void GraphicsTileBase::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
-{
-
-    Course::iGameEventHandler* rwPtr = eventhandlerProtected_.get();
-    GameEventHandler* eventHndlr = static_cast<GameEventHandler*>(rwPtr);
-
-    if (eventHndlr->getCurrentPlayer() != getOwner() && getOwner() != NULL) {
-        return;
-    }
-    QMenu menu;
-    QAction *infoAction = menu.addAction("Info");
-    menu.addSeparator();
-    QAction *moveAction = menu.addAction("Move");
-    // tile can only be claimed if it has no owner
-    if (getOwner() == NULL) {
-        QAction *claimAction = menu.addAction("Claim");
-        connect(claimAction, &QAction::triggered, this, &GraphicsTileBase::sendPtr);
-    }
-    //QAction *claimAction = menu.addAction("Claim");
-    connect(infoAction, &QAction::triggered, this, &GraphicsTileBase::sendInfo);
-    connect(moveAction, SIGNAL(triggered()), this, SLOT(move()));
-    // connect(claimAction, &QAction::triggered, this, &GraphicsTileBase::sendPtr);
-    menu.exec(event->screenPos());
-}
-*/
 void GraphicsTileBase::sendInfo()
 {
     // qDebug() << "BoundingRect: " << boundingRect();
@@ -174,11 +138,11 @@ void GraphicsTileBase::sendInfo()
     qDebug() << "ID: " << this->ID;
 }
 
-void GraphicsTileBase::sendPtr()
+void GraphicsTileBase::claimTile()
 {
     std::shared_ptr<GameEventHandler> eventHndlr =
             std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler());
-    Course::iGameEventHandler* rwPtr = eventhandlerProtected_.get();
+    // Course::iGameEventHandler* rwPtr = eventhandlerProtected_.get();
     // GameEventHandler* eventHndlr = static_cast<GameEventHandler*>(rwPtr);
     eventHndlr->claimTile(this);
 }

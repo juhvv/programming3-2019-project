@@ -1,4 +1,5 @@
 #include "mountaintileitem.h"
+#include "ui/customgraphicsscene.h"
 
 
 
@@ -15,7 +16,7 @@ MountainTileItem::MountainTileItem(const Course::Coordinate &location,
     //graphicsItem_->setZValue(2);
 }
 
-unsigned int MountainTileItem::getMovementCost()
+unsigned int MountainTileItem::getMovementCost()  const
 {
     return 2;
 }

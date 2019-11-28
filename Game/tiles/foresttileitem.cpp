@@ -1,4 +1,5 @@
 #include "foresttileitem.h"
+#include "ui/customgraphicsscene.h"
 
 
 ForestTileItem::ForestTileItem(const Course::Coordinate &location,
@@ -14,7 +15,7 @@ ForestTileItem::ForestTileItem(const Course::Coordinate &location,
     //graphicsItem_->setZValue(2);
 }
 
-unsigned int ForestTileItem::getMovementCost()
+unsigned int ForestTileItem::getMovementCost() const
 {
     return 2;
 }

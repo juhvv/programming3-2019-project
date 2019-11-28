@@ -1,4 +1,5 @@
 #include "grasstileitem.h"
+#include "ui/customgraphicsscene.h"
 
 
 
@@ -15,7 +16,7 @@ GrassTileItem::GrassTileItem(const Course::Coordinate &location,
     //graphicsItem_->setZValue(1);
 }
 
-unsigned int GrassTileItem::getMovementCost()
+unsigned int GrassTileItem::getMovementCost()  const
 {
     return 1;
 }

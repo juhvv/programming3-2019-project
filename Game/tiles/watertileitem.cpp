@@ -1,6 +1,5 @@
 #include "watertileitem.h"
-
-
+#include "ui/customgraphicsscene.h"
 
 WaterTileItem::WaterTileItem(const Course::Coordinate &location,
                              const std::shared_ptr<Course::iGameEventHandler> &eventhandler,
@@ -14,7 +13,7 @@ WaterTileItem::WaterTileItem(const Course::Coordinate &location,
 
 }
 
-unsigned int WaterTileItem::getMovementCost()
+unsigned int WaterTileItem::getMovementCost()  const
 {
     return 2;
 }

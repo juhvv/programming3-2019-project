@@ -1,7 +1,7 @@
 #ifndef GRAPHICSTILEBASE_H
 #define GRAPHICSTILEBASE_H
 
-#include "ui/customgraphicsitem.h"
+// #include "ui/customgraphicsitem.h"
 #include "gameobjectbase.h"
 #include "tiles/tilebase.h"
 #include "units/graphicsunitbase.h"
@@ -21,25 +21,21 @@ public:
                      const std::shared_ptr<Course::iGameEventHandler>& eventhandler,
                      const std::shared_ptr<Course::iObjectManager>& objectmanager,
                      CustomGraphicsScene* scene = nullptr,
-                     const unsigned int& max_build = 2,
+                     const unsigned int& max_build = 1,
                      const unsigned int& max_work = 3,
                      const Course::ResourceMap& production = {});
 
     virtual ~GraphicsTileBase() = default;
 
-    //virtual QPainterPath shape() const override;
-    // virtual QRectF boundingRect() const override;
-
-    // virtual void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) override;
     virtual Course::iGameEventHandler *getEventHandlerPtr() const;
 
     virtual void getMenuItems(QMenu &menu) override;
 
-    virtual bool getIsSelectable() const override;
+    virtual bool isSelectable() const override;
 
-    virtual bool isMovable();
+    virtual bool isMovable() const override;
 
-    virtual unsigned int getMovementCost();
+    virtual unsigned int getMovementCost() const;
 
     using Course::TileBase::addBuilding;
     virtual void addBuilding(const std::shared_ptr<GameBuildingBase>& building);
@@ -49,13 +45,13 @@ public:
     Course::ResourceMap generatedResources();
     virtual void setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene) override;
 
-    virtual QPointF getSceneCoord();
+    virtual QPointF getSceneCoord() const;
 
 
 public slots:
 
     virtual void sendInfo();
-    virtual void sendPtr();
+    virtual void claimTile();
 
 private:
     std::vector<std::weak_ptr<GraphicsUnitBase>> m_workers;

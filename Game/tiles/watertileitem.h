@@ -12,15 +12,13 @@ public:
                            const std::shared_ptr<Course::iGameEventHandler>& eventhandler,
                            const std::shared_ptr<Course::iObjectManager>& objectmanager,
                            CustomGraphicsScene* scene = nullptr,
-                     const unsigned int& max_build = 2,
+                     const unsigned int& max_build = 0,
                      const unsigned int& max_work = 3,
                      const Course::ResourceMap& production = Course::ConstResourceMaps::FOREST_BP);
 
     virtual ~WaterTileItem() = default;
 
-    virtual unsigned int getMovementCost() override;
-
-    // virtual QRectF boundingRect() const override;
+    virtual unsigned int getMovementCost() const override;
 
     virtual std::string getType() const override;
 
