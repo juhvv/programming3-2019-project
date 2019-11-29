@@ -44,6 +44,7 @@ MapWindow::MapWindow(QWidget *parent):
     connect(m_ui->turnSwitchBtn, &QPushButton::clicked, this, &MapWindow::switchTurn);
 
     connect(eventhandler_.get(), &GameEventHandler::signalUpdateVisibleResources, this, &MapWindow::updateVisibleResources);
+    connect(eventhandler_.get(), &GameEventHandler::signalSendMsg, this, &MapWindow::sendMsgSlot);
 
     connect(m_ui->actionSave, &QAction::triggered, this, &MapWindow::showSaveWindow);
 
@@ -161,6 +162,11 @@ void MapWindow::startNewGame(playerInfo info, unsigned int seed)
     GraphicsUnitBase* newUnit = new GraphicsUnitBase(eventhandler_, objectManager_, eventhandler_->getCurrentPlayer());
     scene_->addItem(newUnit);
     */
+}
+
+void MapWindow::sendMsgSlot(std::string &msg)
+{
+    m_ui->textBox->insertPlainText((msg + "\n").c_str());
 }
 
 

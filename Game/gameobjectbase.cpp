@@ -36,3 +36,18 @@ void GameObjectBase::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGra
 {
 
 }
+
+void GameObjectBase::getDescriptionBrief(std::string &desc)
+{
+    desc += "baseObject";
+}
+
+void GameObjectBase::sendInfo()
+{
+
+}
+
+CustomGraphicsItem *GameObjectBase::getGraphicsItem() const
+{
+    return graphicsItem_;
+}

@@ -27,6 +27,8 @@ public:
 
     virtual std::string getType() const override;
 
+    virtual void getDescriptionBrief(std::string &desc) override;
+
 public slots:
     // virtual void sendInfo() override;
 };

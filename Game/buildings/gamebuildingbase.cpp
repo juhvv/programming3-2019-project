@@ -64,6 +64,11 @@ void GameBuildingBase::getMenuItems(QMenu &menu)
     // connect(claimAction, &QAction::triggered, this, &GraphicsTileBase::sendPtr);
 }
 
+void GameBuildingBase::getDescriptionBrief(std::string &desc)
+{
+    desc += "\n " + getOwner()->getName() + " has built their base here.";
+}
+
 void GameBuildingBase::buildUnit()
 {
     std::shared_ptr<GameEventHandler> handler =

@@ -40,3 +40,8 @@ void WaterTileItem::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGrap
     graphicsItem_->setZValue(0);
     scene_->update();
 }
+
+void WaterTileItem::getDescriptionBrief(std::string &desc)
+{
+    desc += "\n One of Pirkanmaa's many lakes.";
+}

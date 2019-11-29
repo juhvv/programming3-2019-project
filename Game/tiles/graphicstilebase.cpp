@@ -131,11 +131,17 @@ QPointF GraphicsTileBase::getSceneCoord() const
 
 void GraphicsTileBase::sendInfo()
 {
-    // qDebug() << "BoundingRect: " << boundingRect();
-    //qDebug() << "Shape: " << shape().boundingRect();
-    // qDebug() << "Type: " << getType().c_str();
     qDebug() << "Loc " << graphicsItem_->x() << ", " << graphicsItem_->y();
     qDebug() << "ID: " << this->ID;
+
+    std::string infoMsg = getType();
+    if (getOwner()) { infoMsg += " of " + getOwner()->getName();}
+    getDescriptionBrief(infoMsg);
+    for (auto building : getBuildings()) {
+        std::dynamic_pointer_cast<GameBuildingBase>(building)->getDescriptionBrief(infoMsg);
+    }
+
+    std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler())->sendMsg(infoMsg);
 }
 
 void GraphicsTileBase::claimTile()

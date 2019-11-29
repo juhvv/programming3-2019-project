@@ -79,7 +79,9 @@ public:
         std::shared_ptr<GraphicsUnitBase> newGameObject =
                 std::dynamic_pointer_cast<GraphicsUnitBase>(newUnit);
         currentPlayer_->addUnit(newGameObject);
-    };
+    }
+
+    void sendMsg(std::string msg);
 
 
 public slots:
@@ -87,6 +89,7 @@ public slots:
 
 signals:
     void signalUpdateVisibleResources();
+    void signalSendMsg(std::string &msg);
 
 private:
     unsigned int turnNumber_;

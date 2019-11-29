@@ -27,6 +27,8 @@ public:
 
     virtual void getMenuItems(QMenu &menu) override;
 
+    virtual void getDescriptionBrief(std::string &desc) override;
+
 public slots:
     virtual void buildUnit();
 };

@@ -42,9 +42,13 @@ public:
 
     virtual void cancelMovement();
 
+    virtual void getDescriptionBrief(std::string &desc) override;
+
 
 public slots:
     virtual void initMove();
+
+    virtual void sendInfo() override;
 
 protected:
     unsigned int movePoints_ = 2;

@@ -50,6 +50,7 @@ public slots:
     void showStartWindow();
     void switchTurn();
     void startNewGame(playerInfo info, unsigned int seed);
+    void sendMsgSlot(std::string &msg);
 
 private:
     Ui::MapWindow* m_ui;

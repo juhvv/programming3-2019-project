@@ -50,7 +50,7 @@ public:
 
 public slots:
 
-    virtual void sendInfo();
+    virtual void sendInfo() override;
     virtual void claimTile();
 
 private:

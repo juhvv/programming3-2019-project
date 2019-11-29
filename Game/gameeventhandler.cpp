@@ -124,6 +124,11 @@ void GameEventHandler::resetData()
     objectMngr_->resetData();
 }
 
+void GameEventHandler::sendMsg(std::string msg)
+{
+    emit signalSendMsg(msg);
+}
+
 
 
 void GameEventHandler::claimTile(GraphicsTileBase *tile)

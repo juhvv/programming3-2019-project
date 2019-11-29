@@ -46,3 +46,8 @@ std::string ForestTileItem::getType() const
     return "Forest Tile";
 }
 
+void ForestTileItem::getDescriptionBrief(std::string &desc)
+{
+    desc += "\n Traditional Finnish boreal forest. Ideal for getting wood.";
+}
+

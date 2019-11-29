@@ -29,6 +29,13 @@ public:
 
     virtual void setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene);
 
+    virtual void getDescriptionBrief(std::string &desc);
+
+    CustomGraphicsItem *getGraphicsItem() const;
+
+public slots:
+    virtual void sendInfo();
+
 protected:
     bool isMovable_;
     bool isSelectable_;

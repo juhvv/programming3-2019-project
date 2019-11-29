@@ -24,6 +24,10 @@ bool GraphicsUnitBase::isMovable() const
 
 void GraphicsUnitBase::getMenuItems(QMenu &menu)
 {
+    QAction* titleDummyAction = menu.addAction(this->getType().c_str());
+    titleDummyAction->setDisabled(true);
+    menu.addSeparator();
+
     QAction* infoAction = menu.addAction("Info");
 
     QAction* moveAction = menu.addAction("Move");
@@ -33,6 +37,7 @@ void GraphicsUnitBase::getMenuItems(QMenu &menu)
     }
 
     connect(moveAction, &QAction::triggered, this, &GraphicsUnitBase::initMove);
+    connect(infoAction, &QAction::triggered, this, &GraphicsUnitBase::sendInfo);
 }
 
 void GraphicsUnitBase::doSpecialAction()
@@ -47,7 +52,8 @@ unsigned int GraphicsUnitBase::getMovePoints()
 
 bool GraphicsUnitBase::moveToTile(std::shared_ptr<GraphicsTileBase> tileToMoveTo, bool ignoreMovePoints)
 {
-    if (canMoveToTile(tileToMoveTo.get())) {
+    auto it = std::find(adjacentTilesTemp_.begin(), adjacentTilesTemp_.end(), tileToMoveTo->getGraphicsItem());
+    if (it != adjacentTilesTemp_.end() || ignoreMovePoints) {
         if (!ignoreMovePoints) {
             movePoints_ -= tileToMoveTo->getMovementCost();
         }
@@ -59,18 +65,19 @@ bool GraphicsUnitBase::moveToTile(std::shared_ptr<GraphicsTileBase> tileToMoveTo
         graphicsItem_->setPos(finalLoc);
         cancelMovement();
         return true;
+    } else {
+        std::dynamic_pointer_cast<GameEventHandler>
+                (lockEventHandler())->sendMsg("Cant go there.");
+        return false;
     }
-
-    return false;
 }
 
 bool GraphicsUnitBase::canMoveToTile(GraphicsTileBase *tileToMoveTo)
 {
     if (tileToMoveTo->getOwner() == nullptr || tileToMoveTo->getOwner() == getOwner()) {
         return tileToMoveTo->getMovementCost() <= movePoints_;
-    } else {
-        return false;
     }
+    return false;
 }
 
 void GraphicsUnitBase::switchTurn()
@@ -105,6 +112,11 @@ void GraphicsUnitBase::cancelMovement()
     adjacentTilesTemp_.clear();
 }
 
+void GraphicsUnitBase::getDescriptionBrief(std::string &desc)
+{
+    desc += "\n A hard-working fellow.";
+}
+
 void GraphicsUnitBase::initMove()
 {
     adjacentTilesTemp_.clear();
@@ -115,4 +127,13 @@ void GraphicsUnitBase::initMove()
 
 
     scene_->toggleTileHighlight(adjacentTilesTemp_, true);
+}
+
+void GraphicsUnitBase::sendInfo()
+{
+    std::string infoMsg = getType();
+    if (getOwner()) { infoMsg += " of " + getOwner()->getName();}
+    getDescriptionBrief(infoMsg);
+
+    std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler())->sendMsg(infoMsg);
 }
