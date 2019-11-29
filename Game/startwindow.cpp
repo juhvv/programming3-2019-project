@@ -25,6 +25,7 @@ Startwindow::Startwindow(QWidget *parent) :
     connect(ui->startBtn, &QPushButton::clicked, this, &Startwindow::startBtnPushed);
     connect(ui->cancelBtn, &QPushButton::clicked, this, &Startwindow::reject);
 
+
 }
 
 
@@ -51,4 +52,6 @@ void Startwindow::startBtnPushed(){
     emit sendPlayerNames(nameVct);    //Emit vector of player names to mapwindow
 
 }
+
+
 

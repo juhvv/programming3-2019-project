@@ -39,6 +39,8 @@ public:
 
     int getResourceValue(Course::BasicResource resource);
 
+    Course::ResourceMap getResourceMap();
+
     void addGameObject(CustomGraphicsItem *newItem);
 
     void addNewBuilding(std::shared_ptr<GameBuildingBase> newBuilding);
