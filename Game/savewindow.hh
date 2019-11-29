@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QDebug>
+#include <QFileDialog>
 
 namespace Ui {
 class SaveWindow;
@@ -21,6 +22,7 @@ private:
 
 public slots:
     void saveGameBtnPushed();
+    void browseBtnPushed();
 
 signals:
     void sendSaveFileName(QString fileName);

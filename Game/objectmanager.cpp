@@ -56,7 +56,7 @@ std::vector<std::shared_ptr<Course::TileBase> > ObjectManager::getTiles(const st
     return tiles;
 }
 
-std::vector<std::shared_ptr<Course::TileBase> > ObjectManager::getAllTiles()
+std::vector<std::shared_ptr<Course::TileBase>> ObjectManager::getAllTiles()
 {
     return tiles_;
 }

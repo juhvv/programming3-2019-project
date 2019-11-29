@@ -29,6 +29,11 @@ int Player::getResourceValue(Course::BasicResource resource)
     return m_playerResources[resource];
 }
 
+Course::ResourceMap Player::getResourceMap()
+{
+    return m_playerResources;
+}
+
 void Player::addGameObject(CustomGraphicsItem *newItem)
 {
     // playerObjects_.push_back(newItem);

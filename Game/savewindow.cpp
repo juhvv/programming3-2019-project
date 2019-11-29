@@ -9,13 +9,21 @@ SaveWindow::SaveWindow(QWidget *parent) :
 
     connect(ui->saveGameBtn, &QPushButton::clicked, this, &SaveWindow::accept);
     connect(ui->saveGameBtn, &QPushButton::clicked, this, &SaveWindow::saveGameBtnPushed);
+    connect(ui->browseBtn, &QPushButton::clicked, this, &SaveWindow::browseBtnPushed);
 }
 
 void SaveWindow::saveGameBtnPushed()
 {
     qDebug()<<"saveGameBtn pushed,,,!!";
-    QString fileName = ui->fileNameEdit->text();
-    emit sendSaveFileName(fileName);
+    QString filePathName = ui->pathEdit->text()+"/"+ui->fileNameEdit->text()+".txt";
+    emit sendSaveFileName(filePathName);
+}
+
+void SaveWindow::browseBtnPushed()
+{
+    qDebug()<<"jessus!";
+    QString path = QFileDialog::getExistingDirectory(this, "Select directory");
+    ui->pathEdit->setText(path);
 }
 
 SaveWindow::~SaveWindow()

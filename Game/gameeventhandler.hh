@@ -62,6 +62,8 @@ public:
 
     std::shared_ptr<Player> getCurrentPlayer();
 
+    std::vector<std::shared_ptr<Player>> getPlayerVector();
+
     void addNewPlayers(std::vector<std::pair<std::string, int>>); //adds new players to the game
 
     void resetData();   // resets stored data

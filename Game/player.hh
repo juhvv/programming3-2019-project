@@ -42,6 +42,8 @@ public:
 
     int getResourceValue(Course::BasicResource resource);
 
+    Course::ResourceMap getResourceMap();
+
     void addGameObject(CustomGraphicsItem *newItem);
 
     void addUnit(std::shared_ptr<GraphicsUnitBase> newUnit);

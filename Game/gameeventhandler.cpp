@@ -68,6 +68,11 @@ std::shared_ptr<Player> GameEventHandler::getCurrentPlayer()
     return currentPlayer_;
 }
 
+std::vector<std::shared_ptr<Player> > GameEventHandler::getPlayerVector()
+{
+    return playerVector_;
+}
+
 void GameEventHandler::addNewPlayers(std::vector<std::pair<std::string, int>> nameVct)
 {
     Course::Coordinate startCoord = Course::Coordinate(2,2);
