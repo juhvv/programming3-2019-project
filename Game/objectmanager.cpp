@@ -63,8 +63,8 @@ std::vector<std::shared_ptr<Course::TileBase> > ObjectManager::getAllTiles()
 
 void ObjectManager::resetData()
 {
-    scenePtr_->clear();
     tiles_.clear();
+    scenePtr_->clear();
 }
 
 void ObjectManager::setOwnerMarker(GraphicsTileBase *tile, const QPixmap* marker)

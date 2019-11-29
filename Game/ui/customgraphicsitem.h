@@ -39,14 +39,14 @@ public:
 
     virtual void toggleHighlight(bool state) const;
 
-    std::shared_ptr<GameObjectBase> getParentObject() const;
+    std::weak_ptr<GameObjectBase> getParentObject() const;
 
     void setShapePref(const ShapePref &shapePref);
 
 private:
     // bool isMovable_;
     // bool isSelectable_;
-    std::shared_ptr<GameObjectBase> parentObject_;
+    std::weak_ptr<GameObjectBase> parentObject_;
     ShapePref shapePref_ = DEFAULT;
 };
 

@@ -28,10 +28,12 @@ public:
 
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
 
-    void getAdjacentTiles(std::vector<std::shared_ptr<GraphicsTileBase>> &tileVec,
-                          std::shared_ptr<GraphicsTileBase> &tile);
+    void getAdjacentTiles(std::vector<CustomGraphicsItem* > &tileVec,
+                          std::shared_ptr<GraphicsTileBase> tile,
+                          const unsigned int range = 999,
+                          GraphicsUnitBase* unit = nullptr);
 
-    void addObject(std::shared_ptr<GameObjectBase> &newObject);
+    void toggleTileHighlight(std::vector<CustomGraphicsItem *> &tileVec, bool value = false);
 
 public slots:
     void enterMovementMode();

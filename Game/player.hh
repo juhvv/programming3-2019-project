@@ -7,6 +7,7 @@
 #include "core/basicresources.h"
 #include "ui/customgraphicsitem.h"
 #include "buildings/gamebuildingbase.h"
+#include <units/graphicsunitbase.h>
 
 
 class Player : public Course::PlayerBase
@@ -22,6 +23,8 @@ public:
     std::string getName();
     void setMarker(int index);
     void getIcon(QPixmap &icon);
+
+    void resetData();
 
     /**
      * @brief Modify Player's resource. Can be used to both sum or subtract.
@@ -41,13 +44,18 @@ public:
 
     void addGameObject(CustomGraphicsItem *newItem);
 
+    void addUnit(std::shared_ptr<GraphicsUnitBase> newUnit);
+
     void addNewBuilding(std::shared_ptr<GameBuildingBase> newBuilding);
+
+    std::vector<std::shared_ptr<GraphicsUnitBase> > getPlayerUnits() const;
 
 private:
     std::string m_name;
     QPixmap marker_;
     Course::ResourceMap m_playerResources;
     std::vector<std::shared_ptr<GameObjectBase>> playerObjects_ = {};
+    std::vector<std::shared_ptr<GraphicsUnitBase>> playerUnits_ = {};
     std::vector<std::shared_ptr<GameBuildingBase>> playerBuildings_ =  {};
 };
 

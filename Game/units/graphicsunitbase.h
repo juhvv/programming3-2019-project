@@ -29,7 +29,8 @@ public:
 
     virtual unsigned int getMovePoints();
 
-    virtual bool moveToTile(std::shared_ptr<GraphicsTileBase> tileToMoveTo);
+    virtual bool moveToTile(std::shared_ptr<GraphicsTileBase> tileToMoveTo,
+                            bool ignoreMovePoints = false);
 
     virtual bool canMoveToTile(GraphicsTileBase* tileToMoveTo);
 
@@ -39,8 +40,15 @@ public:
 
     virtual void setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene) override;
 
+    virtual void cancelMovement();
+
+
+public slots:
+    virtual void initMove();
+
 protected:
     unsigned int movePoints_ = 2;
+    std::vector<CustomGraphicsItem *> adjacentTilesTemp_ = {};
 };
 
 #endif // GRAPHICSUNITBASE_H

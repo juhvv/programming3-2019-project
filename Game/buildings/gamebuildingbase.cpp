@@ -38,14 +38,16 @@ void GameBuildingBase::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomG
     // std::shared_ptr<Course::TileBase> currentTile = lockObjectManager()->getTile(getCoordinate());
     std::shared_ptr<GraphicsTileBase> currentTile =
             std::dynamic_pointer_cast<GraphicsTileBase>(lockObjectManager()->getTile(getCoordinate()));
-    std::vector<std::shared_ptr<GraphicsTileBase>> adjTiles;
+    std::vector<CustomGraphicsItem*> adjTiles;
     scene_->getAdjacentTiles(adjTiles, currentTile);
 
     std::shared_ptr<GameEventHandler> handler =
             std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler());
 
-    for (auto tile : adjTiles) {
-        handler->claimTile(tile.get());
+    for (auto tileObj : adjTiles) {
+        std::weak_ptr<GraphicsTileBase> tile =
+                std::dynamic_pointer_cast<GraphicsTileBase>(tileObj->getParentObject().lock());
+        handler->claimTile(tile.lock().get());
     }
 }
 
@@ -64,5 +66,7 @@ void GameBuildingBase::getMenuItems(QMenu &menu)
 
 void GameBuildingBase::buildUnit()
 {
-
+    std::shared_ptr<GameEventHandler> handler =
+            std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler());
+    handler->addUnit<GraphicsUnitBase>(lockObjectManager()->getTile(getCoordinate())->ID);
 }

@@ -10,7 +10,11 @@ GameObjectBase::GameObjectBase(CustomGraphicsScene *scene):
 
 GameObjectBase::~GameObjectBase()
 {
-
+    // delete graphicsitem if it is not yet deleted
+    if (scene_ != nullptr && graphicsItem_ !=nullptr) {
+        scene_->removeItem(graphicsItem_);
+        delete graphicsItem_;
+    }
 }
 
 void GameObjectBase::getMenuItems(QMenu &menu)
@@ -25,7 +29,7 @@ bool GameObjectBase::isMovable() const
 
 bool GameObjectBase::isSelectable() const
 {
-    return true;
+    return false;
 }
 
 void GameObjectBase::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene)

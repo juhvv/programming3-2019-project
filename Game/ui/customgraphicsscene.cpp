@@ -38,12 +38,13 @@ void CustomGraphicsScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *conte
     if (pressed->isSelectable()) {
         QMenu menu;
         if (!movementModeFlag_) {
-
+            /*
             if (pressed->isMovable()) {
                 QAction *moveAction = menu.addAction("Move");
                 menu.addSeparator();
                 connect(moveAction, &QAction::triggered, this, &CustomGraphicsScene::enterMovementMode);
             }
+            */
             pressed->getMenuItems(menu);
             lastClickedItem_ = pressed;
             menu.exec(contextMenuEvent->screenPos());
@@ -54,45 +55,47 @@ void CustomGraphicsScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *conte
 void CustomGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
     // case for moving units
-    if (movementModeFlag_ && mouseEvent->button() == Qt::LeftButton) {
-        CustomGraphicsItem* itemToMoveTo =
-                dynamic_cast<CustomGraphicsItem*>(itemAt(mouseEvent->scenePos(), QTransform()));
+    if (movementModeFlag_) {
 
-        auto it = std::find(tileVec_.begin(), tileVec_.end(), itemToMoveTo);
-        if (it == tileVec_.end()) {
-            // check if clicked tile is reachable
-            for (CustomGraphicsItem* tile : tileVec_) {// USE FUNCTION
-                tile->toggleHighlight(false);
-            }
-            qDebug() << "cant go there";
-            movementModeFlag_ = false;
-            return;
-        }
-
-        GraphicsUnitBase* unit = dynamic_cast<GraphicsUnitBase*>(lastClickedItem_);
-        std::shared_ptr<GraphicsTileBase> tileMoveTo =
-                std::dynamic_pointer_cast<GraphicsTileBase>(itemToMoveTo->getParentObject());
-        unit->moveToTile(tileMoveTo);
-
-        for (CustomGraphicsItem* tile : tileVec_) { // USE FUNCTION
-            tile->toggleHighlight(false);
-        }
-
-        update(sceneRect());
-        movementModeFlag_ = false;
+        std::shared_ptr<GraphicsUnitBase> unitToBeMoved =
+                std::dynamic_pointer_cast<GraphicsUnitBase>(lastClickedItem_->getParentObject().lock());
 
         // case for cancelling movement
-    } else if (movementModeFlag_ && mouseEvent->button() == Qt::RightButton){
-        movementModeFlag_ = false;
+        if (mouseEvent->button() == Qt::RightButton) {
+            unitToBeMoved->cancelMovement();
+            movementModeFlag_ = false;
+        }
 
-    } else {
+        CustomGraphicsItem* itemToMoveTo =
+                dynamic_cast<CustomGraphicsItem*>(itemAt(mouseEvent->scenePos(), QTransform()));
+        /*
+        auto it = std::find(tileVec_.begin(), tileVec_.end(), itemToMoveTo);
+        if (it == tileVec_.end()) {
+                unitToBeMoved->cancelMovement();
+                qDebug() << "cant go there";
+                movementModeFlag_ = false;
+                return;
+            }
+        */
+        // GraphicsUnitBase* unit = dynamic_cast<GraphicsUnitBase*>(lastClickedItem_);
+        std::weak_ptr<GraphicsTileBase> tileMoveTo =
+                std::dynamic_pointer_cast<GraphicsTileBase>(itemToMoveTo->getParentObject().lock());
+        if (tileMoveTo.lock() != nullptr && unitToBeMoved->moveToTile(tileMoveTo.lock())) {
+            qDebug() << unitToBeMoved->ID << ": move successful";
+        };
+
+        update(sceneRect());
+        unitToBeMoved->cancelMovement();
+        movementModeFlag_ = false;
+    }else {
         // default behaviour
         QGraphicsScene::mousePressEvent(mouseEvent);
     }
 }
 
-void CustomGraphicsScene::getAdjacentTiles(std::vector<std::shared_ptr<GraphicsTileBase>> &tileVec,
-                                           std::shared_ptr<GraphicsTileBase> &tile)
+void CustomGraphicsScene::getAdjacentTiles(std::vector<CustomGraphicsItem *> &tileVec,
+                                           std::shared_ptr<GraphicsTileBase> tile,
+                                           const unsigned int range, GraphicsUnitBase *unit)
 {
     // define selection area
     qreal posx = tile->getSceneCoord().x();
@@ -104,47 +107,31 @@ void CustomGraphicsScene::getAdjacentTiles(std::vector<std::shared_ptr<GraphicsT
     for (QGraphicsItem* item : selectedItems) {
         CustomGraphicsItem* itemPtr = static_cast<CustomGraphicsItem*>(item);
         std::shared_ptr<GraphicsTileBase> selectedTilePtr =
-                std::dynamic_pointer_cast<GraphicsTileBase>(itemPtr->getParentObject());
+                std::dynamic_pointer_cast<GraphicsTileBase>(itemPtr->getParentObject().lock());
 
-        if ( selectedTilePtr != nullptr) {
-            // add all tiles except the center tile
-            if (selectedTilePtr != tile) {
-                qDebug() << "selected tile: " << selectedTilePtr->ID;
-                tileVec.push_back(selectedTilePtr);
+        if ( selectedTilePtr != nullptr ) {
+            // add all tiles that can be moved to (defined by parameter range)
+            // except center tile
+            if (selectedTilePtr != tile && selectedTilePtr->getMovementCost() <= range) {
+                if (unit) {
+                    if (unit->canMoveToTile(selectedTilePtr.get())) {
+                        qDebug() << "selected tile: " << selectedTilePtr->ID;
+                        tileVec.push_back(itemPtr);
+                    }
+                } else {
+                    qDebug() << "selected tile: " << selectedTilePtr->ID;
+                    tileVec.push_back(itemPtr);
+                }
+
             }
         }
     }
-    /*
-    if (movementModeFlag_) {
-        qreal posx = lastClickedItem_->x();
-        qreal posy = lastClickedItem_->y();
-
-        GraphicsUnitBase* unit = dynamic_cast<GraphicsUnitBase*>(lastClickedItem_);
-        QRectF selectionRect = QRectF(posx - 50, posy - 50, 200, 200);
-        QList<QGraphicsItem* > selectedItems = items(selectionRect);
-
-        for (QGraphicsItem* item : selectedItems) {
-            CustomGraphicsItem* itemPtr = static_cast<CustomGraphicsItem*>(item);
-            GraphicsTileBase* tilePtr = dynamic_cast<GraphicsTileBase*>(itemPtr->getParentObject().get());
-
-            if ( tilePtr != nullptr) {
-                // add tiles that are reachable to tileVec
-                if (unit->canMoveToTile(tilePtr)) {
-                    qDebug() << "selected tile: " << tilePtr->ID;
-                    tileVec.push_back(itemPtr);
-                }
-                qDebug() << "selected tile: " << tilePtr->ID;
-            }
-        }
-    }*/
 }
 
-void CustomGraphicsScene::addObject(std::shared_ptr<GameObjectBase> &newObject)
+void CustomGraphicsScene::toggleTileHighlight(std::vector<CustomGraphicsItem *> &tileVec, bool value)
 {
-    std::shared_ptr<GameBuildingBase> buildingPtr = std::dynamic_pointer_cast<GameBuildingBase>(newObject);
-
-    if (buildingPtr != nullptr) {
-
+    for (auto graphObj : tileVec) {
+        graphObj->toggleHighlight(value);
     }
 }
 
@@ -155,7 +142,8 @@ void CustomGraphicsScene::enterMovementMode()
     movementModeFlag_ = true;
     // std::vector<QGraphicsItem*> tileVec = {};
     // getAdjacentTiles(tileVec_);
+    /*
     for (CustomGraphicsItem* tileModel : tileVec_) {// USE FUNCTION
         tileModel->toggleHighlight(true);
-    }
+    }*/
 }

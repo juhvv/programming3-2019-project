@@ -34,9 +34,19 @@ void Player::addGameObject(CustomGraphicsItem *newItem)
     // playerObjects_.push_back(newItem);
 }
 
+void Player::addUnit(std::shared_ptr<GraphicsUnitBase> newUnit)
+{
+    playerUnits_.push_back(newUnit);
+}
+
 void Player::addNewBuilding(std::shared_ptr<GameBuildingBase> newBuilding)
 {
     playerBuildings_.push_back(newBuilding);
+}
+
+std::vector<std::shared_ptr<GraphicsUnitBase> > Player::getPlayerUnits() const
+{
+    return playerUnits_;
 }
 
 void Player::setMarker(int index)
@@ -52,6 +62,14 @@ void Player::getIcon(QPixmap &icon)
 {
     icon = marker_;
 }
+
+void Player::resetData()
+{
+    playerUnits_.clear();
+    playerObjects_.clear();
+    playerBuildings_.clear();
+}
+
 bool Player::modifyResources(Course::ResourceMap resources)
 {
     Course::ResourceMap resourceSum = Course::mergeResourceMaps(resources, m_playerResources);

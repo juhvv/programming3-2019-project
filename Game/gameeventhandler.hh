@@ -66,6 +66,19 @@ public:
 
     void resetData();   // resets stored data
 
+    template<typename T>
+    void addUnit(unsigned int TileId) {
+        std::shared_ptr<GraphicsTileBase> tile =
+                std::dynamic_pointer_cast<GraphicsTileBase>(objectMngr_->getTile(TileId));
+
+        std::shared_ptr<T> newUnit =
+                std::dynamic_pointer_cast<T>(unitConstructor_.lock()->constructUnit(currentPlayer_, tile));
+
+        std::shared_ptr<GraphicsUnitBase> newGameObject =
+                std::dynamic_pointer_cast<GraphicsUnitBase>(newUnit);
+        currentPlayer_->addUnit(newGameObject);
+    };
+
 
 public slots:
     void claimTile(GraphicsTileBase *tile);

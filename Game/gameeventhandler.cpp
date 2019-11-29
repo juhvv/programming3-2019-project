@@ -24,13 +24,12 @@ void GameEventHandler::nextTurn()
     }
     signalUpdateVisibleResources();
 
-    for (auto gameObject : currentPlayer_->getObjects()) {
+    for (auto gameObject : currentPlayer_->getPlayerUnits()) {
         GraphicsUnitBase* unit = dynamic_cast<GraphicsUnitBase*>(gameObject.get());
         if (unit != nullptr) {
             unit->switchTurn();
         }
     }
-
 }
 
 Course::ResourceMap GameEventHandler::calculateProduction()
@@ -92,6 +91,8 @@ void GameEventHandler::addNewPlayers(std::vector<std::pair<std::string, int>> na
         std::shared_ptr<GameBuildingBase> startBuilding =
                 unitConstructor_.lock()->constructBuilding(playerPtr, startTile);
 
+        currentPlayer_->addNewBuilding(startBuilding);
+
         std::shared_ptr<GameObjectBase> gameObject = std::dynamic_pointer_cast<GameObjectBase>(startBuilding);
 
         // currentPlayer_ = playerPtr;
@@ -109,8 +110,13 @@ void GameEventHandler::addNewPlayers(std::vector<std::pair<std::string, int>> na
 void GameEventHandler::resetData()
 {
     turnNumber_ = 1;
+    for (auto player : playerVector_) {
+        player->resetData();
+        qDebug() << player.use_count();
+    }
     playerVector_.clear();
     currentPlayer_ = nullptr;
+    objectMngr_->resetData();
 }
 
 
@@ -126,6 +132,11 @@ void GameEventHandler::claimTile(GraphicsTileBase *tile)
     //Just testing that resources work
     currentPlayer_->modifyResource(Course::MONEY, -10);
     signalUpdateVisibleResources();
+
+    // test
+    for ( auto unit : currentPlayer_->getPlayerUnits()) {
+        qDebug() << unit.use_count();
+    }
 }
 
 //Empty implementations, not used

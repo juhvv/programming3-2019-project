@@ -1,8 +1,9 @@
+#include <math.h>
+#include <QAction>
+
 #include "mapwindow.hh"
 #include "ui_mapwindow.h"
-
 #include "graphics/simplemapitem.h"
-
 #include "startwindow.hh"
 #include "core/worldgenerator.h"
 #include "tiles/forest.h"
@@ -12,11 +13,9 @@
 #include "tiles/mountaintileitem.h"
 #include "units/graphicsunitbase.h"
 
-#include <math.h>
-#include <QAction>
 
-MapWindow::MapWindow(QWidget *parent,
-                     std::shared_ptr<Course::iGameEventHandler> handler):
+
+MapWindow::MapWindow(QWidget *parent):
     QMainWindow(parent),
     m_ui(new Ui::MapWindow),
     viewPortPtr_(new GraphicsViewPort(this)),
@@ -54,20 +53,7 @@ MapWindow::MapWindow(QWidget *parent,
     generaattori.addConstructor<ForestTileItem>(2);
     generaattori.addConstructor<WaterTileItem>(1);
     generaattori.addConstructor<MountainTileItem>(1);
-    /*
-    for (unsigned int x = 0; x < 20; ++x)
-    {
-        for (unsigned int y = 0; y < 20; ++y)
-        {
-            Course::Coordinate coord = Course::Coordinate(x,y);
-            //std::shared_ptr<GraphicsTileBase> newItem = std::make_shared<GraphicsTileBase>(coord, eventhandler_, objectManager_);
-            //scene_->addItem(newItem.get());
-            ForestTileItem* newItemPtr = new ForestTileItem(coord, eventhandler_, objectManager_);
-            scene_->addItem(newItemPtr);
-            newItemPtr->setPos(coord.x() * 128, coord.y() *128);
-        }
-    }
-    */
+
     //GraphicsUnitBase* newUnit = new GraphicsUnitBase(eventhandler_, objectManager_, nullptr);
     //scene_->addItem(newUnit);
     //viewPortPtr_->setScene(dynamic_cast<QGraphicsScene*>(sgs_rawptr));
@@ -163,7 +149,6 @@ void MapWindow::startNewGame(playerInfo info, unsigned int seed)
     m_ui->textBox->insertPlainText("<<<STARTED NEW GAME>>>\n");
     qDebug() << "started new game";
 
-    objectManager_->resetData();
     eventhandler_->resetData();
 
     Course::WorldGenerator& generaattori = Course::WorldGenerator::getInstance();

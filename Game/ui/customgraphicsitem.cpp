@@ -41,17 +41,17 @@ QPainterPath CustomGraphicsItem::shape() const
 
 bool CustomGraphicsItem::isMovable()
 {
-    return parentObject_->isMovable();
+    return parentObject_.lock()->isMovable();
 }
 
 void CustomGraphicsItem::getMenuItems(QMenu &menu)
 {
-    parentObject_->getMenuItems(menu);
+    parentObject_.lock()->getMenuItems(menu);
 }
 
 bool CustomGraphicsItem::isSelectable()
 {
-    return parentObject_->isSelectable();
+    return parentObject_.lock()->isSelectable();
 }
 
 void CustomGraphicsItem::toggleHighlight(bool state) const
@@ -63,7 +63,7 @@ void CustomGraphicsItem::toggleHighlight(bool state) const
 
 }
 
-std::shared_ptr<GameObjectBase> CustomGraphicsItem::getParentObject() const
+std::weak_ptr<GameObjectBase> CustomGraphicsItem::getParentObject() const
 {
     return parentObject_;
 }

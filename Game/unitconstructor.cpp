@@ -27,6 +27,17 @@ std::shared_ptr<GameBuildingBase> UnitConstructor::constructBuilding(std::shared
     return newBuilding;
 }
 
+std::shared_ptr<GraphicsUnitBase> UnitConstructor::constructUnit(std::shared_ptr<Player> &owner,
+                                                                 std::shared_ptr<GraphicsTileBase> &tile)
+{
+    std::shared_ptr<GraphicsUnitBase> newUnit =
+            std::make_shared<GraphicsUnitBase>(eventHandler_, objectManager_, owner);
+    std::shared_ptr<GameObjectBase> unitGameObject = newUnit;
+    objectManager_->setGraphicsObject(unitGameObject);
+    newUnit->moveToTile(tile, true);
+    return newUnit;
+}
+
 void UnitConstructor::setEventHandler(const std::shared_ptr<GameEventHandler> &eventHandler)
 {
     eventHandler_ = eventHandler;
