@@ -15,8 +15,8 @@ class Player : public Course::PlayerBase
 public:
 
     Player(const std::string& name,
-           const std::vector<std::shared_ptr<Course::GameObject> > objects ={}
-           );
+           Course::ResourceMap startingResources,
+           const std::vector<std::shared_ptr<Course::GameObject> > objects ={});
 
     virtual ~Player() = default;
 

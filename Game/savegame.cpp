@@ -19,27 +19,26 @@ void SaveGame::saveCurrentGame(QString fileName)
     std::vector<std::shared_ptr<Player>> playerVector = eventhandler_->getPlayerVector();
     std::shared_ptr<Player> currentPlayer = eventhandler_->getCurrentPlayer();
 
-    //Save playernames in the first row, and current player on second
-    QString player1 = QString::fromStdString(playerVector[0]->getName());
-    QString player2 = QString::fromStdString(playerVector[1]->getName());
-    QString currentPlayerName = QString::fromStdString(currentPlayer->getName());
     QTextStream out(&failu);
-    out<<"PLAYERNAMES,"<<player1<<","<<player2<<endl;
-    out<<"CURRENTPLAYER,"<<currentPlayerName<<endl;
-    failu.flush();
 
-    //Save player's resources on the third and fourth row with following syntax:
+    //Save player's resources on first rows with following syntax: "RESOURCES",player's name,resources
     for(auto player: playerVector){
         QString playername = QString::fromStdString(player->getName());
         out<<"RESOURCES,"<<playername;
 
         Course::ResourceMap playerresources = player->getResourceMap();
         for(auto resource: playerresources){
-            out<<","<<resource.first<<","<<resource.second;
+            out<<","<<resource.second;
             failu.flush();
         }
         out<<endl;
     }
+
+
+    //Save name of current player on next row with followinf syntax: "CURRENTPLAYER",player's name
+    QString currentPlayerName = QString::fromStdString(currentPlayer->getName());
+    out<<"CURRENTPLAYER,"<<currentPlayerName<<endl;
+    failu.flush();
 
 
     //Save tiles with following syntax: "TILE", tile type, Xcoordinate, Ycoordinate, owner's name, building type, unit type

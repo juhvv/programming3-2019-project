@@ -13,10 +13,12 @@
 #include "tiles/grasstileitem.h"
 #include "tiles/watertileitem.h"
 #include "tiles/mountaintileitem.h"
+#include "buildings/gamebuildingbase.h"
 
 #include <iostream>
 #include <sstream>
 #include <vector>
+
 
 
 #include "QDir"
@@ -48,6 +50,17 @@ public:
 
 
 
+
+
+
+
+
+
+
+    void addUnitsAndBuildings();
+
+
+
 public slots:
     void loadGame(QString fileName);
 
@@ -55,6 +68,7 @@ public slots:
 private:
     std::shared_ptr<GameEventHandler> eventhandler_;
     std::shared_ptr<ObjectManager> objectManager_;
+    std::vector<std::shared_ptr<Player>> playerVector_;
 
     std::multimap<std::string, TileConstructorPointer> tileConctructorNames_ ;
 
