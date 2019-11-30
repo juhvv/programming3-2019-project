@@ -31,6 +31,8 @@ SOURCES += \
     savegame.cpp \
     buildings/base.cpp \
     units/builder.cpp \
+    loadwindow.cpp \
+    loadgame.cpp
     units/worker.cpp
 
 HEADERS += \
@@ -59,6 +61,8 @@ HEADERS += \
     savegame.hh \
     buildings/base.h \
     units/builder.h \
+    loadwindow.hh \
+    loadgame.hh
     units/worker.h
 
 win32:CONFIG(release, debug|release): LIBS += \
@@ -88,7 +92,8 @@ else:unix: PRE_TARGETDEPS += \
 FORMS += \
     mapwindow.ui \
     startwindow.ui \
-    savewindow.ui
+    savewindow.ui \
+    loadwindow.ui
 
 DISTFILES +=
 

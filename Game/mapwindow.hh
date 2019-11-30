@@ -20,7 +20,9 @@
 #include "ui/customgraphicsscene.h"
 #include "unitconstructor.h"
 #include "savewindow.hh"
+#include "loadwindow.hh"
 #include "savegame.hh"
+#include "loadgame.hh"
 
 namespace Ui {
 class MapWindow;
@@ -47,6 +49,7 @@ public:
 
 public slots:
     void showSaveWindow();
+    void showLoadWindow();
     void showStartWindow();
     void switchTurn();
     void startNewGame(playerInfo info, unsigned int seed);
