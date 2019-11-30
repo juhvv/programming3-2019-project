@@ -47,6 +47,7 @@ MapWindow::MapWindow(QWidget *parent):
     connect(eventhandler_.get(), &GameEventHandler::signalSendMsg, this, &MapWindow::sendMsgSlot);
 
     connect(m_ui->actionSave, &QAction::triggered, this, &MapWindow::showSaveWindow);
+    connect(m_ui->actionLoad, &QAction::triggered, this, &MapWindow::showLoadWindow);
 
     Course::WorldGenerator& generaattori = Course::WorldGenerator::getInstance();
 
@@ -112,12 +113,20 @@ void MapWindow::updateItem(std::shared_ptr<Course::GameObject> obj)
 
 void MapWindow::showSaveWindow()
 {
-    qDebug()<<"aatteliko jätkä tallentaa häh :DDD";
     SaveGame* saveGamePtr = new SaveGame(eventhandler_, objectManager_);
     SaveWindow* savewindow = new SaveWindow();
     savewindow->setModal(true);
     savewindow->show();
     connect(savewindow, &SaveWindow::sendSaveFileName, saveGamePtr, &SaveGame::saveCurrentGame);
+}
+
+void MapWindow::showLoadWindow()
+{
+    LoadGame* loadGamePtr = new LoadGame(eventhandler_, objectManager_);
+    LoadWindow* loadwindow = new LoadWindow();
+    loadwindow->setModal(true);
+    loadwindow->show();
+    connect(loadwindow, &LoadWindow::sendLoadFileName, loadGamePtr, &LoadGame::loadGame);
 }
 
 void MapWindow::showStartWindow()

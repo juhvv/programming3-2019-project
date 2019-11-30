@@ -28,7 +28,9 @@ SOURCES += \
     buildings/gamebuildingbase.cpp \
     unitconstructor.cpp \
     savewindow.cpp \
-    savegame.cpp
+    savegame.cpp \
+    loadwindow.cpp \
+    loadgame.cpp
 
 HEADERS += \
     mapwindow.hh \
@@ -53,7 +55,9 @@ HEADERS += \
     buildings/gamebuildingbase.h \
     unitconstructor.h \
     savewindow.hh \
-    savegame.hh
+    savegame.hh \
+    loadwindow.hh \
+    loadgame.hh
 
 win32:CONFIG(release, debug|release): LIBS += \
     -L$$OUT_PWD/../Course/CourseLib/release/ -lCourseLib
@@ -82,7 +86,8 @@ else:unix: PRE_TARGETDEPS += \
 FORMS += \
     mapwindow.ui \
     startwindow.ui \
-    savewindow.ui
+    savewindow.ui \
+    loadwindow.ui
 
 DISTFILES +=
 
