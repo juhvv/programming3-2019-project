@@ -44,6 +44,8 @@ public:
 
     virtual void getDescriptionBrief(std::string &desc) override;
 
+    virtual std::shared_ptr<GraphicsTileBase> getCurrentTile() final;
+
 
 public slots:
     virtual void initMove();

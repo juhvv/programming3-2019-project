@@ -28,7 +28,10 @@ SOURCES += \
     buildings/gamebuildingbase.cpp \
     unitconstructor.cpp \
     savewindow.cpp \
-    savegame.cpp
+    savegame.cpp \
+    buildings/base.cpp \
+    units/builder.cpp \
+    units/worker.cpp
 
 HEADERS += \
     mapwindow.hh \
@@ -53,7 +56,10 @@ HEADERS += \
     buildings/gamebuildingbase.h \
     unitconstructor.h \
     savewindow.hh \
-    savegame.hh
+    savegame.hh \
+    buildings/base.h \
+    units/builder.h \
+    units/worker.h
 
 win32:CONFIG(release, debug|release): LIBS += \
     -L$$OUT_PWD/../Course/CourseLib/release/ -lCourseLib
