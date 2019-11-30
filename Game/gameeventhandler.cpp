@@ -39,7 +39,6 @@ Course::ResourceMap GameEventHandler::calculateProduction()
     for(auto tile: tileVector){
         std::shared_ptr<Course::PlayerBase>tileOwner = tile->getOwner();
         if(tileOwner == currentPlayer_){
-            qDebug()<<"meil on samat hei...";
             std::shared_ptr<GraphicsTileBase> newerTile = std::dynamic_pointer_cast<GraphicsTileBase>(tile);
 
             Course::ResourceMap tileProduction = newerTile->generatedResources();
@@ -55,7 +54,6 @@ void GameEventHandler::calculateAddProduction()
 {
     Course::ResourceMap totalProduction = calculateProduction();
     currentPlayer_->modifyResources(totalProduction);
-    qDebug()<<"kalkuloidaan...";
 }
 
 unsigned int GameEventHandler::getTurnNumber()

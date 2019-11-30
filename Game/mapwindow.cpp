@@ -51,6 +51,7 @@ MapWindow::MapWindow(QWidget *parent):
 
     Course::WorldGenerator& generaattori = Course::WorldGenerator::getInstance();
 
+
     generaattori.addConstructor<GrassTileItem>(2);
     generaattori.addConstructor<ForestTileItem>(2);
     generaattori.addConstructor<WaterTileItem>(1);

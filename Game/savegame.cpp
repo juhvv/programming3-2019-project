@@ -42,7 +42,7 @@ void SaveGame::saveCurrentGame(QString fileName)
     }
 
 
-    //Save tiles with following syntax: "TILE", tile type, owner's name, building type, unit type
+    //Save tiles with following syntax: "TILE", tile type, Xcoordinate, Ycoordinate, owner's name, building type, unit type
     std::vector<std::shared_ptr<Course::TileBase>> tiles = objectManager_->getAllTiles();
     for(auto tile: tiles){
         QString tileType = QString::fromStdString(tile->getType());
@@ -53,18 +53,20 @@ void SaveGame::saveCurrentGame(QString fileName)
         QString buildingType = "";
         QString workerType = "";
 
+        int xCoord = tile->getCoordinate().x();
+        int yCoord = tile->getCoordinate().y();
+
         if(tile->getOwner()!=NULL){
             ownerName = QString::fromStdString(tile->getOwner()->getName());
         }
         if(buildings.size()>0){
             buildingType = QString::fromStdString(buildings[0]->getType());
-            qDebug()<<buildingType<<"rakennus";
         }
         if(workers.size()>0){
             workerType = QString::fromStdString(workers[0]->getType());
         }
 
-        out<<"TILE,"<<tileType<<","<<ownerName<<","<<buildingType<<","<<workerType<<endl;
+        out<<"TILE,"<<tileType<<","<<xCoord<<","<<yCoord<<","<<ownerName<<","<<buildingType<<","<<workerType<<","<<endl;
 
     }
 
