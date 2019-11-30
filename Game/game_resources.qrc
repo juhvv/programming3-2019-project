@@ -12,5 +12,6 @@
         <file>resources/mountains.PNG</file>
         <file>resources/buildings/base.PNG</file>
         <file>resources/buildings/sawmill.png</file>
+        <file>resources/units/scout.PNG</file>
     </qresource>
 </RCC>

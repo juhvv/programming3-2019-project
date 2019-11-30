@@ -4,6 +4,7 @@
 #include "ui/customgraphicsitem.h"
 #include "ui/customgraphicsscene.h"
 #include "units/builder.h"
+#include "units/scout.h"
 
 Base::Base(const std::shared_ptr<Course::iGameEventHandler> &eventhandler,
                                    const std::shared_ptr<Course::iObjectManager> &objectmanager,
@@ -64,5 +65,6 @@ void Base::buildUnit()
     std::shared_ptr<GameEventHandler> handler =
             std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler());
     handler->addUnit<Builder>(lockObjectManager()->getTile(getCoordinate())->ID);
+    handler->addUnit<Scout>(lockObjectManager()->getTile(getCoordinate())->ID);
 }
 

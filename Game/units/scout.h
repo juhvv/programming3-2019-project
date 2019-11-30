@@ -1,14 +1,13 @@
-#ifndef BUILDER_H
-#define BUILDER_H
+#ifndef SCOUT_H
+#define SCOUT_H
 
 #include "units/graphicsunitbase.h"
 
-
-class Builder : public GraphicsUnitBase
+class Scout : public GraphicsUnitBase
 {
 public:
-    Builder() = delete ;
-    explicit Builder(const std::shared_ptr<Course::iGameEventHandler>& eventhandler,
+    Scout() = delete ;
+    explicit Scout(const std::shared_ptr<Course::iGameEventHandler>& eventhandler,
                         const std::shared_ptr<Course::iObjectManager>& objectmanager,
                         const std::shared_ptr<Course::PlayerBase>& owner,
                         CustomGraphicsScene* scene = nullptr,
@@ -16,7 +15,7 @@ public:
                         const Course::ResourceMap& cost = {},
                         const Course::ResourceMapDouble& efficiency = {});
 
-    virtual ~Builder() = default;
+    virtual ~Scout() = default;
 
     virtual void getMenuItems(QMenu &menu) override;
 
@@ -51,7 +50,8 @@ protected:
     //std::vector<CustomGraphicsItem *> adjacentTilesTemp_ = {};
 
 private slots:
-    void buildActionSlot();
+    void claimActionSlot();
+    void buildCampActionSlot();
 };
 
-#endif // BUILDER_H
+#endif // SCOUT_H

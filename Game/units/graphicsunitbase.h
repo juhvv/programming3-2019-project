@@ -7,6 +7,14 @@
 
 class GraphicsTileBase;
 
+namespace Units {
+    enum Range {
+        BASICRANGE = 2,
+        LONGRANGE = 4
+    };
+
+}
+
 class GraphicsUnitBase : public Course::WorkerBase, public GameObjectBase
 {
 public:

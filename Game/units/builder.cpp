@@ -14,7 +14,7 @@ Builder::Builder(const std::shared_ptr<Course::iGameEventHandler> &eventhandler,
                  const Course::ResourceMapDouble &efficiency) :
     GraphicsUnitBase (eventhandler, objectmanager, owner, scene, tilespaces, cost, efficiency)
 {
-    movePoints_ = 2;
+    movePoints_ = Units::BASICRANGE;
 }
 
 void Builder::getMenuItems(QMenu &menu)
@@ -37,6 +37,11 @@ void Builder::getMenuItems(QMenu &menu)
 void Builder::doSpecialAction()
 {
 
+}
+
+void Builder::switchTurn()
+{
+    movePoints_ = Units::BASICRANGE;
 }
 
 void Builder::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene)
