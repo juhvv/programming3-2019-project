@@ -11,5 +11,6 @@
         <file>resources/water.PNG</file>
         <file>resources/mountains.PNG</file>
         <file>resources/buildings/base.PNG</file>
+        <file>resources/buildings/sawmill.png</file>
     </qresource>
 </RCC>
