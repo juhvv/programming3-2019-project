@@ -31,22 +31,27 @@ void GraphicsTileBase::getMenuItems(QMenu &menu)
 {
 
     QAction *infoAction = menu.addAction("Info");
-    menu.addSeparator();
-    // tile can only be claimed if it has no owner
-    if (getOwner() == nullptr) {
-        QAction *claimAction = menu.addAction("Claim");
-        connect(claimAction, &QAction::triggered, this, &GraphicsTileBase::claimTile);
+    if (std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler())->getCurrentPlayer() == getOwner()
+            || getOwner() == nullptr) {
+        menu.addSeparator();
+        // tile can only be claimed if it has no owner
+        if (getOwner() == nullptr) {
+            QAction *claimAction = menu.addAction("Claim");
+            connect(claimAction, &QAction::triggered, this, &GraphicsTileBase::claimTile);
+        }
+        for (auto building : getBuildings()) {
+            std::shared_ptr<GameBuildingBase> buildingPtr = std::dynamic_pointer_cast<GameBuildingBase>(building);
+            buildingPtr->getMenuItems(menu);
+        }
     }
-    for (auto building : getBuildings()) {
-        std::shared_ptr<GameBuildingBase> buildingPtr = std::dynamic_pointer_cast<GameBuildingBase>(building);
-        buildingPtr->getMenuItems(menu);
-    }
+
     connect(infoAction, &QAction::triggered, this, &GraphicsTileBase::sendInfo);
 
 }
 
 bool GraphicsTileBase::isSelectable() const
 {
+    return true;
     std::shared_ptr<GameEventHandler> eventHndlr =
             std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler());
     return !(eventHndlr->getCurrentPlayer() != getOwner() && getOwner() != nullptr);
@@ -61,14 +66,14 @@ unsigned int GraphicsTileBase::getMovementCost() const
 {
     return 1;
 }
-
+/*
 void GraphicsTileBase::addBuilding(const std::shared_ptr<GameBuildingBase> &building)
 {
     std::shared_ptr<Course::BuildingBase> newBuilding =
             std::dynamic_pointer_cast<Course::BuildingBase>(building);
     TileBase::addBuilding(newBuilding);
 }
-
+*/
 bool GraphicsTileBase::generateResources()
 {
     return true;
@@ -110,7 +115,7 @@ void GraphicsTileBase::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomG
     graphicsItem_ = graphicsItem;
     scene_ = scene;
 
-    graphicsItem_->setShapePref(SQUARE_128);
+    graphicsItem_->setShapePref(shapePrefs::SQUARE_128);
 
     //graphicsObject_->setPixmap(QPixmap(":/resources/tilebase.PNG"));
     /*

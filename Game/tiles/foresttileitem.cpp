@@ -13,6 +13,7 @@ ForestTileItem::ForestTileItem(const Course::Coordinate &location,
 {
     //graphicsItem_->setOffset(-10,-10);
     //graphicsItem_->setZValue(2);
+    tags_ = {objectTags::HAS_TREES};
 }
 
 unsigned int ForestTileItem::getMovementCost() const

@@ -14,6 +14,7 @@ MountainTileItem::MountainTileItem(const Course::Coordinate &location,
 {
     //graphicsItem_->setOffset(-5,-50);
     //graphicsItem_->setZValue(2);
+    tags_ = {objectTags::HAS_ROCK};
 }
 
 unsigned int MountainTileItem::getMovementCost()  const
@@ -43,4 +44,9 @@ void MountainTileItem::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomG
     graphicsItem_->setOffset(-10,-50);
     graphicsItem_->setZValue(2);
     scene_->update();
+}
+
+void MountainTileItem::getDescriptionBrief(std::string &desc)
+{
+    desc += "\n Hard to traverse, but essential for obtaining precious metals.";
 }

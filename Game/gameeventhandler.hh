@@ -68,17 +68,44 @@ public:
 
     void resetData();   // resets stored data
 
-    template<typename T>
+    template<typename unitType>
     void addUnit(unsigned int TileId) {
         std::shared_ptr<GraphicsTileBase> tile =
                 std::dynamic_pointer_cast<GraphicsTileBase>(objectMngr_->getTile(TileId));
 
-        std::shared_ptr<T> newUnit =
-                std::dynamic_pointer_cast<T>(unitConstructor_.lock()->constructUnit(currentPlayer_, tile));
+        std::shared_ptr<unitType> newUnit = unitConstructor_.lock()->constructUnit<unitType>(currentPlayer_);
 
+        if (newUnit) {
+            qDebug() << newUnit->getType().c_str();
+            std::shared_ptr<GameObjectBase> unitObject = std::dynamic_pointer_cast<GameObjectBase>(newUnit);
+            objectMngr_->setGraphicsObject(unitObject);
+            newUnit->moveToTile(tile, true);
+
+        }
+        else {
+            qDebug() << "pöö";
+        }
         std::shared_ptr<GraphicsUnitBase> newGameObject =
                 std::dynamic_pointer_cast<GraphicsUnitBase>(newUnit);
         currentPlayer_->addUnit(newGameObject);
+    }
+
+    template <typename buildingType>
+    void addBuilding(std::shared_ptr<GraphicsTileBase> tile, std::shared_ptr<Player> player = nullptr)
+    {
+        if (player == nullptr) {
+            player = currentPlayer_;
+        }
+        std::shared_ptr<buildingType> startBuilding =
+                unitConstructor_.lock()->constructBuilding<buildingType>(player);
+
+        // currentPlayer_->addNewBuilding(startBuilding);
+
+        std::shared_ptr<GameObjectBase> gameObject = std::dynamic_pointer_cast<GameObjectBase>(startBuilding);
+
+        tile->addBuilding(startBuilding);
+        currentPlayer_->addNewBuilding(startBuilding);
+        objectMngr_->setGraphicsObject(gameObject);
     }
 
     void sendMsg(std::string msg);

@@ -22,6 +22,8 @@ public:
     virtual std::string getType() const override;
 
     virtual void setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene) override;
+
+    virtual void getDescriptionBrief(std::string &desc) override;
 };
 
 #endif // GRASSTILEITEM_H

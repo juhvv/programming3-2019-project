@@ -1,5 +1,6 @@
 #include "gameeventhandler.hh"
-#include "buildings/gamebuildingbase.h"
+#include "buildings/base.h"
+
 
 GameEventHandler::GameEventHandler(std::shared_ptr<ObjectManager> objectMngr,
                                    std::weak_ptr<UnitConstructor> unitConstructor):
@@ -93,12 +94,8 @@ void GameEventHandler::addNewPlayers(std::vector<std::pair<std::string, int>> na
             startTile = std::dynamic_pointer_cast<GraphicsTileBase>(objectMngr_->getTile(startTile->ID + 1));
         }
         qDebug() << "Final tile type for " << currentPlayer_->getName().c_str() << ": " << startTile->getType().c_str();
-        std::shared_ptr<GameBuildingBase> startBuilding =
-                unitConstructor_.lock()->constructBuilding(playerPtr, startTile);
-
-        currentPlayer_->addNewBuilding(startBuilding);
-
-        std::shared_ptr<GameObjectBase> gameObject = std::dynamic_pointer_cast<GameObjectBase>(startBuilding);
+        addBuilding<Base>(startTile);
+        claimTile(startTile.get());
 
         // currentPlayer_ = playerPtr;
         // startTile->addBuilding(startBuilding);
