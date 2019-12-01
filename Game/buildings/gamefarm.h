@@ -16,8 +16,8 @@ public:
             const std::shared_ptr<Course::PlayerBase>& owner,
             CustomGraphicsScene* scene = nullptr,
             const int& tilespaces = 1,
-            const Course::ResourceMap& buildcost = Course::ConstResourceMaps::FARM_BUILD_COST,
-            const Course::ResourceMap& production = Course::ConstResourceMaps::FARM_PRODUCTION
+            const Course::ResourceMap& buildcost = GameConstResourceMaps::FARM_BUILD_COST,
+            const Course::ResourceMap& production = GameConstResourceMaps::FARM_PRODUCTION
             );
 
     virtual ~Farm() = default;

@@ -45,8 +45,3 @@ void GameBuildingBase::getDescriptionBrief(std::string &desc)
 {
     desc += "\n " + getOwner()->getName() + " has built their base here.";
 }
-
-void GameBuildingBase::buildUnit()
-{
-
-}

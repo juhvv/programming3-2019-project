@@ -39,7 +39,7 @@ Course::ResourceMap GameEventHandler::calculateProduction()
     std::vector<std::shared_ptr<Course::TileBase>> tileVector = objectMngr_->getAllTiles();
     Course::ResourceMap totalProduction;
     for(auto tile: tileVector){
-        std::shared_ptr<Course::PlayerBase>tileOwner = tile->getOwner();
+        std::shared_ptr<Course::PlayerBase> tileOwner = tile->getOwner();
         if(tileOwner == currentPlayer_){
             std::shared_ptr<GraphicsTileBase> newerTile = std::dynamic_pointer_cast<GraphicsTileBase>(tile);
 

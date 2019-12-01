@@ -12,7 +12,7 @@ public:
                         const std::shared_ptr<Course::PlayerBase>& owner,
                         CustomGraphicsScene* scene = nullptr,
                         const int& tilespaces = 1,
-                        const Course::ResourceMap& cost = {},
+                        const Course::ResourceMap& cost = GameConstResourceMaps::SCOUT_COST,
                         const Course::ResourceMapDouble& efficiency = {});
 
     virtual ~Scout() = default;

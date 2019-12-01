@@ -14,7 +14,7 @@ public:
                         const std::shared_ptr<Course::PlayerBase>& owner,
                         CustomGraphicsScene* scene = nullptr,
                         const int& tilespaces = 1,
-                        const Course::ResourceMap& cost = {},
+                        const Course::ResourceMap& cost = GameConstResourceMaps::BUILDER_COST,
                         const Course::ResourceMapDouble& efficiency = {});
 
     virtual ~Builder() = default;
@@ -60,8 +60,10 @@ private slots:
     void buildSlot() {
         std::shared_ptr<GameEventHandler> handler =
                 std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler());
-        handler->addBuilding<BuildingType>(std::dynamic_pointer_cast<GraphicsTileBase>
-                                      (lockObjectManager()->getTile(getCoordinate())));
+
+
+        handler->addBuilding<BuildingType>(getCurrentTile(),
+                                           std::dynamic_pointer_cast<Player>(getOwner()));
         movePoints_ = 0;
     }
 };

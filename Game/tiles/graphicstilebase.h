@@ -38,6 +38,10 @@ public:
 
     virtual unsigned int getMovementCost() const;
 
+    virtual void addUnit(GraphicsUnitBase* unit);
+
+    virtual void removeUnit(GraphicsUnitBase* unit);
+
     /*
     using Course::TileBase::addBuilding;
     void addBuilding(const std::shared_ptr<GameBuildingBase>& building)

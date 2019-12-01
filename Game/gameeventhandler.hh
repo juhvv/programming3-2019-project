@@ -87,6 +87,7 @@ public:
             std::shared_ptr<GameObjectBase> unitObject = std::dynamic_pointer_cast<GameObjectBase>(newUnit);
             objectMngr_->setGraphicsObject(unitObject);
             newUnit->moveToTile(tile, true);
+            tile->addWorker(newUnit);
 
         }
         else {

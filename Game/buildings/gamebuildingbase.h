@@ -5,6 +5,7 @@
 #include "gameobjectbase.h"
 //#include "ui/customgraphicsscene.h"
 //#include "units/graphicsunitbase.h"
+#include "gameresourcemaps.hh"
 
 class GameBuildingBase : public GameObjectBase, public Course::BuildingBase
 {
@@ -28,9 +29,6 @@ public:
     virtual void getMenuItems(QMenu &menu) override;
 
     virtual void getDescriptionBrief(std::string &desc) override;
-
-public slots:
-    virtual void buildUnit();
 };
 
 #endif // GAMEBUILDINGBASE_H

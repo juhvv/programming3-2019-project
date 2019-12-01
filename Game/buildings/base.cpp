@@ -5,6 +5,7 @@
 #include "ui/customgraphicsscene.h"
 #include "units/builder.h"
 #include "units/scout.h"
+#include "units/worker.h"
 
 Base::Base(const std::shared_ptr<Course::iGameEventHandler> &eventhandler,
                                    const std::shared_ptr<Course::iObjectManager> &objectmanager,
@@ -42,12 +43,47 @@ void Base::getMenuItems(QMenu &menu)
 {
     menu.addSeparator();
 
-    QAction *workerHireAction = menu.addAction("Build worker");
-    connect(workerHireAction, &QAction::triggered, this, &GameBuildingBase::buildUnit);
+    QMenu *workerHireMenu = menu.addMenu("Hire unit...");
+    getBuildMenu(*workerHireMenu);
+    //connect(workerHireAction, &QAction::triggered, this, &Base::buildUnit);
 
     //QAction *claimAction = menu.addAction("Claim");
     // connect(infoAction, &QAction::triggered, this, &GraphicsTileBase::sendInfo);
     // connect(claimAction, &QAction::triggered, this, &GraphicsTileBase::sendPtr);
+}
+
+void Base::getBuildMenu(QMenu &bmenu)
+{
+    std::shared_ptr<ObjectManager> manager =
+            std::dynamic_pointer_cast<ObjectManager>(lockObjectManager());
+    std::shared_ptr<GraphicsTileBase> curTile = manager->getGTile(getCoordinate());
+    QAction* hireBuilderAction = bmenu.addAction("Hire builder");
+    QAction* hireScoutAction = bmenu.addAction("Hire scout");
+    QAction* hireWorkerAction = bmenu.addAction("Hire worker");
+
+    if (true) {
+        connect(hireBuilderAction, &QAction::triggered, this, &Base::hireUnitSlot<Builder>);
+
+    } else {
+        hireBuilderAction->setText("Not enough space for builder.");
+        hireBuilderAction->setDisabled(true);
+    }
+
+    if (true) {
+        connect(hireScoutAction, &QAction::triggered, this, &Base::hireUnitSlot<Scout>);
+
+    } else {
+        hireScoutAction->setText("Not enough space for scout.");
+        hireScoutAction->setDisabled(true);
+    }
+
+    if (true) {
+        connect(hireWorkerAction, &QAction::triggered, this, &Base::hireUnitSlot<Worker>);
+
+    } else {
+        hireWorkerAction->setText("Not enough space for worker.");
+        hireWorkerAction->setDisabled(true);
+    }
 }
 
 std::string Base::getType() const

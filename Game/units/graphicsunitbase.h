@@ -13,7 +13,6 @@ namespace Units {
         BASICRANGE = 2,
         LONGRANGE = 4
     };
-
 }
 
 class GraphicsUnitBase : public Course::WorkerBase, public GameObjectBase
@@ -54,7 +53,6 @@ public:
     virtual void getDescriptionBrief(std::string &desc) override;
 
     virtual std::shared_ptr<GraphicsTileBase> getCurrentTile() final;
-
 
 public slots:
     virtual void initMove();

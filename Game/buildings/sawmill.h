@@ -3,16 +3,6 @@
 
 #include "buildings/gamebuildingbase.h"
 
-const Course::ResourceMap SAWMILL_BUILD_COST = {
-    {Course::BasicResource::MONEY, 50},
-    {Course::BasicResource::FOOD, 100},
-    {Course::BasicResource::WOOD, 25}
-};
-const Course::ResourceMap SAWMILL_PRODUCTION = {
-    {Course::BasicResource::MONEY, 1},
-    {Course::BasicResource::WOOD, 5}
-};
-
 class SawMill : public GameBuildingBase
 {
 public:
@@ -24,8 +14,8 @@ public:
             const std::shared_ptr<Course::PlayerBase>& owner,
             CustomGraphicsScene* scene = nullptr,
             const int& tilespaces = 1,
-            const Course::ResourceMap& buildcost = SAWMILL_BUILD_COST,
-            const Course::ResourceMap& production = SAWMILL_PRODUCTION
+            const Course::ResourceMap& buildcost = GameConstResourceMaps::SAWMILL_BUILD_COST,
+            const Course::ResourceMap& production = GameConstResourceMaps::SAWMILL_PRODUCTION
             );
 
     virtual ~SawMill() = default;

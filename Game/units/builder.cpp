@@ -22,7 +22,7 @@ void Builder::getMenuItems(QMenu &menu)
 {
     GraphicsUnitBase::getMenuItems(menu);
     if (std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler())->getCurrentPlayer() == getOwner()) {
-        QMenu* buildMenu = menu.addMenu("Build");
+        QMenu* buildMenu = menu.addMenu("Build...");
         if (getCurrentTile()->getBuildingCount() == 0
                 && !getCurrentTile()->hasTag(objectTags::NO_BUILD)
                 && getCurrentTile()->getOwner() == getOwner()) {

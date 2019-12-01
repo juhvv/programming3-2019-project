@@ -66,6 +66,16 @@ unsigned int GraphicsTileBase::getMovementCost() const
 {
     return 1;
 }
+
+void GraphicsTileBase::addUnit(GraphicsUnitBase *unit)
+{
+
+}
+
+void GraphicsTileBase::removeUnit(GraphicsUnitBase *unit)
+{
+
+}
 /*
 void GraphicsTileBase::addBuilding(const std::shared_ptr<GameBuildingBase> &building)
 {

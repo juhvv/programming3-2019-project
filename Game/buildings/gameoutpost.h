@@ -2,7 +2,7 @@
 #define GAMEOUTPOST_H
 
 #include "gamebuildingbase.h"
-#include "core/resourcemaps.h"
+#include "gameresourcemaps.hh"
 
 
 class Outpost : public GameBuildingBase
@@ -16,8 +16,8 @@ public:
             const std::shared_ptr<Course::PlayerBase>& owner,
             CustomGraphicsScene* scene = nullptr,
             const int& tilespaces = 1,
-            const Course::ResourceMap& buildcost = Course::ConstResourceMaps::OUTPOST_BUILD_COST,
-            const Course::ResourceMap& production = Course::ConstResourceMaps::OUTPOST_PRODUCTION
+            const Course::ResourceMap& buildcost = GameConstResourceMaps::OUTPOST_BUILD_COST,
+            const Course::ResourceMap& production = GameConstResourceMaps::OUTPOST_PRODUCTION
             );
 
     virtual ~Outpost() = default;

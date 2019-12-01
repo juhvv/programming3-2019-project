@@ -84,7 +84,13 @@ void Scout::buildCampActionSlot()
 {
     std::shared_ptr<GameEventHandler> handler =
             std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler());
-    handler->addBuilding<Outpost>(std::dynamic_pointer_cast<GraphicsTileBase>
-                                  (lockObjectManager()->getTile(getCoordinate())));
-    movePoints_ = 0;
+    if (std::dynamic_pointer_cast<Player>(getOwner())->modifyResources(GameConstResourceMaps::OUTPOST_BUILD_COST)) {
+
+        handler->addBuilding<Outpost>(std::dynamic_pointer_cast<GraphicsTileBase>
+                                      (lockObjectManager()->getTile(getCoordinate())));
+        movePoints_ = 0;
+    } else {
+        handler->sendMsg("You can't afford that.");
+    }
+
 }

@@ -3,16 +3,6 @@
 
 #include "buildings/gamebuildingbase.h"
 
-const Course::ResourceMap GOLDMINE_BUILD_COST = {
-    {Course::BasicResource::MONEY, 100},
-    {Course::BasicResource::FOOD, 100},
-    {Course::BasicResource::WOOD, 45}
-};
-const Course::ResourceMap GOLDMINE_PRODUCTION = {
-    {Course::BasicResource::MONEY, 6},
-    {Course::BasicResource::ORE, 4}
-};
-
 class GoldMine : public GameBuildingBase
 {
 public:
@@ -24,8 +14,8 @@ public:
             const std::shared_ptr<Course::PlayerBase>& owner,
             CustomGraphicsScene* scene = nullptr,
             const int& tilespaces = 1,
-            const Course::ResourceMap& buildcost = GOLDMINE_BUILD_COST,
-            const Course::ResourceMap& production = GOLDMINE_PRODUCTION
+            const Course::ResourceMap& buildcost = GameConstResourceMaps::GOLDMINE_BUILD_COST,
+            const Course::ResourceMap& production = GameConstResourceMaps::GOLDMINE_PRODUCTION
             );
 
     virtual ~GoldMine() = default;

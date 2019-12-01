@@ -3,6 +3,7 @@
 
 #include "buildings/gamebuildingbase.h"
 #include "gameresourcemaps.hh"
+#include "gameeventhandler.hh"
 
 class Base : public GameBuildingBase
 {
@@ -25,12 +26,25 @@ public:
 
     virtual void getMenuItems(QMenu &menu) override;
 
+    virtual void getBuildMenu(QMenu &bmenu);
+
     virtual std::string getType() const override;
 
     virtual void getDescriptionBrief(std::string &desc) override;
 
 public slots:
     virtual void buildUnit();
+
+    template<typename UnitType>
+    void hireUnitSlot() {
+        std::shared_ptr<GameEventHandler> handler =
+                std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler());
+        std::shared_ptr<ObjectManager> manager =
+                std::dynamic_pointer_cast<ObjectManager>(lockObjectManager());
+
+        handler->addUnit<UnitType>(manager->getGTile(getCoordinate()),
+                                   std::dynamic_pointer_cast<Player>(getOwner()));
+    }
 };
 
 #endif // BASE_H

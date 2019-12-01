@@ -15,7 +15,14 @@ Worker::Worker(const std::shared_ptr<Course::iGameEventHandler> &eventhandler,
 
 bool Worker::moveToTile(std::shared_ptr<GraphicsTileBase> tileToMoveTo, bool ignoreMovePoints)
 {
-    return GraphicsUnitBase::moveToTile(tileToMoveTo, ignoreMovePoints);
+    if (GraphicsUnitBase::moveToTile(tileToMoveTo, ignoreMovePoints)) {
+        getCurrentTile()->removeUnit(this);
+        tileToMoveTo->addUnit(this);
+        return true;
+
+    } else {
+        return false;
+    }
 }
 
 bool Worker::canMoveToTile(GraphicsTileBase *tileToMoveTo)
@@ -33,6 +40,7 @@ void Worker::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsSce
 {
     GraphicsUnitBase::setGraphicsItem(graphicsItem, scene);
     graphicsItem_->setPixmap(QPixmap(":/resources/units/worker.PNG"));
+    graphicsItem_->setOffset(-50,0);
     scene_->update();
 }
 

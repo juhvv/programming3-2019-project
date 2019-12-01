@@ -12,8 +12,8 @@ public:
                         const std::shared_ptr<Course::PlayerBase>& owner,
                         CustomGraphicsScene* scene = nullptr,
                         const int& tilespaces = 1,
-                        const Course::ResourceMap& cost = {},
-                        const Course::ResourceMapDouble& efficiency = {});
+                        const Course::ResourceMap& cost = GameConstResourceMaps::BW_RECRUITMENT_COST,
+                        const Course::ResourceMapDouble& efficiency = GameConstResourceMaps::BW_WORKER_EFFICIENCY);
 
     virtual ~Worker() = default;
 

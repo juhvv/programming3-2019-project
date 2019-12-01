@@ -36,7 +36,7 @@ const ResourceMap HQ_PRODUCTION = {
 
 // Building - Outpost
 const ResourceMap OUTPOST_BUILD_COST = {
-    {BasicResource::MONEY, 150},
+    {BasicResource::MONEY, -100},
     {BasicResource::FOOD, 200},
     {BasicResource::WOOD, 200},
     {BasicResource::STONE, 25}
@@ -47,6 +47,27 @@ const ResourceMap OUTPOST_PRODUCTION = {
     {BasicResource::FOOD, -2}
 };
 
+// sawmill
+const Course::ResourceMap SAWMILL_BUILD_COST = {
+    {Course::BasicResource::MONEY, 50},
+    {Course::BasicResource::FOOD, 100},
+    {Course::BasicResource::WOOD, 25}
+};
+const Course::ResourceMap SAWMILL_PRODUCTION = {
+    {Course::BasicResource::MONEY, 1},
+    {Course::BasicResource::WOOD, 5}
+};
+
+// goldmine
+const Course::ResourceMap GOLDMINE_BUILD_COST = {
+    {Course::BasicResource::MONEY, 100},
+    {Course::BasicResource::FOOD, 100},
+    {Course::BasicResource::WOOD, 45}
+};
+const Course::ResourceMap GOLDMINE_PRODUCTION = {
+    {Course::BasicResource::MONEY, 6},
+    {Course::BasicResource::ORE, 4}
+};
 
 // Worker - BasicWorker
 const ResourceMapDouble BW_WORKER_EFFICIENCY = {
@@ -60,6 +81,18 @@ const ResourceMapDouble BW_WORKER_EFFICIENCY = {
 const Course::ResourceMap BW_RECRUITMENT_COST = {
     {MONEY, 10},
     {FOOD, 25}
+};
+
+// scout
+const Course::ResourceMap SCOUT_COST = {
+    {MONEY, 20},
+    {FOOD, 25}
+};
+
+// builder
+const Course::ResourceMap BUILDER_COST = {
+    {MONEY, 100},
+    {FOOD, 30}
 };
 
 
