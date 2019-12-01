@@ -44,6 +44,7 @@ public:
         std::shared_ptr<Course::iGameEventHandler>,
         std::shared_ptr<Course::iObjectManager>)>;
 
+    /*
     using BuildingConstructorPointer = std::function<std::shared_ptr<Course::BuildingBase>(
         std::shared_ptr<Course::iGameEventHandler>,
         std::shared_ptr<Course::iObjectManager>,
@@ -53,7 +54,7 @@ public:
         std::shared_ptr<Course::iGameEventHandler>,
         std::shared_ptr<Course::iObjectManager>,
         std::shared_ptr<Course::PlayerBase>)>;
-
+    */
 
     template<typename T>
     void addTileConstructor(std::string tileType)
@@ -65,7 +66,7 @@ public:
         tileConctructorNames_.insert(std::make_pair(tileType, ctor));
     }
 
-
+    /*
     template<typename T>
     void addBuildingConstructor(std::string buildingType)
     {
@@ -87,7 +88,7 @@ public:
         unitConctructorNames_.insert(std::make_pair(unitType, unitctor));
     }
 
-
+    */
     void addUnitsAndBuildings();
 
 
@@ -101,8 +102,6 @@ private:
     std::shared_ptr<ObjectManager> objectManager_;
     std::vector<std::shared_ptr<Player>> playerVector_;
 
-    std::multimap<std::string, BuildingConstructorPointer> buildingConctructorNames_ ;
-    std::multimap<std::string, UnitConstructorPointer> unitConctructorNames_ ;
     std::multimap<std::string, TileConstructorPointer> tileConctructorNames_ ;
 
 };

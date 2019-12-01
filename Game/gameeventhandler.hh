@@ -62,6 +62,8 @@ public:
 
     void setCurrentPlayer(std::string currentPlayer);
 
+    std::shared_ptr<Player> getPlayerFromName(std::string playerName);
+
     void addPlayerVector(std::vector<std::shared_ptr<Player> > playerVector);
 
     std::shared_ptr<Player> getCurrentPlayer();
@@ -116,7 +118,7 @@ public:
 
 
 public slots:
-    void claimTile(GraphicsTileBase *tile);
+    void claimTile(GraphicsTileBase *tile, std::shared_ptr<Player> player=nullptr);
 
 signals:
     void signalUpdateVisibleResources();
