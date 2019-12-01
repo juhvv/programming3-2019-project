@@ -29,7 +29,7 @@ void LoadGame::loadGame(QString fileName)
     addConstructor<MountainTileItem>("Mountain tile");
     addConstructor<ForestTileItem>("Forest Tile");
     addConstructor<GrassTileItem>("Grass tile");
-    addConstructor<WaterTileItem>("Water tile");
+    addConstructor<WaterTileItem>("Lake tile");
 
     eventhandler_->resetData();
 
@@ -37,9 +37,8 @@ void LoadGame::loadGame(QString fileName)
 
     std::vector<std::shared_ptr<Course::TileBase>> tileVector;
 
-    QFile loadFile(testFileName);
+    QFile loadFile(fileName);
     loadFile.open(QIODevice::ReadOnly | QIODevice::Text);
-
     QTextStream in(&loadFile);
 
 
@@ -64,8 +63,8 @@ void LoadGame::loadGame(QString fileName)
         if(stringVector[0]=="TILE"){
 
             std::string tileType = stringVector[1];
-            unsigned int xCoord = atoi(stringVector[2].c_str());
-            unsigned int yCoord = atoi(stringVector[3].c_str());
+            unsigned int xCoord = std::stoi(stringVector[2].c_str());
+            unsigned int yCoord = std::stoi(stringVector[3].c_str());
             std::string ownerName = stringVector[4];
             std::string buildingType = stringVector[5];
             std::string unitType = stringVector[6];
