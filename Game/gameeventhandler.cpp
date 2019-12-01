@@ -72,6 +72,15 @@ void GameEventHandler::setCurrentPlayer(std::string currentPlayer)
     }
 }
 
+std::shared_ptr<Player> GameEventHandler::getPlayerFromName(std::string playerName)
+{
+    for(int i=0; i<playerVector_.size(); i++){
+        if(playerVector_[i]->getName()==playerName){
+            return playerVector_[i];
+        }
+    }
+}
+
 void GameEventHandler::addPlayerVector(std::vector<std::shared_ptr<Player> > playerVector)
 {
     playerVector_=playerVector;
@@ -150,20 +159,24 @@ void GameEventHandler::sendMsg(std::string msg)
 
 
 
-void GameEventHandler::claimTile(GraphicsTileBase *tile)
+void GameEventHandler::claimTile(GraphicsTileBase *tile, std::shared_ptr<Player> player)
 {
+    if(player==NULL){
+        player=currentPlayer_;
+    }
+
     if (tile->getOwner() == nullptr) {
-        tile->setOwner(currentPlayer_);
+        tile->setOwner(player);
         QPixmap pixmapDef = QPixmap(":/resources/overlay faction1.PNG");
         QPixmap pixmap;
-        currentPlayer_->getIcon(pixmap);
+        player->getIcon(pixmap);
         objectMngr_->setOwnerMarker(tile, &pixmap);
     }
 
 
     //Just testing that resources work
-    currentPlayer_->modifyResource(Course::MONEY, -10);
-    signalUpdateVisibleResources();
+    //currentPlayer_->modifyResource(Course::MONEY, -10);
+    //signalUpdateVisibleResources();
 }
 
 //Empty implementations, not used

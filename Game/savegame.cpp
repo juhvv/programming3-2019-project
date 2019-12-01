@@ -35,19 +35,20 @@ void SaveGame::saveCurrentGame(QString fileName)
     }
 
 
-    //Save name of current player on next row with followinf syntax: "CURRENTPLAYER",player's name
+    //Save name of current player on next row with following syntax: "CURRENTPLAYER",player's name
     QString currentPlayerName = QString::fromStdString(currentPlayer->getName());
     out<<"CURRENTPLAYER,"<<currentPlayerName<<endl;
     failu.flush();
 
 
-    //Save tiles with following syntax: "TILE", tile type, Xcoordinate, Ycoordinate, owner's name, building type, unit type
+    //Save tiles with following syntax: "TILE", tile type, Xcoordinate, Ycoordinate, owner's name, building type, type of first unit, type of second unit...
     std::vector<std::shared_ptr<Course::TileBase>> tiles = objectManager_->getAllTiles();
     for(auto tile: tiles){
-        QString tileType = QString::fromStdString(tile->getType());
 
+        QString tileType = QString::fromStdString(tile->getType());
         std::vector<std::shared_ptr<Course::BuildingBase>> buildings = tile->getBuildings();
-        std::vector<std::shared_ptr<Course::WorkerBase>> workers = tile->getWorkers();
+        std::shared_ptr<Player> tileOwner = std::dynamic_pointer_cast<Player>(tile->getOwner());
+
         QString ownerName = "";
         QString buildingType = "";
         QString workerType = "";
@@ -61,12 +62,19 @@ void SaveGame::saveCurrentGame(QString fileName)
         if(buildings.size()>0){
             buildingType = QString::fromStdString(buildings[0]->getType());
         }
-        if(workers.size()>0){
-            workerType = QString::fromStdString(workers[0]->getType());
+
+        out<<"TILE,"<<tileType<<","<<xCoord<<","<<yCoord<<","<<ownerName<<","<<buildingType<<",";
+
+        if(tileOwner!=NULL){
+            std::vector<std::shared_ptr<GraphicsUnitBase>> AllUnitsOfOwner = tileOwner->getPlayerUnits();
+            for(auto unit: AllUnitsOfOwner){
+                if(unit->getCoordinate()==tile->getCoordinate()){
+                    workerType=QString::fromStdString(unit->getType());
+                    out<<workerType<<",";
+                }
+            }
         }
-
-        out<<"TILE,"<<tileType<<","<<xCoord<<","<<yCoord<<","<<ownerName<<","<<buildingType<<","<<workerType<<","<<endl;
-
+        out<<endl;
     }
 
 

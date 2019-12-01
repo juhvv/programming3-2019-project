@@ -35,7 +35,7 @@ void Base::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene
     for (auto tileObj : adjTiles) {
         std::weak_ptr<GraphicsTileBase> tile =
                 std::dynamic_pointer_cast<GraphicsTileBase>(tileObj->getParentObject().lock());
-        handler->claimTile(tile.lock().get());
+        handler->claimTile(tile.lock().get(), std::dynamic_pointer_cast<Player>(getOwner()));
     }
 }
 
