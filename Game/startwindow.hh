@@ -20,6 +20,7 @@ public:
 
 public slots:
     void startBtnPushed();
+    void namesChanged();
 
 private:
     Ui::Startwindow *ui;

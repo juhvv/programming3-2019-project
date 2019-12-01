@@ -33,6 +33,12 @@ public:
     std::shared_ptr<Course::TileBase> getTile(
             const Course::Coordinate& coordinate);
 
+    /**
+     * @brief Returns a pointer to a GraphicsTileObject that has specified coordinate.
+     * @param coordinate
+     * @return
+     * @post Exception Guarantee: Basic
+     */
     std::shared_ptr<GraphicsTileBase> getGTile(
             const Course::Coordinate& coordinate);
 
@@ -57,10 +63,24 @@ public:
     std::vector<std::shared_ptr<Course::TileBase>> getAllTiles();
 
 
-    void resetData();   // resets data
+    /**
+     * @brief Deletes all tiles and clears the graphicsscene
+     */
+    void resetData();
 
+    /**
+     * @brief Sets ownermarker on specified tile.
+     * @param tile Tile to be marked
+     * @param marker Marker that is added at tile
+     */
     void setOwnerMarker(GraphicsTileBase* tile, const QPixmap* marker);
 
+    /**
+     * @brief Adds graphicsobject for gameobject.
+     * @param gameObject
+     * @note Undefined operation may occur if methods are called on a gameobject
+     * which has no graphicsobject.
+     */
     void setGraphicsObject(std::shared_ptr<GameObjectBase> &gameObject);
 
 public slots:

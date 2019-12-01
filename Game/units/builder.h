@@ -29,7 +29,7 @@ public:
 
     // virtual bool canMoveToTile(GraphicsTileBase* tileToMoveTo);
 
-    virtual void switchTurn();
+    virtual void switchTurn() override;
 
     // virtual bool isSelectable() const override;
 

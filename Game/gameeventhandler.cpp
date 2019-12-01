@@ -128,20 +128,18 @@ void GameEventHandler::sendMsg(std::string msg)
 
 void GameEventHandler::claimTile(GraphicsTileBase *tile)
 {
-    tile->setOwner(currentPlayer_);
-    QPixmap pixmapDef = QPixmap(":/resources/overlay faction1.PNG");
-    QPixmap pixmap;
-    currentPlayer_->getIcon(pixmap);
-    objectMngr_->setOwnerMarker(tile, &pixmap);
+    if (tile->getOwner() == nullptr) {
+        tile->setOwner(currentPlayer_);
+        QPixmap pixmapDef = QPixmap(":/resources/overlay faction1.PNG");
+        QPixmap pixmap;
+        currentPlayer_->getIcon(pixmap);
+        objectMngr_->setOwnerMarker(tile, &pixmap);
+    }
+
 
     //Just testing that resources work
     currentPlayer_->modifyResource(Course::MONEY, -10);
     signalUpdateVisibleResources();
-
-    // test
-    for ( auto unit : currentPlayer_->getPlayerUnits()) {
-        qDebug() << unit.use_count();
-    }
 }
 
 //Empty implementations, not used

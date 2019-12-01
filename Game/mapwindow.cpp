@@ -144,7 +144,9 @@ void MapWindow::switchTurn()
     std::string msg = "\nTurn ";
     msg += std::to_string(eventhandler_->getTurnNumber()) + " ended, now it is turn of ";
     eventhandler_->nextTurn();
-    msg += eventhandler_->getCurrentPlayer()->getName();
+    std::string curPlayerName = eventhandler_->getCurrentPlayer()->getName();
+    msg += curPlayerName;
+    m_ui->groupBox->setTitle(curPlayerName.c_str());
     sendMsgSlot(msg);
     //updateVisibleResources();
 }
@@ -164,7 +166,7 @@ void MapWindow::startNewGame(playerInfo info, unsigned int seed)
 
     qDebug() << eventhandler_.use_count();
     eventhandler_->addNewPlayers(info);
-    eventhandler_->getCurrentPlayer();
+    m_ui->groupBox->setTitle(eventhandler_->getCurrentPlayer()->getName().c_str());
     /*
     GraphicsUnitBase* newUnit = new GraphicsUnitBase(eventhandler_, objectManager_, eventhandler_->getCurrentPlayer());
     scene_->addItem(newUnit);

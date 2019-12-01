@@ -10,8 +10,8 @@
 // static const unsigned int TILE_SIZE = 128;  // defines tile size (px)
 
 /**
- * @brief The GraphicsTileBase class CustomGraphicsItem and TileBase derived
- * class that acts as the tile's graphics item and contains tile's data
+ * @brief The GraphicsTileBase class GameObjectBase and TileBase derived
+ * base class for different tile objects
  */
 class GraphicsTileBase :  public GameObjectBase, public Course::TileBase
 {
@@ -67,7 +67,6 @@ private:
 
 protected:
     const std::shared_ptr<Course::iGameEventHandler> eventhandlerProtected_;
-    // CustomGraphicsItem* graphicsObject_;
 };
 
 #endif // GRAPHICSTILEBASE_H
