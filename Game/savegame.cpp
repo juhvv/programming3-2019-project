@@ -69,6 +69,7 @@ void SaveGame::saveCurrentGame(QString fileName)
             std::vector<std::shared_ptr<GraphicsUnitBase>> AllUnitsOfOwner = tileOwner->getPlayerUnits();
             for(auto unit: AllUnitsOfOwner){
                 if(unit->getCoordinate()==tile->getCoordinate()){
+                    qDebug()<<"hahmo koordinaateissa"<<unit->getCoordinate().x()<<unit->getCoordinate().y()<<QString::fromStdString(unit->getType());
                     workerType=QString::fromStdString(unit->getType());
                     out<<workerType<<",";
                 }

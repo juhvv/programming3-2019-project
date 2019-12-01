@@ -97,7 +97,7 @@ public:
     }
 
     */
-    void addUnitsAndBuildings();
+    void addUnitsAndBuildings(QString fileName);
 
 
 

@@ -23,11 +23,11 @@ std::vector<std::string> LoadGame::split(const std::string &stringToBeSplitted)
     return result;
 }
 
-void LoadGame::addUnitsAndBuildings()
+void LoadGame::addUnitsAndBuildings(QString fileName)
 {
 
-    QString testFileName = "/home/vapola/ohjelmointi3/rojekti/sami-seka-juho/Game/tallennukset/uusukko7.txt";
-    QFile loadFile(testFileName);
+    //QString testFileName = "/home/vapola/ohjelmointi3/rojekti/sami-seka-juho/Game/tallennukset/uusukko7.txt";
+    QFile loadFile(fileName);
     loadFile.open(QIODevice::ReadOnly | QIODevice::Text);
     QTextStream in(&loadFile);
 
@@ -47,7 +47,6 @@ void LoadGame::addUnitsAndBuildings()
 
                 for(int i=6; i<stringVector.size(); i++){
                     unitNameVct.push_back(stringVector[i]);
-                    qDebug()<<"tiilin ukot"<<QString::fromStdString(stringVector[i]);
                 }
 
 
@@ -60,26 +59,37 @@ void LoadGame::addUnitsAndBuildings()
 
 
                 if(buildingName!=""){    //Add buildings
-                std::shared_ptr<Player> ownerPointer = eventhandler_->getPlayerFromName(ownerName);
-                std::shared_ptr<GraphicsTileBase> ownerTile = objectManager_->getGTile(tileCoord);
 
                     if(buildingName=="Base"){
-                        eventhandler_->addBuilding<Base>(ownerTile, ownerPointer);
+                        eventhandler_->addBuilding<Base>(tile, ownerPointer);
                     }
                     if(buildingName=="Gold mine"){
-                        eventhandler_->addBuilding<GoldMine>(ownerTile, ownerPointer);
+                        eventhandler_->addBuilding<GoldMine>(tile, ownerPointer);
                     }
                     if(buildingName=="Sawmill"){
-                        eventhandler_->addBuilding<SawMill>(ownerTile, ownerPointer);
+                        eventhandler_->addBuilding<SawMill>(tile, ownerPointer);
                     }
                     if(buildingName=="Outpost"){
-                        eventhandler_->addBuilding<Outpost>(ownerTile, ownerPointer);
+                        eventhandler_->addBuilding<Outpost>(tile, ownerPointer);
                     }
                     if(buildingName=="Farm"){
-                        eventhandler_->addBuilding<Farm>(ownerTile, ownerPointer);
+                        eventhandler_->addBuilding<Farm>(tile, ownerPointer);
                     }
-                }
 
+                }
+                for(int i=6; i<stringVector.size(); i++){
+                    std::string unitName = stringVector[i];
+                    if(unitName=="Builder"){
+                        eventhandler_->addUnit<Scout>(tile, ownerPointer);
+                    }
+                    if(unitName=="Scout"){
+                        eventhandler_->addUnit<Scout>(tile, ownerPointer);
+                    }
+                    if(unitName=="Worker"){
+                        eventhandler_->addUnit<Worker>(tile, ownerPointer);
+                    }
+
+                }
             }
         }
     }
@@ -93,16 +103,10 @@ void LoadGame::loadGame(QString fileName)
     addTileConstructor<GrassTileItem>("Grass tile");
     addTileConstructor<WaterTileItem>("Lake tile");
 
-    /*
-    addBuildingConstructor<Base>("Base");
-    addUnitConstructor<Scout>("Scout");
-    */
-
-
     eventhandler_->resetData();
 
-    //QString loadFileName = fileName;
-    QString loadFileName = "/home/vapola/ohjelmointi3/rojekti/sami-seka-juho/Game/tallennukset/uusukko7.txt";
+    QString loadFileName = fileName;
+    //QString loadFileName = "/home/vapola/ohjelmointi3/rojekti/sami-seka-juho/Game/tallennukset/uusukko7.txt";
 
     std::vector<std::shared_ptr<Course::TileBase>> tileVector;
 
@@ -154,9 +158,6 @@ void LoadGame::loadGame(QString fileName)
             std::string tileType = stringVector[1];
             unsigned int xCoord = atoi(stringVector[2].c_str());
             unsigned int yCoord = atoi(stringVector[3].c_str());
-         //   std::string ownerName = stringVector[4];
-          //  std::string buildingType = stringVector[5];
-           // std::string unitType = stringVector[6];
 
             TileConstructorPointer constructorPointer;
             for(auto it: tileConctructorNames_) {
@@ -168,38 +169,6 @@ void LoadGame::loadGame(QString fileName)
         }
     }
     objectManager_->addTiles(tileVector);
-    addUnitsAndBuildings();
-
-    /*
-    std::vector<std::shared_ptr<Course::TileBase>> tiles = objectManager_->getAllTiles();
-    for(auto tile:tiles){
-        qDebug()<<tile->getCoordinate().x();
-    }
-    */
-
-
-
-    /*
-       for(std::string element: stringVector){
-            QString Qelement = QString::fromStdString(element);
-            qDebug()<<Qelement;
-        }
-        qDebug()<<"rivinvaihto";
-    */
-
-
-  //  qDebug()<<QString::fromStdString(tileConctructorNames_.begin()->first);
-/*
-    for(auto it: buildingConctructorNames_) {
-        if(it.first==buildingName){
-            constructorPointer = it.second;
-            if(it.first=="Base"){
-
-            }
-            if
-        }
-    }
-    */
-
+    addUnitsAndBuildings(fileName);
 
 }

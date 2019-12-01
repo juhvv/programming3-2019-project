@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>582</width>
+    <height>132</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,44 +17,21 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>100</y>
-     <width>91</width>
+     <y>50</y>
+     <width>111</width>
      <height>20</height>
     </rect>
    </property>
    <property name="text">
-    <string>Select path</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="fileNameLbl">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>160</y>
-     <width>101</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Load file name:</string>
+    <string>Select load file:</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="pathEdit">
    <property name="geometry">
     <rect>
      <x>120</x>
-     <y>100</y>
-     <width>221</width>
-     <height>28</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="fileNameEdit">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>150</y>
-     <width>221</width>
+     <y>50</y>
+     <width>351</width>
      <height>28</height>
     </rect>
    </property>
@@ -62,11 +39,14 @@
   <widget class="QPushButton" name="loadGameBtn">
    <property name="geometry">
     <rect>
-     <x>280</x>
-     <y>250</y>
+     <x>480</x>
+     <y>90</y>
      <width>84</width>
      <height>28</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(138, 226, 52);</string>
    </property>
    <property name="text">
     <string>Load game</string>
@@ -75,8 +55,8 @@
   <widget class="QPushButton" name="browseBtn">
    <property name="geometry">
     <rect>
-     <x>270</x>
-     <y>60</y>
+     <x>480</x>
+     <y>50</y>
      <width>84</width>
      <height>28</height>
     </rect>

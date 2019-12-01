@@ -14,16 +14,22 @@ SaveWindow::SaveWindow(QWidget *parent) :
 
 void SaveWindow::saveGameBtnPushed()
 {
-    qDebug()<<"saveGameBtn pushed,,,!!";
-    QString filePathName = ui->pathEdit->text()+"/"+ui->fileNameEdit->text()+".txt";
-    emit sendSaveFileName(filePathName);
+   QString filePath = ui->pathEdit->text();
+   if(filePath.endsWith(".txt")){
+       emit sendSaveFileName(filePath);
+   }
+   else{
+       filePath = filePath+".txt";
+       emit sendSaveFileName(filePath);
+   }
 }
 
 void SaveWindow::browseBtnPushed()
 {
-    qDebug()<<"jessus!";
-    QString path = QFileDialog::getExistingDirectory(this, "Select directory");
-    ui->pathEdit->setText(path);
+    QString filePath = QFileDialog::getSaveFileName(this,
+        tr("Save file name"), "",
+        tr("Text file (*.txt)"));
+    ui->pathEdit->setText(filePath);
 }
 
 SaveWindow::~SaveWindow()

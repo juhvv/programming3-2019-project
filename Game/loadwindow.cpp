@@ -20,14 +20,14 @@ LoadWindow::~LoadWindow()
 
 void LoadWindow::loadGameBtnPushed()
 {
-    qDebug()<<"loadGameBtn pushed,,,!!";
-    QString filePathName = ui->pathEdit->text()+"/"+ui->fileNameEdit->text()+".txt";
-    emit sendLoadFileName(filePathName);
+    emit sendLoadFileName(ui->pathEdit->text());
 }
 
 void LoadWindow::browseBtnPushed()
 {
     qDebug()<<"jessus!";
-    QString path = QFileDialog::getExistingDirectory(this, "Select directory");
+
+
+    QString path = QFileDialog::getOpenFileName(this, tr("Select save file"),"" ,tr("Text Files (*.txt)"));
     ui->pathEdit->setText(path);
 }
