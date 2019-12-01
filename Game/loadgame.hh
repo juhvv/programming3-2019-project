@@ -13,10 +13,17 @@
 #include "tiles/grasstileitem.h"
 #include "tiles/watertileitem.h"
 #include "tiles/mountaintileitem.h"
+#include "buildings/gamebuildingbase.h"
+#include "buildings/base.h"
+#include "units/scout.h"
+#include "units/graphicsunitbase.h"
+#include "units/worker.h"
+#include "units/builder.h"
 
 #include <iostream>
 #include <sstream>
 #include <vector>
+
 
 
 #include "QDir"
@@ -37,14 +44,51 @@ public:
         std::shared_ptr<Course::iGameEventHandler>,
         std::shared_ptr<Course::iObjectManager>)>;
 
+    using BuildingConstructorPointer = std::function<std::shared_ptr<Course::BuildingBase>(
+        std::shared_ptr<Course::iGameEventHandler>,
+        std::shared_ptr<Course::iObjectManager>,
+        std::shared_ptr<Course::PlayerBase>)>;
+
+    using UnitConstructorPointer = std::function<std::shared_ptr<Course::WorkerBase>(
+        std::shared_ptr<Course::iGameEventHandler>,
+        std::shared_ptr<Course::iObjectManager>,
+        std::shared_ptr<Course::PlayerBase>)>;
+
+
     template<typename T>
-    void addConstructor(std::string tileType)
+    void addTileConstructor(std::string tileType)
     {
-        TileConstructorPointer ctor = std::make_shared<T, Course::Coordinate,
+        TileConstructorPointer ctor = std::make_shared<T,
+                Course::Coordinate,
                 std::shared_ptr<Course::iGameEventHandler>,
                 std::shared_ptr<Course::iObjectManager> >;
         tileConctructorNames_.insert(std::make_pair(tileType, ctor));
     }
+
+
+    template<typename T>
+    void addBuildingConstructor(std::string buildingType)
+    {
+        BuildingConstructorPointer buildingctor = std::make_shared<T,
+                std::shared_ptr<Course::iGameEventHandler>,
+                std::shared_ptr<Course::iObjectManager>,
+                std::shared_ptr<Course::PlayerBase> >;
+        buildingConctructorNames_.insert(std::make_pair(buildingType, buildingctor));
+    }
+
+
+    template<typename T>
+    void addUnitConstructor(std::string unitType)
+    {
+        UnitConstructorPointer unitctor = std::make_shared<T,
+                std::shared_ptr<Course::iGameEventHandler>,
+                std::shared_ptr<Course::iObjectManager>,
+                std::shared_ptr<Course::PlayerBase> >;
+        unitConctructorNames_.insert(std::make_pair(unitType, unitctor));
+    }
+
+
+    void addUnitsAndBuildings();
 
 
 
@@ -55,7 +99,10 @@ public slots:
 private:
     std::shared_ptr<GameEventHandler> eventhandler_;
     std::shared_ptr<ObjectManager> objectManager_;
+    std::vector<std::shared_ptr<Player>> playerVector_;
 
+    std::multimap<std::string, BuildingConstructorPointer> buildingConctructorNames_ ;
+    std::multimap<std::string, UnitConstructorPointer> unitConctructorNames_ ;
     std::multimap<std::string, TileConstructorPointer> tileConctructorNames_ ;
 
 };

@@ -62,6 +62,21 @@ unsigned int GameEventHandler::getTurnNumber()
     return turnNumber_;
 }
 
+void GameEventHandler::setCurrentPlayer(std::string currentPlayer)
+{
+    for(int i=0; i<playerVector_.size(); i++){
+        if(playerVector_[i]->getName()==currentPlayer){
+            currentPlayer_=playerVector_[i];
+        }
+    }
+}
+
+void GameEventHandler::addPlayerVector(std::vector<std::shared_ptr<Player> > playerVector)
+{
+    playerVector_=playerVector;
+}
+
+
 std::shared_ptr<Player> GameEventHandler::getCurrentPlayer()
 {
     return currentPlayer_;
@@ -76,9 +91,17 @@ void GameEventHandler::addNewPlayers(std::vector<std::pair<std::string, int>> na
 {
     Course::Coordinate startCoord = Course::Coordinate(2,2);
 
+    Course::ResourceMap startResources;
+    startResources.insert(std::pair<Course::BasicResource,int>(Course::MONEY, 500));
+    startResources.insert(std::pair<Course::BasicResource,int>(Course::FOOD, 1500));
+    startResources.insert(std::pair<Course::BasicResource,int>(Course::WOOD, 200));
+    startResources.insert(std::pair<Course::BasicResource,int>(Course::STONE, 250));
+    startResources.insert(std::pair<Course::BasicResource,int>(Course::ORE, 300));
+
+
     for(long unsigned int i=0; i<nameVct.size(); i++){
         std::string nameOfPlayer = nameVct[i].first;
-        std::shared_ptr<Player> playerPtr = std::make_shared<Player>(nameOfPlayer);
+        std::shared_ptr<Player> playerPtr = std::make_shared<Player>(nameOfPlayer, startResources);
         playerPtr->setMarker(nameVct[i].second);
         playerVector_.push_back(playerPtr);
         currentPlayer_ = playerPtr;

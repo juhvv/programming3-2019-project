@@ -106,7 +106,7 @@ Course::ResourceMap GraphicsTileBase::generatedResources()
     }
 
 
-
+   // qDebug()<<"resursseja laskettu vissii";
     return total_production;
 }
 

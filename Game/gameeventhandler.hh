@@ -60,6 +60,10 @@ public:
 
     unsigned int getTurnNumber();   // returns current turn number
 
+    void setCurrentPlayer(std::string currentPlayer);
+
+    void addPlayerVector(std::vector<std::shared_ptr<Player> > playerVector);
+
     std::shared_ptr<Player> getCurrentPlayer();
 
     std::vector<std::shared_ptr<Player>> getPlayerVector();
