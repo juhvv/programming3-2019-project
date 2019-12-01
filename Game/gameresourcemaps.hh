@@ -3,8 +3,9 @@
 
 #include "core/basicresources.h"
 
-namespace Course{
 namespace GameConstResourceMaps {
+
+using namespace Course;
 
 const ResourceMap EMPTY = {};
 
@@ -78,7 +79,22 @@ const ResourceMap GRASSLAND_BP = {
     {ORE, 0},
 };
 
-}
+const ResourceMap MOUNTAIN_BP = {
+    {MONEY, 3},
+    {FOOD, 0},
+    {WOOD, 1},
+    {STONE, 5},
+    {ORE, 3},
+};
+
+const ResourceMap WATER_BP = {
+    {MONEY, 1},
+    {FOOD, 3},
+    {WOOD, 0},
+    {STONE, 0},
+    {ORE, 0},
+};
+
 }
 
 #endif // GAMERESOURCEMAPS_HH

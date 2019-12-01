@@ -4,6 +4,7 @@
 #include "ui/customgraphicsitem.h"
 #include "gameobjectbase.h"
 #include "workers/workerbase.h"
+#include "gameresourcemaps.hh"
 
 class GraphicsTileBase;
 

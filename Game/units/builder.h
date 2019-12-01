@@ -2,6 +2,7 @@
 #define BUILDER_H
 
 #include "units/graphicsunitbase.h"
+#include "gameeventhandler.hh"
 
 
 class Builder : public GraphicsUnitBase
@@ -19,6 +20,8 @@ public:
     virtual ~Builder() = default;
 
     virtual void getMenuItems(QMenu &menu) override;
+
+    virtual void getBuildMenu(QMenu &bmenu);
 
     virtual void doSpecialAction() override;
 
@@ -52,6 +55,15 @@ protected:
 
 private slots:
     void buildActionSlot();
+
+    template<typename BuildingType>
+    void buildSlot() {
+        std::shared_ptr<GameEventHandler> handler =
+                std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler());
+        handler->addBuilding<BuildingType>(std::dynamic_pointer_cast<GraphicsTileBase>
+                                      (lockObjectManager()->getTile(getCoordinate())));
+        movePoints_ = 0;
+    }
 };
 
 #endif // BUILDER_H

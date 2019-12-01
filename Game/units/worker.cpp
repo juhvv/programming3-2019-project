@@ -15,23 +15,24 @@ Worker::Worker(const std::shared_ptr<Course::iGameEventHandler> &eventhandler,
 
 bool Worker::moveToTile(std::shared_ptr<GraphicsTileBase> tileToMoveTo, bool ignoreMovePoints)
 {
-
+    return GraphicsUnitBase::moveToTile(tileToMoveTo, ignoreMovePoints);
 }
 
 bool Worker::canMoveToTile(GraphicsTileBase *tileToMoveTo)
 {
-
+    return GraphicsUnitBase::canMoveToTile(tileToMoveTo);
 }
 
 void Worker::switchTurn()
 {
+    GraphicsUnitBase::switchTurn();
     movePoints_ = Units::LONGRANGE;
 }
 
 void Worker::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene)
 {
     GraphicsUnitBase::setGraphicsItem(graphicsItem, scene);
-    graphicsItem_->setPixmap(QPixmap(":/resources/units/scout.PNG"));
+    graphicsItem_->setPixmap(QPixmap(":/resources/units/worker.PNG"));
     scene_->update();
 }
 
@@ -42,5 +43,5 @@ std::string Worker::getType() const
 
 void Worker::getDescriptionBrief(std::string &desc)
 {
-    desc += "/n A hard-working fellow.";
+    desc += "\n A hard-working fellow.";
 }

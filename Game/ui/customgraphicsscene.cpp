@@ -129,6 +129,7 @@ void CustomGraphicsScene::getAdjacentTiles(std::vector<CustomGraphicsItem *> &ti
 
 void CustomGraphicsScene::toggleTileHighlight(std::vector<CustomGraphicsItem *> &tileVec, bool value)
 {
+    movementModeFlag_ = value;
     for (auto graphObj : tileVec) {
         graphObj->toggleHighlight(value);
     }

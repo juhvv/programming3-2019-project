@@ -1,7 +1,7 @@
 #include "scout.h"
 
 #include "gameeventhandler.hh"
-#include "buildings/base.h"
+#include "buildings/gameoutpost.h"
 
 
 
@@ -22,7 +22,7 @@ void Scout::getMenuItems(QMenu &menu)
     GraphicsUnitBase::getMenuItems(menu);
     if (std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler())->getCurrentPlayer() == getOwner()) {
         QAction* claimAction = menu.addAction("Conquer tile");
-        QAction* buildCampAction = menu.addAction("Build camp");
+        QAction* buildCampAction = menu.addAction("Build Outpost");
 
         if (getCurrentTile()->getOwner() == nullptr) {
             connect(claimAction, &QAction::triggered, this, &Scout::claimActionSlot);
@@ -37,7 +37,7 @@ void Scout::getMenuItems(QMenu &menu)
                 && getCurrentTile()->getOwner() == getOwner()) {
             connect(buildCampAction, &QAction::triggered, this, &Scout::buildCampActionSlot);
         } else {
-            buildCampAction->setText("Build camp - Can't build here");
+            buildCampAction->setText("Build Outpost - Can't build here");
             buildCampAction->setDisabled(true);
         }
 
@@ -51,6 +51,7 @@ void Scout::doSpecialAction()
 
 void Scout::switchTurn()
 {
+    GraphicsUnitBase::switchTurn();
     movePoints_ = Units::LONGRANGE;
 }
 
@@ -83,7 +84,7 @@ void Scout::buildCampActionSlot()
 {
     std::shared_ptr<GameEventHandler> handler =
             std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler());
-    handler->addBuilding<Base>(std::dynamic_pointer_cast<GraphicsTileBase>
+    handler->addBuilding<Outpost>(std::dynamic_pointer_cast<GraphicsTileBase>
                                   (lockObjectManager()->getTile(getCoordinate())));
-
+    movePoints_ = 0;
 }

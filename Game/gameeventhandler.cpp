@@ -15,6 +15,12 @@ GameEventHandler::GameEventHandler(std::shared_ptr<ObjectManager> objectMngr,
 
 void GameEventHandler::nextTurn()
 {
+    for (auto gameObject : currentPlayer_->getPlayerUnits()) {
+        GraphicsUnitBase* unit = dynamic_cast<GraphicsUnitBase*>(gameObject.get());
+        if (unit != nullptr) {
+            unit->switchTurn();
+        }
+    }
     calculateAddProduction();
     ++turnNumber_;
     if(currentPlayer_==playerVector_[0]){
@@ -25,12 +31,7 @@ void GameEventHandler::nextTurn()
     }
     signalUpdateVisibleResources();
 
-    for (auto gameObject : currentPlayer_->getPlayerUnits()) {
-        GraphicsUnitBase* unit = dynamic_cast<GraphicsUnitBase*>(gameObject.get());
-        if (unit != nullptr) {
-            unit->switchTurn();
-        }
-    }
+
 }
 
 Course::ResourceMap GameEventHandler::calculateProduction()

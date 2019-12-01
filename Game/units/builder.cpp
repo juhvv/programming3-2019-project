@@ -3,6 +3,7 @@
 
 #include "buildings/sawmill.h"
 #include "buildings/goldmine.h"
+#include "buildings/gamefarm.h"
 
 
 Builder::Builder(const std::shared_ptr<Course::iGameEventHandler> &eventhandler,
@@ -21,17 +22,51 @@ void Builder::getMenuItems(QMenu &menu)
 {
     GraphicsUnitBase::getMenuItems(menu);
     if (std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler())->getCurrentPlayer() == getOwner()) {
-        QAction* buildAction = menu.addAction("Build");
+        QMenu* buildMenu = menu.addMenu("Build");
         if (getCurrentTile()->getBuildingCount() == 0
                 && !getCurrentTile()->hasTag(objectTags::NO_BUILD)
                 && getCurrentTile()->getOwner() == getOwner()) {
-            connect(buildAction, &QAction::triggered, this, &Builder::buildActionSlot);
-        } else {
-            buildAction->setText("Build - Can't build here");
-            buildAction->setDisabled(true);
-        }
+            //connect(buildAction, &QAction::triggered, this, &Builder::buildActionSlot);
+            getBuildMenu(*buildMenu);
 
+        } else {
+            buildMenu->setTitle("Build - Can't build here");
+            buildMenu->setDisabled(true);
+        }
     }
+}
+
+void Builder::getBuildMenu(QMenu &bmenu)
+{
+    std::shared_ptr<GraphicsTileBase> curTile = getCurrentTile();
+    QAction* buildFarmAction = bmenu.addAction("Build farm");
+    QAction* buildSwmillAction = bmenu.addAction("Build sawmill");
+    QAction* buildMineAction = bmenu.addAction("Build goldmine");
+
+    if (curTile->hasTag(objectTags::IS_FLAT)) {
+        connect(buildFarmAction, &QAction::triggered, this, &Builder::buildSlot<Farm>);
+
+    } else {
+        buildFarmAction->setText("Can't build a farm here.");
+        buildFarmAction->setDisabled(true);
+    }
+
+    if (curTile->hasTag(objectTags::HAS_TREES)) {
+        connect(buildSwmillAction, &QAction::triggered, this, &Builder::buildSlot<SawMill>);
+
+    } else {
+        buildSwmillAction->setText("Can't build a sawmill here.");
+        buildSwmillAction->setDisabled(true);
+    }
+
+    if (curTile->hasTag(objectTags::HAS_ROCK)) {
+        connect(buildMineAction, &QAction::triggered, this, &Builder::buildSlot<GoldMine>);
+
+    } else {
+        buildMineAction->setText("Can't build a goldmine here.");
+        buildMineAction->setDisabled(true);
+    }
+
 }
 
 void Builder::doSpecialAction()
@@ -41,6 +76,7 @@ void Builder::doSpecialAction()
 
 void Builder::switchTurn()
 {
+    GraphicsUnitBase::switchTurn();
     movePoints_ = Units::BASICRANGE;
 }
 

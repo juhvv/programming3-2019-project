@@ -34,7 +34,9 @@ SOURCES += \
     loadwindow.cpp \
     loadgame.cpp \
     units/scout.cpp \
-    units/worker.cpp
+    units/worker.cpp \
+    buildings/gamefarm.cpp \
+    buildings/gameoutpost.cpp
     units/worker.cpp
 
 HEADERS += \
@@ -66,7 +68,9 @@ HEADERS += \
     loadwindow.hh \
     loadgame.hh \
     units/scout.h \
-    units/worker.h
+    units/worker.h \
+    buildings/gamefarm.h \
+    buildings/gameoutpost.h
     units/worker.h
 
 win32:CONFIG(release, debug|release): LIBS += \

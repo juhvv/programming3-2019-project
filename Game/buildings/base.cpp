@@ -64,7 +64,10 @@ void Base::buildUnit()
 {
     std::shared_ptr<GameEventHandler> handler =
             std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler());
-    handler->addUnit<Builder>(lockObjectManager()->getTile(getCoordinate())->ID);
-    handler->addUnit<Scout>(lockObjectManager()->getTile(getCoordinate())->ID);
+    std::shared_ptr<ObjectManager> manager =
+            std::dynamic_pointer_cast<ObjectManager>(lockObjectManager());
+
+    handler->addUnit<Builder>(manager->getGTile(getCoordinate()));
+    handler->addUnit<Scout>(manager->getGTile(getCoordinate()));
 }
 

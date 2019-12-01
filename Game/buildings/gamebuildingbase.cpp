@@ -48,7 +48,5 @@ void GameBuildingBase::getDescriptionBrief(std::string &desc)
 
 void GameBuildingBase::buildUnit()
 {
-    std::shared_ptr<GameEventHandler> handler =
-            std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler());
-    handler->addUnit<GraphicsUnitBase>(lockObjectManager()->getTile(getCoordinate())->ID);
+
 }

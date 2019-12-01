@@ -1,8 +1,8 @@
-#include "goldmine.h"
+#include "gamefarm.h"
 #include "ui/customgraphicsscene.h"
 #include "core/playerbase.h"
 
-GoldMine::GoldMine(const std::shared_ptr<Course::iGameEventHandler> &eventhandler,
+Farm::Farm(const std::shared_ptr<Course::iGameEventHandler> &eventhandler,
                  const std::shared_ptr<Course::iObjectManager> &objectmanager,
                  const std::shared_ptr<Course::PlayerBase> &owner,
                  CustomGraphicsScene *scene,
@@ -14,19 +14,20 @@ GoldMine::GoldMine(const std::shared_ptr<Course::iGameEventHandler> &eventhandle
 
 }
 
-void GoldMine::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene)
+void Farm::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene)
 {
     GameBuildingBase::setGraphicsItem(graphicsItem, scene);
 
-    graphicsItem_->setPixmap(QPixmap(":/resources/buildings/goldmine.PNG"));
+    graphicsItem_->setPixmap(QPixmap(":/resources/buildings/farm.PNG"));
+    graphicsItem_->setZValue(3);
 }
 
-std::string GoldMine::getType() const
+std::string Farm::getType() const
 {
-    return "Gold mine";
+    return "Farm";
 }
 
-void GoldMine::getDescriptionBrief(std::string &desc)
+void Farm::getDescriptionBrief(std::string &desc)
 {
-    desc += "\n " + getOwner()->getName() + " has built a gold mine here.";
+    desc += "\n " + getOwner()->getName() + " has built a farm here.";
 }

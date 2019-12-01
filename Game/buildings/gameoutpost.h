@@ -1,36 +1,36 @@
-#ifndef BASE_H
-#define BASE_H
+#ifndef GAMEOUTPOST_H
+#define GAMEOUTPOST_H
 
-#include "buildings/gamebuildingbase.h"
-#include "gameresourcemaps.hh"
+#include "gamebuildingbase.h"
+#include "core/resourcemaps.h"
 
-class Base : public GameBuildingBase
+
+class Outpost : public GameBuildingBase
 {
 public:
-    Base() = delete;
+    Outpost() = delete;
 
-    explicit Base(
+    explicit Outpost(
             const std::shared_ptr<Course::iGameEventHandler>& eventhandler,
             const std::shared_ptr<Course::iObjectManager>& objectmanager,
             const std::shared_ptr<Course::PlayerBase>& owner,
             CustomGraphicsScene* scene = nullptr,
             const int& tilespaces = 1,
-            const Course::ResourceMap& buildcost = GameConstResourceMaps::HQ_BUILD_COST,
-            const Course::ResourceMap& production = GameConstResourceMaps::HQ_PRODUCTION
+            const Course::ResourceMap& buildcost = Course::ConstResourceMaps::OUTPOST_BUILD_COST,
+            const Course::ResourceMap& production = Course::ConstResourceMaps::OUTPOST_PRODUCTION
             );
 
-    virtual ~Base() = default;
+    virtual ~Outpost() = default;
 
     virtual void setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene) override;
-
-    virtual void getMenuItems(QMenu &menu) override;
 
     virtual std::string getType() const override;
 
     virtual void getDescriptionBrief(std::string &desc) override;
 
-public slots:
-    virtual void buildUnit();
-};
+    virtual void getMenuItems(QMenu &menu) override;
 
-#endif // BASE_H
+private slots:
+    void hireWorkerSlot();
+};
+#endif // GAMEOUTPOST_H

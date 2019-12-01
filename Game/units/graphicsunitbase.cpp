@@ -87,7 +87,7 @@ bool GraphicsUnitBase::canMoveToTile(GraphicsTileBase *tileToMoveTo)
 
 void GraphicsUnitBase::switchTurn()
 {
-    movePoints_ = 2;
+    cancelMovement();
 }
 
 bool GraphicsUnitBase::isSelectable() const

@@ -14,7 +14,7 @@ public:
                               CustomGraphicsScene* scene = nullptr,
                      const unsigned int& max_build = 1,
                      const unsigned int& max_work = 3,
-                            const Course::ResourceMap& production = Course::ConstResourceMaps::FOREST_BP);
+                            const Course::ResourceMap& production = GameConstResourceMaps::MOUNTAIN_BP);
 
     virtual ~MountainTileItem() = default;
 
