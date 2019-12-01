@@ -62,7 +62,7 @@ public:
 
     void setCurrentPlayer(std::string currentPlayer);
 
-    void addPlayerVector(std::vector<std::shared_ptr<Player>> playerVector);
+    void addPlayerVector(std::vector<std::shared_ptr<Player> > playerVector);
 
     std::shared_ptr<Player> getCurrentPlayer();
 

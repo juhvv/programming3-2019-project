@@ -38,25 +38,34 @@ void LoadGame::addUnitsAndBuildings()
         std::string stringLine = line.toUtf8().constData();
         std::vector<std::string> stringVector = split(stringLine);
         if(stringVector[0]=="TILE"){
-            if(stringVector[5]!=""){    //Add buildings
-
+            std::string buildingName = stringVector[5];
+            BuildingConstructorPointer constructorPointer;
+            if(stringVector[5]!=buildingName){    //Add buildings
+                for(auto it: buildingConctructorNames_) {
+                    if(it.first==buildingName){
+                        constructorPointer = it.second;
+                    }
+                }
             }
-        }
+         }
     }
 }
 
 
 void LoadGame::loadGame(QString fileName)
 {
-    addConstructor<MountainTileItem>("Mountain tile");
-    addConstructor<ForestTileItem>("Forest Tile");
-    addConstructor<GrassTileItem>("Grass tile");
-    addConstructor<WaterTileItem>("Water tile");
+    addTileConstructor<MountainTileItem>("Mountain tile");
+    addTileConstructor<ForestTileItem>("Forest Tile");
+    addTileConstructor<GrassTileItem>("Grass tile");
+    addTileConstructor<WaterTileItem>("Lake tile");
+
+    addBuildingConstructor<Base>("Base");
+    //addUnitConstructor<Scout>("Scout");
 
     eventhandler_->resetData();
 
-    QString loadFileName = fileName;
-    //QString loadFileName = "/home/vapola/ohjelmointi3/projekti/sami-seka-juho/Game/tallennukset/testitallennus.txt";
+    //QString loadFileName = fileName;
+    QString loadFileName = "/home/vapola/ohjelmointi3/projekti/sami-seka-juho/Game/tallennukset/testitallennus2.txt";
 
     std::vector<std::shared_ptr<Course::TileBase>> tileVector;
 
@@ -103,9 +112,9 @@ void LoadGame::loadGame(QString fileName)
             std::string tileType = stringVector[1];
             unsigned int xCoord = atoi(stringVector[2].c_str());
             unsigned int yCoord = atoi(stringVector[3].c_str());
-            std::string ownerName = stringVector[4];
-            std::string buildingType = stringVector[5];
-            std::string unitType = stringVector[6];
+         //   std::string ownerName = stringVector[4];
+          //  std::string buildingType = stringVector[5];
+           // std::string unitType = stringVector[6];
 
             TileConstructorPointer constructorPointer;
             for(auto it: tileConctructorNames_) {
