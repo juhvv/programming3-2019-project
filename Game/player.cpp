@@ -45,7 +45,7 @@ void Player::addNewBuilding(std::shared_ptr<GameBuildingBase> newBuilding)
     playerBuildings_.push_back(newBuilding);
 }
 
-std::vector<std::shared_ptr<GraphicsUnitBase> > Player::getPlayerUnits() const
+std::vector<std::shared_ptr<GraphicsUnitBase> > Player::getPlayerUnits()
 {
     return playerUnits_;
 }

@@ -13,8 +13,16 @@
 #include "tiles/grasstileitem.h"
 #include "tiles/watertileitem.h"
 #include "tiles/mountaintileitem.h"
+
 #include "buildings/gamebuildingbase.h"
 #include "buildings/base.h"
+#include "buildings/goldmine.h"
+#include "buildings/sawmill.h"
+#include "buildings/gamefarm.h"
+#include "buildings/goldmine.h"
+#include "buildings/gameoutpost.h"
+
+
 #include "units/scout.h"
 #include "units/graphicsunitbase.h"
 #include "units/worker.h"

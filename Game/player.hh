@@ -50,7 +50,7 @@ public:
 
     void addNewBuilding(std::shared_ptr<GameBuildingBase> newBuilding);
 
-    std::vector<std::shared_ptr<GraphicsUnitBase> > getPlayerUnits() const;
+    std::vector<std::shared_ptr<GraphicsUnitBase> > getPlayerUnits();
 
 private:
     std::string m_name;
