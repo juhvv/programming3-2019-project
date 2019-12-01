@@ -24,6 +24,8 @@ public:
 
     virtual void setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene) override;
 
+    virtual void getDescriptionBrief(std::string &desc) override;
+
 public slots:
     // virtual void sendInfo() override;
 };

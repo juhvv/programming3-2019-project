@@ -35,20 +35,19 @@ void CustomGraphicsScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *conte
         return;
     }
 
-    if (pressed->isSelectable()) {
-        QMenu menu;
-        if (!movementModeFlag_) {
-            /*
-            if (pressed->isMovable()) {
-                QAction *moveAction = menu.addAction("Move");
-                menu.addSeparator();
-                connect(moveAction, &QAction::triggered, this, &CustomGraphicsScene::enterMovementMode);
-            }
-            */
-            pressed->getMenuItems(menu);
-            lastClickedItem_ = pressed;
-            menu.exec(contextMenuEvent->screenPos());
+    QMenu menu;
+    if (!movementModeFlag_) {
+        /*
+        if (pressed->isMovable()) {
+            QAction *moveAction = menu.addAction("Move");
+            menu.addSeparator();
+            connect(moveAction, &QAction::triggered, this, &CustomGraphicsScene::enterMovementMode);
         }
+        */
+        pressed->getMenuItems(menu);
+        lastClickedItem_ = pressed;
+        menu.exec(contextMenuEvent->screenPos());
+
     }
 }
 
@@ -115,11 +114,11 @@ void CustomGraphicsScene::getAdjacentTiles(std::vector<CustomGraphicsItem *> &ti
             if (selectedTilePtr != tile && selectedTilePtr->getMovementCost() <= range) {
                 if (unit) {
                     if (unit->canMoveToTile(selectedTilePtr.get())) {
-                        qDebug() << "selected tile: " << selectedTilePtr->ID;
+                        // qDebug() << "selected tile: " << selectedTilePtr->ID;
                         tileVec.push_back(itemPtr);
                     }
                 } else {
-                    qDebug() << "selected tile: " << selectedTilePtr->ID;
+                    // qDebug() << "selected tile: " << selectedTilePtr->ID;
                     tileVec.push_back(itemPtr);
                 }
 

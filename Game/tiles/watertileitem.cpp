@@ -10,7 +10,7 @@ WaterTileItem::WaterTileItem(const Course::Coordinate &location,
                              const Course::ResourceMap &production) :
     GraphicsTileBase (location, eventhandler, objectmanager, scene, max_build, max_work, production)
 {
-
+    tags_ = {objectTags::NO_BUILD};
 }
 
 unsigned int WaterTileItem::getMovementCost()  const
@@ -20,7 +20,7 @@ unsigned int WaterTileItem::getMovementCost()  const
 
 std::string WaterTileItem::getType() const
 {
-    return "Water tile";
+    return "Lake tile";
 }
 
 void WaterTileItem::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene)

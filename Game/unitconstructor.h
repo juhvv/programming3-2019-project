@@ -16,11 +16,21 @@ public:
 
     ~UnitConstructor();
 
-    std::shared_ptr<GameBuildingBase> constructBuilding(std::shared_ptr<Player> &owner,
-                                                        std::shared_ptr<GraphicsTileBase> &tile);
+    template<typename BuildingType>
+    std::shared_ptr<BuildingType> constructBuilding(std::shared_ptr<Player> &owner)
+    {
+        std::shared_ptr<BuildingType> newBuilding =
+                std::make_shared<BuildingType>(eventHandler_, objectManager_, owner);
+        return newBuilding;
+    }
 
-    std::shared_ptr<GraphicsUnitBase> constructUnit(std::shared_ptr<Player> &owner,
-                                                    std::shared_ptr<GraphicsTileBase> &tile);
+    template<typename UnitType>
+    std::shared_ptr<UnitType> constructUnit(std::shared_ptr<Player> &owner)
+    {
+        std::shared_ptr<UnitType> newUnit =
+                std::make_shared<UnitType>(eventHandler_, objectManager_, owner);
+        return newUnit;
+    }
 
     void setEventHandler(const std::shared_ptr<GameEventHandler> &eventHandler);
 

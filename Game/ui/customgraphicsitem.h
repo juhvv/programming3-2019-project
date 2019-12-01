@@ -11,11 +11,14 @@
 
 #include "gameobjectbase.h"
 
-enum ShapePref {
-    NO_SHAPE,
-    DEFAULT,
-    SQUARE_128
-};
+namespace shapePrefs {
+    enum ShapePref {
+        NO_SHAPE,
+        DEFAULT,
+        SQUARE_128
+    };
+}
+
 
 
 class CustomGraphicsItem : public QObject, public QGraphicsPixmapItem
@@ -41,13 +44,13 @@ public:
 
     std::weak_ptr<GameObjectBase> getParentObject() const;
 
-    void setShapePref(const ShapePref &shapePref);
+    void setShapePref(const shapePrefs::ShapePref &shapePref);
 
 private:
     // bool isMovable_;
     // bool isSelectable_;
     std::weak_ptr<GameObjectBase> parentObject_;
-    ShapePref shapePref_ = DEFAULT;
+    shapePrefs::ShapePref shapePref_ = shapePrefs::DEFAULT;
 };
 
 #endif // CUSTOMGRAPHICSITEM_H

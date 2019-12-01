@@ -14,6 +14,7 @@ GrassTileItem::GrassTileItem(const Course::Coordinate &location,
 {
     //graphicsItem_->setOffset(-5,-5);
     //graphicsItem_->setZValue(1);
+    tags_ = {objectTags::IS_FLAT};
 }
 
 unsigned int GrassTileItem::getMovementCost()  const
@@ -43,5 +44,10 @@ void GrassTileItem::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGrap
     graphicsItem_->setOffset(-5,-5);
     graphicsItem_->setZValue(1);
     scene_->update();
+}
+
+void GrassTileItem::getDescriptionBrief(std::string &desc)
+{
+    desc += "\n Lots of grass.";
 }
 

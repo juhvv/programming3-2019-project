@@ -1,5 +1,6 @@
 #include <math.h>
 #include <QAction>
+#include <QScrollBar>
 
 #include "mapwindow.hh"
 #include "ui_mapwindow.h"
@@ -57,9 +58,6 @@ MapWindow::MapWindow(QWidget *parent):
     generaattori.addConstructor<WaterTileItem>(1);
     generaattori.addConstructor<MountainTileItem>(1);
 
-    //GraphicsUnitBase* newUnit = new GraphicsUnitBase(eventhandler_, objectManager_, nullptr);
-    //scene_->addItem(newUnit);
-    //viewPortPtr_->setScene(dynamic_cast<QGraphicsScene*>(sgs_rawptr));
     viewPortPtr_->setScene(scenePtr_);
     MapWindow::showStartWindow();
 }
@@ -143,12 +141,11 @@ void MapWindow::showStartWindow()
 
 void MapWindow::switchTurn()
 {
-    QString msg = "Turn ";
-    msg.append(std::to_string(eventhandler_->getTurnNumber()).c_str()); msg.append(" ended, now it is turn of ");
+    std::string msg = "\nTurn ";
+    msg += std::to_string(eventhandler_->getTurnNumber()) + " ended, now it is turn of ";
     eventhandler_->nextTurn();
-    msg.append(eventhandler_->getCurrentPlayer()->getName().c_str()); msg.append(" \n");
-    m_ui->textBox->insertPlainText(msg);
-    qDebug() << eventhandler_.use_count();
+    msg += eventhandler_->getCurrentPlayer()->getName();
+    sendMsgSlot(msg);
     //updateVisibleResources();
 }
 
@@ -177,6 +174,8 @@ void MapWindow::startNewGame(playerInfo info, unsigned int seed)
 void MapWindow::sendMsgSlot(std::string &msg)
 {
     m_ui->textBox->insertPlainText((msg + "\n").c_str());
+    QScrollBar *sb = m_ui->textBox->verticalScrollBar();
+    sb->setValue(sb->maximum());
 }
 
 

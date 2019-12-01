@@ -10,6 +10,11 @@ class CustomGraphicsItem;
 
 static const unsigned int TILE_SIZE = 128;  // defines tile size (px)
 
+namespace objectTags {
+    enum Tag {NO_BUILD, HAS_TREES, HAS_ROCK, IS_FLAT};
+}
+
+
 class GameObjectBase : public QObject
 
 {
@@ -21,7 +26,7 @@ public:
 
     ~GameObjectBase();
 
-    virtual void getMenuItems(QMenu &menu);
+    virtual void getMenuItems(QMenu &menu) = 0;
 
     virtual bool isMovable() const;
 
@@ -33,6 +38,8 @@ public:
 
     CustomGraphicsItem *getGraphicsItem() const;
 
+    virtual bool hasTag(objectTags::Tag tag);
+
 public slots:
     virtual void sendInfo();
 
@@ -42,6 +49,8 @@ protected:
 
     CustomGraphicsItem *graphicsItem_;
     CustomGraphicsScene *scene_;
+
+    std::vector<objectTags::Tag> tags_ = {};
 
 };
 

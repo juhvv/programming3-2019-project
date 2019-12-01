@@ -21,7 +21,7 @@ void GameBuildingBase::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomG
     graphicsItem_ = graphicsItem;
     scene_ = scene;
 
-    graphicsItem_->setShapePref(NO_SHAPE);
+    graphicsItem_->setShapePref(shapePrefs::NO_SHAPE);
     graphicsItem_->setPixmap(QPixmap(":/resources/buildings/base.PNG"));
 
 
@@ -34,34 +34,11 @@ void GameBuildingBase::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomG
 
 
     scene_->update();
-
-    // std::shared_ptr<Course::TileBase> currentTile = lockObjectManager()->getTile(getCoordinate());
-    std::shared_ptr<GraphicsTileBase> currentTile =
-            std::dynamic_pointer_cast<GraphicsTileBase>(lockObjectManager()->getTile(getCoordinate()));
-    std::vector<CustomGraphicsItem*> adjTiles;
-    scene_->getAdjacentTiles(adjTiles, currentTile);
-
-    std::shared_ptr<GameEventHandler> handler =
-            std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler());
-
-    for (auto tileObj : adjTiles) {
-        std::weak_ptr<GraphicsTileBase> tile =
-                std::dynamic_pointer_cast<GraphicsTileBase>(tileObj->getParentObject().lock());
-        handler->claimTile(tile.lock().get());
-    }
 }
 
 void GameBuildingBase::getMenuItems(QMenu &menu)
 {
-    menu.addSeparator();
-    // tile can only be claimed if it has no owner
-
-    QAction *workerHireAction = menu.addAction("Build worker");
-    connect(workerHireAction, &QAction::triggered, this, &GameBuildingBase::buildUnit);
-
-    //QAction *claimAction = menu.addAction("Claim");
-    // connect(infoAction, &QAction::triggered, this, &GraphicsTileBase::sendInfo);
-    // connect(claimAction, &QAction::triggered, this, &GraphicsTileBase::sendPtr);
+    // implement actions for all buildings here
 }
 
 void GameBuildingBase::getDescriptionBrief(std::string &desc)

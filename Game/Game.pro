@@ -29,8 +29,12 @@ SOURCES += \
     unitconstructor.cpp \
     savewindow.cpp \
     savegame.cpp \
+    buildings/base.cpp \
+    units/builder.cpp \
     loadwindow.cpp \
-    loadgame.cpp
+    loadgame.cpp \
+    units/scout.cpp
+    units/worker.cpp
 
 HEADERS += \
     mapwindow.hh \
@@ -56,8 +60,12 @@ HEADERS += \
     unitconstructor.h \
     savewindow.hh \
     savegame.hh \
+    buildings/base.h \
+    units/builder.h \
     loadwindow.hh \
-    loadgame.hh
+    loadgame.hh \
+    units/scout.h
+    units/worker.h
 
 win32:CONFIG(release, debug|release): LIBS += \
     -L$$OUT_PWD/../Course/CourseLib/release/ -lCourseLib

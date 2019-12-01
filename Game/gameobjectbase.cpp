@@ -16,12 +16,12 @@ GameObjectBase::~GameObjectBase()
         delete graphicsItem_;
     }
 }
-
+/*
 void GameObjectBase::getMenuItems(QMenu &menu)
 {
 
 }
-
+*/
 bool GameObjectBase::isMovable() const
 {
     return true;
@@ -50,4 +50,14 @@ void GameObjectBase::sendInfo()
 CustomGraphicsItem *GameObjectBase::getGraphicsItem() const
 {
     return graphicsItem_;
+}
+
+bool GameObjectBase::hasTag(objectTags::Tag tag)
+{
+    for (auto objectTag : tags_) {
+        if ( objectTag == tag) {
+            return true;
+        }
+    }
+    return false;
 }

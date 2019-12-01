@@ -30,13 +30,18 @@ void GraphicsUnitBase::getMenuItems(QMenu &menu)
 
     QAction* infoAction = menu.addAction("Info");
 
-    QAction* moveAction = menu.addAction("Move");
+    if (std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler())->getCurrentPlayer() == getOwner()) {
+        // add actions only available to unit's owner here
+        std::string moveActionText = "Move - " + std::to_string(getMovePoints())
+                + " move points left";
+        QAction* moveAction = menu.addAction(moveActionText.c_str());
 
-    if (movePoints_ == 0) {
-        moveAction->setDisabled(true);
+        if (movePoints_ == 0) {
+            moveAction->setDisabled(true);
+        }
+
+        connect(moveAction, &QAction::triggered, this, &GraphicsUnitBase::initMove);
     }
-
-    connect(moveAction, &QAction::triggered, this, &GraphicsUnitBase::initMove);
     connect(infoAction, &QAction::triggered, this, &GraphicsUnitBase::sendInfo);
 }
 
@@ -87,9 +92,7 @@ void GraphicsUnitBase::switchTurn()
 
 bool GraphicsUnitBase::isSelectable() const
 {
-        std::shared_ptr<GameEventHandler> eventHndlr =
-                std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler());
-        return !(eventHndlr->getCurrentPlayer() != getOwner() && getOwner() != nullptr);
+    return true;
 }
 
 void GraphicsUnitBase::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene)
@@ -97,7 +100,7 @@ void GraphicsUnitBase::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomG
     graphicsItem_ = graphicsItem;
     scene_ = scene;
 
-    graphicsItem_->setShapePref(DEFAULT);
+    graphicsItem_->setShapePref(shapePrefs::DEFAULT);
 
     scene_->addItem(graphicsItem_);
 
@@ -117,6 +120,12 @@ void GraphicsUnitBase::getDescriptionBrief(std::string &desc)
     desc += "\n A hard-working fellow.";
 }
 
+std::shared_ptr<GraphicsTileBase> GraphicsUnitBase::getCurrentTile()
+{
+    return std::dynamic_pointer_cast<GraphicsTileBase>
+                    (lockObjectManager()->getTile(getCoordinate()));
+}
+
 void GraphicsUnitBase::initMove()
 {
     adjacentTilesTemp_.clear();
@@ -131,8 +140,7 @@ void GraphicsUnitBase::initMove()
 
 void GraphicsUnitBase::sendInfo()
 {
-    std::string infoMsg = getType();
-    if (getOwner()) { infoMsg += " of " + getOwner()->getName();}
+    std::string infoMsg = getOwner()->getName() + "'s " + getType();
     getDescriptionBrief(infoMsg);
 
     std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler())->sendMsg(infoMsg);

@@ -37,9 +37,15 @@ public:
 
     virtual unsigned int getMovementCost() const;
 
+    /*
     using Course::TileBase::addBuilding;
-    virtual void addBuilding(const std::shared_ptr<GameBuildingBase>& building);
-
+    void addBuilding(const std::shared_ptr<GameBuildingBase>& building)
+    {
+        std::shared_ptr<Course::BuildingBase> newBuilding =
+                std::dynamic_pointer_cast<Course::BuildingBase>(building);
+        TileBase::addBuilding(newBuilding);
+    }
+    */
     virtual bool generateResources() override;
 
     Course::ResourceMap generatedResources();
