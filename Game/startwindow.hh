@@ -8,6 +8,14 @@ namespace Ui {
 class Startwindow;
 }
 
+namespace MapSize {
+    enum Size {
+        SMALL = 10,
+        NORMAL = 20,
+        LARGE = 30
+    };
+}
+
 using playerInfo = std::vector<std::pair<std::string, int>>;
 
 class Startwindow : public QDialog
@@ -26,7 +34,7 @@ private:
     Ui::Startwindow *ui;
 
 signals:
-    void startGame(playerInfo, unsigned int seed);
+    void startGame(playerInfo, unsigned int seed, MapSize::Size size);
     void sendPlayerNames(std::vector<std::string> nameVct);
     void sendSeed(unsigned int seed);
 };

@@ -138,12 +138,5 @@ void CustomGraphicsScene::toggleTileHighlight(std::vector<CustomGraphicsItem *> 
 void CustomGraphicsScene::enterMovementMode()
 {
     // called when move is selected on a unit
-    tileVec_.clear();
     movementModeFlag_ = true;
-    // std::vector<QGraphicsItem*> tileVec = {};
-    // getAdjacentTiles(tileVec_);
-    /*
-    for (CustomGraphicsItem* tileModel : tileVec_) {// USE FUNCTION
-        tileModel->toggleHighlight(true);
-    }*/
 }

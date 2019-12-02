@@ -29,11 +29,9 @@ public:
 
     virtual ~GraphicsUnitBase() = default;
 
-    virtual bool isMovable() const override;
+    virtual bool isMovable() const override final;
 
     virtual void getMenuItems(QMenu &menu) override;
-
-    virtual void doSpecialAction() override;
 
     virtual unsigned int getMovePoints();
 
@@ -48,14 +46,14 @@ public:
 
     virtual void setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene) override;
 
-    virtual void cancelMovement();
+    virtual void cancelMovement() final;
 
     virtual void getDescriptionBrief(std::string &desc) override;
 
     virtual std::shared_ptr<GraphicsTileBase> getCurrentTile() final;
 
 public slots:
-    virtual void initMove();
+    virtual void initMove() final;
 
     virtual void sendInfo() override;
 

@@ -13,8 +13,6 @@ GameEventHandler::GameEventHandler(std::shared_ptr<ObjectManager> objectMngr,
 
 }
 
-
-
 void GameEventHandler::nextTurn()
 {
     for (auto gameObject : currentPlayer_->getPlayerUnits()) {
@@ -31,10 +29,9 @@ void GameEventHandler::nextTurn()
     else{
         currentPlayer_=playerVector_[0];
     }
-    signalUpdateVisibleResources();
+
+    emit signalUpdateVisibleResources();
     isGameOver();
-
-
 }
 
 Course::ResourceMap GameEventHandler::calculateProduction()
@@ -112,9 +109,9 @@ std::vector<std::shared_ptr<Player> > GameEventHandler::getPlayerVector()
     return playerVector_;
 }
 
-void GameEventHandler::addNewPlayers(std::vector<std::pair<std::string, int>> nameVct)
+void GameEventHandler::addNewPlayers(std::vector<std::pair<std::string, int>> nameVct, MapSize::Size mapSize)
 {
-    Course::Coordinate startCoord = Course::Coordinate(2,2);
+    Course::Coordinate startCoord = Course::Coordinate(mapSize * 0.1, mapSize * 0.1);
 
     Course::ResourceMap startResources;
     startResources.insert(std::pair<Course::BasicResource,int>(Course::MONEY, 500));
@@ -122,7 +119,6 @@ void GameEventHandler::addNewPlayers(std::vector<std::pair<std::string, int>> na
     startResources.insert(std::pair<Course::BasicResource,int>(Course::WOOD, 200));
     startResources.insert(std::pair<Course::BasicResource,int>(Course::STONE, 250));
     startResources.insert(std::pair<Course::BasicResource,int>(Course::ORE, 300));
-
 
     for(long unsigned int i=0; i<nameVct.size(); i++){
         std::string nameOfPlayer = nameVct[i].first;
@@ -144,13 +140,8 @@ void GameEventHandler::addNewPlayers(std::vector<std::pair<std::string, int>> na
         addBuilding<Base>(startTile);
         claimTile(startTile.get());
 
-        // currentPlayer_ = playerPtr;
-        // startTile->addBuilding(startBuilding);
-        // claimTile(startTile.get());
-        // objectMngr_->setGraphicsObject(gameObject);
-
-        startCoord.set_x(startCoord.x() + 15);
-        startCoord.set_y(startCoord.y() + 15);
+        startCoord.set_x(mapSize * 0.87);
+        startCoord.set_y(mapSize * 0.87);
     }
 
     currentPlayer_ = playerVector_[0];
@@ -186,7 +177,10 @@ void GameEventHandler::sendMsg(std::string msg)
     emit signalSendMsg(msg);
 }
 
-
+void GameEventHandler::updateVisibleResources()
+{
+    emit signalUpdateVisibleResources();
+}
 
 void GameEventHandler::claimTile(GraphicsTileBase *tile, std::shared_ptr<Player> player)
 {

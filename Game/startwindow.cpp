@@ -25,10 +25,7 @@ Startwindow::Startwindow(QWidget *parent) :
     connect(ui->player1Line, &QLineEdit::textEdited, this, &Startwindow::namesChanged);
     connect(ui->player2Line, &QLineEdit::textEdited, this, &Startwindow::namesChanged);
 
-
 }
-
-
 
 Startwindow::~Startwindow()
 {
@@ -60,10 +57,19 @@ void Startwindow::startBtnPushed(){
         }
     }
 
+    MapSize::Size size = MapSize::NORMAL;
+    if (ui->mapSizeBtnMed->isChecked()) {
+        size = MapSize::NORMAL;
+    } else if (ui->mapSizeBtnBig->isChecked()) {
+        size = MapSize::LARGE;
+    } else if (ui->mapSizeBtnSmal->isChecked()) {
+        size = MapSize::SMALL;
+    }
+
     std::vector<std::string> nameVct;
     nameVct.push_back(player1);
     nameVct.push_back(player2);
-    emit startGame(info, seed);
+    emit startGame(info, seed, size);
     accept();
 }
 

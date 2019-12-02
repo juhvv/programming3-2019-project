@@ -14,52 +14,49 @@
 #include "tiles/mountaintileitem.h"
 #include "units/graphicsunitbase.h"
 
-
-
 MapWindow::MapWindow(QWidget *parent):
     QMainWindow(parent),
     m_ui(new Ui::MapWindow),
     viewPortPtr_(new GraphicsViewPort(this)),
     scenePtr_(new CustomGraphicsScene(viewPortPtr_)),
-    m_GEHandler(nullptr),
     eventhandler_(nullptr),
-    gameScene_(new Course::SimpleGameScene(this, 20,20)),
     unitConstructor_(nullptr)
 {
+    m_ui->setupUi(this);
+
+    // create & setup objectmanager, unitconstructor and eventhandler
     unitConstructor_ = std::make_shared<UnitConstructor>();
     objectManager_ = std::make_shared<ObjectManager>(scenePtr_);
     eventhandler_ = std::make_shared<GameEventHandler>(objectManager_, unitConstructor_);
-
     unitConstructor_->setEventHandler(eventhandler_);
     unitConstructor_->setObjectManager(objectManager_);
-
-    m_ui->setupUi(this);
 
     // setup graphics view
     m_ui->viewTxtboxLayout->insertWidget(0,viewPortPtr_);
     viewPortPtr_->setRenderHint(QPainter::Antialiasing);
     viewPortPtr_->setBackgroundBrush(QPixmap(":/resources/placeholder.PNG"));
     viewPortPtr_->setMinimumSize(500,400);
+    viewPortPtr_->setScene(scenePtr_);
 
+    // connect map window buttons and menu actions
     connect(m_ui->actionExit, &QAction::triggered, this, &MapWindow::close);
+    connect(m_ui->actionSave, &QAction::triggered, this, &MapWindow::showSaveWindow);
+    connect(m_ui->actionLoad, &QAction::triggered, this, &MapWindow::showLoadWindow);
     connect(m_ui->actionStart, &QAction::triggered, this, &MapWindow::showStartWindow);
     connect(m_ui->turnSwitchBtn, &QPushButton::clicked, this, &MapWindow::switchTurn);
 
-    connect(eventhandler_.get(), &GameEventHandler::signalUpdateVisibleResources, this, &MapWindow::updateVisibleResources);
+    // connect eventhandler's signals
+    connect(eventhandler_.get(), &GameEventHandler::signalUpdateVisibleResources,
+            this, &MapWindow::updateVisibleResources);
     connect(eventhandler_.get(), &GameEventHandler::signalSendMsg, this, &MapWindow::sendMsgSlot);
 
-    connect(m_ui->actionSave, &QAction::triggered, this, &MapWindow::showSaveWindow);
-    connect(m_ui->actionLoad, &QAction::triggered, this, &MapWindow::showLoadWindow);
-
+    // setup world generator
     Course::WorldGenerator& generaattori = Course::WorldGenerator::getInstance();
-
-
     generaattori.addConstructor<GrassTileItem>(2);
     generaattori.addConstructor<ForestTileItem>(2);
     generaattori.addConstructor<WaterTileItem>(1);
     generaattori.addConstructor<MountainTileItem>(1);
 
-    viewPortPtr_->setScene(scenePtr_);
     MapWindow::showStartWindow();
 }
 
@@ -67,26 +64,7 @@ MapWindow::~MapWindow()
 {
 }
 
-void MapWindow::setGEHandler(
-        std::shared_ptr<Course::iGameEventHandler> nHandler)
-{
-    m_GEHandler = nHandler;
-}
 
-void MapWindow::setSize(int width, int height)
-{
-    gameScene_->setSize(width, height);
-}
-
-void MapWindow::setScale(int scale)
-{
-    gameScene_->setScale(scale);
-}
-
-void MapWindow::resize()
-{
-    gameScene_->resize();
-}
 
 void MapWindow::updateVisibleResources()
 {
@@ -104,11 +82,6 @@ void MapWindow::updateVisibleResources()
     m_ui->foodProductionLbl->setText(QString::number(production[Course::FOOD]));
     m_ui->woodProductionLbl->setText(QString::number(production[Course::WOOD]));
 
-}
-
-void MapWindow::updateItem(std::shared_ptr<Course::GameObject> obj)
-{
-    gameScene_->updateItem(obj);
 }
 
 void MapWindow::showSaveWindow()
@@ -136,10 +109,7 @@ void MapWindow::showStartWindow()
     Startwindow* startti = new Startwindow();
     startti->show();
 
-    //connect(startti, &Startwindow::sendPlayerNames, this, &MapWindow::addPlayerNames);
-    //connect(startti, &Startwindow::sendSeed, this, &MapWindow::startNewGame);
     connect(startti, &Startwindow::startGame, this, &MapWindow::startNewGame);
-    //connect(startti, SIGNAL(accept()), this, SLOT(startNewGame()));
 }
 
 void MapWindow::switchTurn()
@@ -156,9 +126,7 @@ void MapWindow::switchTurn()
     //updateVisibleResources();
 }
 
-
-
-void MapWindow::startNewGame(playerInfo info, unsigned int seed)
+void MapWindow::startNewGame(playerInfo info, unsigned int seed, MapSize::Size size)
 {
     m_ui->turnSwitchBtn->setDisabled(false);
     m_ui->textBox->insertPlainText("<<<STARTED NEW GAME>>>\n");
@@ -167,34 +135,20 @@ void MapWindow::startNewGame(playerInfo info, unsigned int seed)
     eventhandler_->resetData();
 
     Course::WorldGenerator& generaattori = Course::WorldGenerator::getInstance();
-    generaattori.generateMap(20,20,seed,objectManager_, eventhandler_);
+    generaattori.generateMap(size, size, seed,objectManager_, eventhandler_);
 
     qDebug() << "Seed: " << seed;
-    eventhandler_->addNewPlayers(info);
+    eventhandler_->addNewPlayers(info, size);
     std::string playerTurnText = eventhandler_->getCurrentPlayer()->getName()
             + " - Turn " + std::to_string(eventhandler_->getTurnNumber());
     m_ui->groupBox->setTitle(playerTurnText.c_str());
     updateVisibleResources();
-    /*
-    GraphicsUnitBase* newUnit = new GraphicsUnitBase(eventhandler_, objectManager_, eventhandler_->getCurrentPlayer());
-    scene_->addItem(newUnit);
-    */
 }
 
 void MapWindow::sendMsgSlot(std::string &msg)
 {
+    m_ui->turnSwitchBtn->setDisabled(false);
     m_ui->textBox->insertPlainText((msg + "\n").c_str());
     QScrollBar *sb = m_ui->textBox->verticalScrollBar();
     sb->setValue(sb->maximum());
-}
-
-
-void MapWindow::removeItem(std::shared_ptr<Course::GameObject> obj)
-{
-    gameScene_->removeItem(obj);
-}
-
-void MapWindow::drawItem( std::shared_ptr<Course::GameObject> obj)
-{
-    gameScene_->drawItem(obj);
 }

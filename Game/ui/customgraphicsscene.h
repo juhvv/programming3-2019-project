@@ -41,7 +41,6 @@ public slots:
 protected:
     bool movementModeFlag_ = false;
     CustomGraphicsItem *lastClickedItem_ = nullptr;
-    std::vector<CustomGraphicsItem*> tileVec_ = {};
 
     std::shared_ptr<GameEventHandler> eventHandler_;
     std::shared_ptr<ObjectManager> objectManager_;
