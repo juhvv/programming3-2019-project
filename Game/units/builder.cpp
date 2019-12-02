@@ -69,11 +69,6 @@ void Builder::getBuildMenu(QMenu &bmenu)
 
 }
 
-void Builder::doSpecialAction()
-{
-
-}
-
 void Builder::switchTurn()
 {
     GraphicsUnitBase::switchTurn();

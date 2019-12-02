@@ -19,7 +19,6 @@ public:
 
     virtual void getMenuItems(QMenu &menu) override;
 
-    virtual void doSpecialAction() override;
 
     // virtual unsigned int getMovePoints();
 

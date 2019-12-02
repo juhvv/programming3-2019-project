@@ -29,9 +29,11 @@ public:
 
     virtual ~GraphicsUnitBase() = default;
 
-    virtual bool isMovable() const override final;
+    virtual bool isMovable() const final;
 
     virtual void getMenuItems(QMenu &menu) override;
+
+    virtual void doSpecialAction() override;
 
     virtual unsigned int getMovePoints();
 

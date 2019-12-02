@@ -19,14 +19,7 @@ public:
 
     // virtual void getMenuItems(QMenu &menu) override;
 
-    // virtual void doSpecialAction() override;
-
     // virtual unsigned int getMovePoints();
-
-    virtual bool moveToTile(std::shared_ptr<GraphicsTileBase> tileToMoveTo,
-                            bool ignoreMovePoints = false) override;
-
-    virtual bool canMoveToTile(GraphicsTileBase* tileToMoveTo) override;
 
     virtual void switchTurn() override;
 

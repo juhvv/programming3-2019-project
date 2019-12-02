@@ -46,6 +46,11 @@ void GraphicsUnitBase::getMenuItems(QMenu &menu)
     connect(infoAction, &QAction::triggered, this, &GraphicsUnitBase::sendInfo);
 }
 
+void GraphicsUnitBase::doSpecialAction()
+{
+
+}
+
 unsigned int GraphicsUnitBase::getMovePoints()
 {
     return movePoints_;

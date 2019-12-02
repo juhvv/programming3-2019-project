@@ -23,8 +23,6 @@ public:
 
     virtual void getBuildMenu(QMenu &bmenu);
 
-    virtual void doSpecialAction() override;
-
     // virtual unsigned int getMovePoints();
 
     // virtual bool moveToTile(std::shared_ptr<GraphicsTileBase> tileToMoveTo,

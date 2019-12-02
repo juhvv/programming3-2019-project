@@ -44,11 +44,6 @@ void Scout::getMenuItems(QMenu &menu)
     }
 }
 
-void Scout::doSpecialAction()
-{
-
-}
-
 void Scout::switchTurn()
 {
     GraphicsUnitBase::switchTurn();

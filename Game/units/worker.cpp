@@ -13,23 +13,6 @@ Worker::Worker(const std::shared_ptr<Course::iGameEventHandler> &eventhandler,
     movePoints_ = Units::LONGRANGE;
 }
 
-bool Worker::moveToTile(std::shared_ptr<GraphicsTileBase> tileToMoveTo, bool ignoreMovePoints)
-{
-    if (GraphicsUnitBase::moveToTile(tileToMoveTo, ignoreMovePoints)) {
-        getCurrentTile()->removeUnit(this);
-        tileToMoveTo->addUnit(this);
-        return true;
-
-    } else {
-        return false;
-    }
-}
-
-bool Worker::canMoveToTile(GraphicsTileBase *tileToMoveTo)
-{
-    return GraphicsUnitBase::canMoveToTile(tileToMoveTo);
-}
-
 void Worker::switchTurn()
 {
     GraphicsUnitBase::switchTurn();
