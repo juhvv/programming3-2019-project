@@ -13,6 +13,8 @@ GameEventHandler::GameEventHandler(std::shared_ptr<ObjectManager> objectMngr,
 
 }
 
+
+
 void GameEventHandler::nextTurn()
 {
     for (auto gameObject : currentPlayer_->getPlayerUnits()) {
@@ -30,6 +32,7 @@ void GameEventHandler::nextTurn()
         currentPlayer_=playerVector_[0];
     }
     signalUpdateVisibleResources();
+    isGameOver();
 
 
 }
@@ -79,6 +82,7 @@ std::shared_ptr<Player> GameEventHandler::getPlayerFromName(std::string playerNa
             return playerVector_[i];
         }
     }
+    return nullptr;
 }
 
 void GameEventHandler::addPlayerVector(std::vector<std::shared_ptr<Player> > playerVector)
@@ -120,11 +124,12 @@ void GameEventHandler::addNewPlayers(std::vector<std::pair<std::string, int>> na
         std::shared_ptr<GraphicsTileBase> startTile =
                 std::dynamic_pointer_cast<GraphicsTileBase>(objectMngr_->getTile(startCoord));
         // switch start tile if no building can be placed on current start tile
-        while (startTile->getType() == "Lake tile") {
-            qDebug() << "tile type for " << currentPlayer_->getName().c_str() << ": " << startTile->getType().c_str();
+        while (startTile->hasTag(objectTags::NO_BUILD)) {
             startTile = std::dynamic_pointer_cast<GraphicsTileBase>(objectMngr_->getTile(startTile->ID + 1));
         }
-        qDebug() << "Final tile type for " << currentPlayer_->getName().c_str() << ": " << startTile->getType().c_str();
+        qDebug() << "GameEventHandler::addNewPlayers :"
+                    "Final tile type for " << currentPlayer_->getName().c_str() << ": "
+                 << startTile->getType().c_str();
         addBuilding<Base>(startTile);
         claimTile(startTile.get());
 
@@ -152,6 +157,21 @@ void GameEventHandler::resetData()
     objectMngr_->resetData();
 }
 
+void GameEventHandler::isGameOver()
+{
+    if (currentPlayer_->getResourceMap()[Course::BasicResource::MONEY] > 10000) {
+        // do something
+        qDebug() << currentPlayer_->getName().c_str() << " won!";
+    }
+
+    if (turnNumber_ == maxTurns_) {
+        // do something
+        qDebug() << "Game over";
+    }
+
+
+}
+
 void GameEventHandler::sendMsg(std::string msg)
 {
     emit signalSendMsg(msg);
@@ -161,7 +181,7 @@ void GameEventHandler::sendMsg(std::string msg)
 
 void GameEventHandler::claimTile(GraphicsTileBase *tile, std::shared_ptr<Player> player)
 {
-    if(player==NULL){
+    if(player==nullptr){
         player=currentPlayer_;
     }
 
@@ -179,13 +199,29 @@ void GameEventHandler::claimTile(GraphicsTileBase *tile, std::shared_ptr<Player>
     //signalUpdateVisibleResources();
 }
 
+
+
 //Empty implementations, not used
-bool GameEventHandler::modifyResource(std::shared_ptr<Course::PlayerBase> player, Course::BasicResource resource, int amount)
+bool GameEventHandler::modifyResource(std::shared_ptr<Player> player,
+                                      Course::BasicResource resource,
+                                      int amount)
 {
-    return true;
+    return player->modifyResource(resource, amount);
+}
+
+bool GameEventHandler::modifyResource(std::shared_ptr<Course::PlayerBase> player,
+                                      Course::BasicResource resource, int amount)
+{
+    return modifyResource(std::dynamic_pointer_cast<Player>(player), resource, amount);
 }
 
 bool GameEventHandler::modifyResources(std::shared_ptr<Course::PlayerBase> player, Course::ResourceMap resources)
 {
-    return true;
+    return modifyResources(std::dynamic_pointer_cast<Player>(player), resources);
+}
+
+bool GameEventHandler::modifyResources(std::shared_ptr<Player> player,
+                                       Course::ResourceMap resources)
+{
+    return player->modifyResources(resources);
 }

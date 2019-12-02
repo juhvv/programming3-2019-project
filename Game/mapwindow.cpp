@@ -39,6 +39,7 @@ MapWindow::MapWindow(QWidget *parent):
     m_ui->viewTxtboxLayout->insertWidget(0,viewPortPtr_);
     viewPortPtr_->setRenderHint(QPainter::Antialiasing);
     viewPortPtr_->setBackgroundBrush(QPixmap(":/resources/placeholder.PNG"));
+    viewPortPtr_->setMinimumSize(500,400);
 
     connect(m_ui->actionExit, &QAction::triggered, this, &MapWindow::close);
     connect(m_ui->actionStart, &QAction::triggered, this, &MapWindow::showStartWindow);
@@ -146,7 +147,9 @@ void MapWindow::switchTurn()
     eventhandler_->nextTurn();
     std::string curPlayerName = eventhandler_->getCurrentPlayer()->getName();
     msg += curPlayerName;
-    m_ui->groupBox->setTitle(curPlayerName.c_str());
+    std::string playerTurnText = eventhandler_->getCurrentPlayer()->getName()
+            + " - Turn " + std::to_string(eventhandler_->getTurnNumber());
+    m_ui->groupBox->setTitle(playerTurnText.c_str());
     sendMsgSlot(msg);
     //updateVisibleResources();
 }
@@ -164,9 +167,11 @@ void MapWindow::startNewGame(playerInfo info, unsigned int seed)
     Course::WorldGenerator& generaattori = Course::WorldGenerator::getInstance();
     generaattori.generateMap(20,20,seed,objectManager_, eventhandler_);
 
-    qDebug() << eventhandler_.use_count();
+    qDebug() << "Seed: " << seed;
     eventhandler_->addNewPlayers(info);
-    m_ui->groupBox->setTitle(eventhandler_->getCurrentPlayer()->getName().c_str());
+    std::string playerTurnText = eventhandler_->getCurrentPlayer()->getName()
+            + " - Turn " + std::to_string(eventhandler_->getTurnNumber());
+    m_ui->groupBox->setTitle(playerTurnText.c_str());
     /*
     GraphicsUnitBase* newUnit = new GraphicsUnitBase(eventhandler_, objectManager_, eventhandler_->getCurrentPlayer());
     scene_->addItem(newUnit);

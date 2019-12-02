@@ -30,6 +30,8 @@ public:
 
     virtual void switchTurn() override;
 
+    virtual const Course::ResourceMapDouble tileWorkAction() override;
+
     // virtual bool isSelectable() const override;
 
     virtual void setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene) override;

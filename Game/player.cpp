@@ -15,11 +15,11 @@ Player::Player(const std::string &name,
     m_playerResources = startingResources;
 
 }
-
+/*
 std::string Player::getName(){
     return m_name;
 }
-
+*/
 int Player::getResourceValue(Course::BasicResource resource)
 {
     return m_playerResources[resource];
@@ -38,6 +38,17 @@ void Player::addGameObject(CustomGraphicsItem *newItem)
 void Player::addUnit(std::shared_ptr<GraphicsUnitBase> newUnit)
 {
     playerUnits_.push_back(newUnit);
+}
+
+std::shared_ptr<GraphicsUnitBase> Player::getUnitById(unsigned int ID)
+{
+    for ( auto unit : playerUnits_) {
+        if (unit->ID == ID) {
+            return unit;
+        }
+    }
+    qDebug() << "Player::getUnitById: no such unit exists.";
+    return nullptr;
 }
 
 void Player::addNewBuilding(std::shared_ptr<GameBuildingBase> newBuilding)

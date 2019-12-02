@@ -44,7 +44,15 @@ void Base::getMenuItems(QMenu &menu)
     menu.addSeparator();
 
     QMenu *workerHireMenu = menu.addMenu("Hire unit...");
-    getBuildMenu(*workerHireMenu);
+    std::shared_ptr<ObjectManager> manager =
+            std::dynamic_pointer_cast<ObjectManager>(lockObjectManager());
+    std::shared_ptr<GraphicsTileBase> curTile = manager->getGTile(getCoordinate());
+    if (curTile->hasSpaceForWorkers(1)) {
+        getBuildMenu(*workerHireMenu);
+    } else {
+        workerHireMenu->setDisabled(true);
+        workerHireMenu->setTitle("Can't hire units - Tile is full");
+    }
     //connect(workerHireAction, &QAction::triggered, this, &Base::buildUnit);
 
     //QAction *claimAction = menu.addAction("Claim");

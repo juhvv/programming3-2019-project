@@ -80,7 +80,7 @@ void LoadGame::addUnitsAndBuildings(QString fileName)
                 for(int i=6; i<stringVector.size(); i++){
                     std::string unitName = stringVector[i];
                     if(unitName=="Builder"){
-                        eventhandler_->addUnit<Scout>(tile, ownerPointer);
+                        eventhandler_->addUnit<Builder>(tile, ownerPointer);
                     }
                     if(unitName=="Scout"){
                         eventhandler_->addUnit<Scout>(tile, ownerPointer);

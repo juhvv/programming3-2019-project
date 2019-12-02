@@ -69,12 +69,20 @@ unsigned int GraphicsTileBase::getMovementCost() const
 
 void GraphicsTileBase::addUnit(GraphicsUnitBase *unit)
 {
-
+    std::shared_ptr<GraphicsUnitBase> unitShrd =
+            std::dynamic_pointer_cast<Player>(unit->getOwner())->getUnitById(unit->ID);
+    if (unitShrd != nullptr) {
+        Course::TileBase::addWorker(unitShrd);
+    }
 }
 
 void GraphicsTileBase::removeUnit(GraphicsUnitBase *unit)
 {
-
+    std::shared_ptr<GraphicsUnitBase> unitShrd =
+            std::dynamic_pointer_cast<Player>(unit->getOwner())->getUnitById(unit->ID);
+    if (unitShrd != nullptr) {
+        Course::TileBase::removeWorker(unitShrd);
+    }
 }
 /*
 void GraphicsTileBase::addBuilding(const std::shared_ptr<GameBuildingBase> &building)

@@ -2,6 +2,7 @@
 #include "tiles/graphicstilebase.h"
 #include "ui/customgraphicsscene.h"
 #include "gameeventhandler.hh"
+#include "exceptions/invalidpointer.h"
 
 
 GraphicsUnitBase::GraphicsUnitBase(const std::shared_ptr<Course::iGameEventHandler> &eventhandler,
@@ -62,12 +63,23 @@ bool GraphicsUnitBase::moveToTile(std::shared_ptr<GraphicsTileBase> tileToMoveTo
         if (!ignoreMovePoints) {
             movePoints_ -= tileToMoveTo->getMovementCost();
         }
+
+        try {
+            getCurrentTile()->removeUnit(this);
+
+        } catch (Course::InvalidPointer) {
+            qDebug() << "GraphicsUnitBase::moveToTile: no current tile";
+        }
+
+        tileToMoveTo->addUnit(this);
+
         setCoordinate(tileToMoveTo->getCoordinate());
 
         QPointF itemLoc = tileToMoveTo->getSceneCoord();
         QPointF finalLoc = QPointF(itemLoc.x(), itemLoc.y());
         setCoordinate(tileToMoveTo->getCoordinate());
         graphicsItem_->setPos(finalLoc);
+
         cancelMovement();
         return true;
     } else {
@@ -80,7 +92,8 @@ bool GraphicsUnitBase::moveToTile(std::shared_ptr<GraphicsTileBase> tileToMoveTo
 bool GraphicsUnitBase::canMoveToTile(GraphicsTileBase *tileToMoveTo)
 {
     if (tileToMoveTo->getOwner() == nullptr || tileToMoveTo->getOwner() == getOwner()) {
-        return tileToMoveTo->getMovementCost() <= movePoints_;
+        return tileToMoveTo->getMovementCost() <= movePoints_
+                && tileToMoveTo->hasSpaceForWorkers(spacesInTileCapacity());
     }
     return false;
 }

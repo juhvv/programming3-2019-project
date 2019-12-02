@@ -20,7 +20,7 @@ public:
 
     virtual ~Player() = default;
 
-    std::string getName();
+    // virtual std::string getName() const override;
     void setMarker(int index);
     void getIcon(QPixmap &icon);
 
@@ -47,6 +47,8 @@ public:
     void addGameObject(CustomGraphicsItem *newItem);
 
     void addUnit(std::shared_ptr<GraphicsUnitBase> newUnit);
+
+    std::shared_ptr<GraphicsUnitBase> getUnitById(unsigned int ID);
 
     void addNewBuilding(std::shared_ptr<GameBuildingBase> newBuilding);
 

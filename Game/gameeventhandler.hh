@@ -37,9 +37,15 @@ public:
      * True - Modification was succesful. \n
      * False - Modification failed. \n
      */
-     bool modifyResource(std::shared_ptr<Course::PlayerBase> player,
+     virtual bool modifyResource(std::shared_ptr<Course::PlayerBase> player,
                                 Course::BasicResource resource,
                                 int amount) final;
+
+    virtual bool modifyResource(std::shared_ptr<Player> player,
+                               Course::BasicResource resource,
+                               int amount) final;
+
+
     /**
      * @brief Modify Player's resources. Can be used to both sum or subtract
      * @param player Pointer to the Player whose resources are being modified.
@@ -48,9 +54,11 @@ public:
      * True - Modification was succesful. \n
      * False - Modification failed. \n
      */
-     bool modifyResources(std::shared_ptr<Course::PlayerBase> player,
-                                 Course::ResourceMap resources);
+    virtual bool modifyResources(std::shared_ptr<Course::PlayerBase> player,
+                                 Course::ResourceMap resources) final;
 
+    virtual bool modifyResources(std::shared_ptr<Player> player,
+                                 Course::ResourceMap resources) final;
 
     void nextTurn();    // called when a turn ends
 
@@ -74,6 +82,8 @@ public:
 
     void resetData();   // resets stored data
 
+    void isGameOver();  // check if game should end based on the win conditions
+
     template<typename unitType>
     void addUnit(std::shared_ptr<GraphicsTileBase> tile, std::shared_ptr<Player> player = nullptr) {
         if (player == nullptr) {
@@ -88,16 +98,16 @@ public:
             qDebug() << newUnit->getType().c_str();
             std::shared_ptr<GameObjectBase> unitObject = std::dynamic_pointer_cast<GameObjectBase>(newUnit);
             objectMngr_->setGraphicsObject(unitObject);
+
+            player->addUnit(newUnit);
             newUnit->moveToTile(tile, true);
-            tile->addWorker(newUnit);
+            // tile->addWorker(newUnit);
+            qDebug() << tile->getWorkerCount();
 
         }
         else {
             qDebug() << "Could not construct new unit";
         }
-        std::shared_ptr<GraphicsUnitBase> newGameObject =
-                std::dynamic_pointer_cast<GraphicsUnitBase>(newUnit);
-        player->addUnit(newGameObject);
     }
 
     template <typename buildingType>
