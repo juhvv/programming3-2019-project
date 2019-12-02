@@ -85,7 +85,7 @@ const Course::ResourceMap BW_RECRUITMENT_COST = {
 };
 
 const Course::ResourceMap UNIT_CONSUMPTION = {
-    {FOOD, 10}
+    {FOOD, -5}
 };
 
 // scout

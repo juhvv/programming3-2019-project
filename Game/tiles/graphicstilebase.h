@@ -1,3 +1,4 @@
+
 #ifndef GRAPHICSTILEBASE_H
 #define GRAPHICSTILEBASE_H
 
