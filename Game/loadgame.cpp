@@ -93,6 +93,9 @@ void LoadGame::addUnitsAndBuildings(QString fileName)
             }
         }
     }
+    emit updateVisibleLabels();
+    std::string msg = "<<<GAME LOADED>>>";
+    emit sendMsg(msg);
 }
 
 

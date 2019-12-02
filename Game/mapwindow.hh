@@ -42,12 +42,12 @@ public:
     void setScale(int scale);
     void resize();
 
-    void updateVisibleResources();
     void drawItem( std::shared_ptr<Course::GameObject> obj);
     void removeItem( std::shared_ptr<Course::GameObject> obj);
     void updateItem( std::shared_ptr<Course::GameObject> obj);
 
 public slots:
+    void updateVisibleResources();
     void showSaveWindow();
     void showLoadWindow();
     void showStartWindow();

@@ -126,6 +126,8 @@ void MapWindow::showLoadWindow()
     LoadWindow* loadwindow = new LoadWindow();
     loadwindow->setModal(true);
     loadwindow->show();
+    connect(loadGamePtr, &LoadGame::updateVisibleLabels, this, &MapWindow::updateVisibleResources);
+    connect(loadGamePtr, &LoadGame::sendMsg, this, &MapWindow::sendMsgSlot);
     connect(loadwindow, &LoadWindow::sendLoadFileName, loadGamePtr, &LoadGame::loadGame);
 }
 
@@ -172,6 +174,7 @@ void MapWindow::startNewGame(playerInfo info, unsigned int seed)
     std::string playerTurnText = eventhandler_->getCurrentPlayer()->getName()
             + " - Turn " + std::to_string(eventhandler_->getTurnNumber());
     m_ui->groupBox->setTitle(playerTurnText.c_str());
+    updateVisibleResources();
     /*
     GraphicsUnitBase* newUnit = new GraphicsUnitBase(eventhandler_, objectManager_, eventhandler_->getCurrentPlayer());
     scene_->addItem(newUnit);

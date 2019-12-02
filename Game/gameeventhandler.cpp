@@ -168,8 +168,6 @@ void GameEventHandler::isGameOver()
         // do something
         qDebug() << "Game over";
     }
-
-
 }
 
 void GameEventHandler::sendMsg(std::string msg)

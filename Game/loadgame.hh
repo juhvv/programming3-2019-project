@@ -104,6 +104,9 @@ public:
 public slots:
     void loadGame(QString fileName);
 
+signals:
+    void updateVisibleLabels();
+    void sendMsg(std::string& msg);
 
 private:
     std::shared_ptr<GameEventHandler> eventhandler_;
