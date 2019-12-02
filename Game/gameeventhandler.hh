@@ -14,6 +14,7 @@
 #include "objectmanager.hh"
 #include "workers/basicworker.h"
 #include "unitconstructor.h"
+#include "startwindow.hh"
 
 
 class GameEventHandler :
@@ -78,7 +79,7 @@ public:
 
     std::vector<std::shared_ptr<Player>> getPlayerVector();
 
-    void addNewPlayers(std::vector<std::pair<std::string, int>>); //adds new players to the game
+    void addNewPlayers(std::vector<std::pair<std::string, int>> nameVct, MapSize::Size mapSize); //adds new players to the game
 
     void resetData();   // resets stored data
 
@@ -126,6 +127,7 @@ public:
     }
 
     void sendMsg(std::string msg);
+    void updateVisibleResources();
 
 
 public slots:

@@ -42,15 +42,6 @@ public:
 
     virtual void removeUnit(GraphicsUnitBase* unit);
 
-    /*
-    using Course::TileBase::addBuilding;
-    void addBuilding(const std::shared_ptr<GameBuildingBase>& building)
-    {
-        std::shared_ptr<Course::BuildingBase> newBuilding =
-                std::dynamic_pointer_cast<Course::BuildingBase>(building);
-        TileBase::addBuilding(newBuilding);
-    }
-    */
     virtual bool generateResources() override;
 
     Course::ResourceMap generatedResources();
@@ -58,17 +49,10 @@ public:
 
     virtual QPointF getSceneCoord() const;
 
-
 public slots:
 
     virtual void sendInfo() override;
     virtual void claimTile();
-
-private:
-    std::vector<std::weak_ptr<GraphicsUnitBase>> m_workers;
-    std::vector<std::weak_ptr<Course::BuildingBase>> m_buildings;
-
-    //CustomGraphicsItem* graphicsObject_;
 
 protected:
     const std::shared_ptr<Course::iGameEventHandler> eventhandlerProtected_;

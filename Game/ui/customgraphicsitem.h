@@ -19,8 +19,6 @@ namespace shapePrefs {
     };
 }
 
-
-
 class CustomGraphicsItem : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
@@ -47,8 +45,6 @@ public:
     void setShapePref(const shapePrefs::ShapePref &shapePref);
 
 private:
-    // bool isMovable_;
-    // bool isSelectable_;
     std::weak_ptr<GameObjectBase> parentObject_;
     shapePrefs::ShapePref shapePref_ = shapePrefs::DEFAULT;
 };

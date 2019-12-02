@@ -46,11 +46,6 @@ void GraphicsUnitBase::getMenuItems(QMenu &menu)
     connect(infoAction, &QAction::triggered, this, &GraphicsUnitBase::sendInfo);
 }
 
-void GraphicsUnitBase::doSpecialAction()
-{
-
-}
-
 unsigned int GraphicsUnitBase::getMovePoints()
 {
     return movePoints_;
@@ -81,6 +76,10 @@ bool GraphicsUnitBase::moveToTile(std::shared_ptr<GraphicsTileBase> tileToMoveTo
         graphicsItem_->setPos(finalLoc);
 
         cancelMovement();
+
+        std::dynamic_pointer_cast<GameEventHandler>
+                (lockEventHandler())->updateVisibleResources();
+
         return true;
     } else {
         std::dynamic_pointer_cast<GameEventHandler>
@@ -91,7 +90,7 @@ bool GraphicsUnitBase::moveToTile(std::shared_ptr<GraphicsTileBase> tileToMoveTo
 
 bool GraphicsUnitBase::canMoveToTile(GraphicsTileBase *tileToMoveTo)
 {
-    if (tileToMoveTo->getOwner() == nullptr || tileToMoveTo->getOwner() == getOwner()) {
+    if (tileToMoveTo->getOwner() == getOwner()) {
         return tileToMoveTo->getMovementCost() <= movePoints_
                 && tileToMoveTo->hasSpaceForWorkers(spacesInTileCapacity());
     }
@@ -130,7 +129,7 @@ void GraphicsUnitBase::cancelMovement()
 
 void GraphicsUnitBase::getDescriptionBrief(std::string &desc)
 {
-    desc += "\n A hard-working fellow.";
+    desc += "\n Oispa description";
 }
 
 std::shared_ptr<GraphicsTileBase> GraphicsUnitBase::getCurrentTile()
@@ -146,7 +145,6 @@ void GraphicsUnitBase::initMove()
     std::shared_ptr<Course::TileBase> thisTile = lockObjectManager()->getTile(getCoordinate());
     scene_->getAdjacentTiles(adjacentTilesTemp_,
                              std::dynamic_pointer_cast<GraphicsTileBase>(thisTile), getMovePoints(), this);
-
 
     scene_->toggleTileHighlight(adjacentTilesTemp_, true);
 }
