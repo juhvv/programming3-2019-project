@@ -38,16 +38,10 @@ void LoadGame::addUnitsAndBuildings(QString fileName)
         std::string stringLine = line.toUtf8().constData();
         std::vector<std::string> stringVector = split(stringLine);
         if(stringVector[0]=="TILE"){
-            std::string buildingName = stringVector[5];
-            std::string ownerName = stringVector[4];
-
-            std::vector<std::string> unitNameVct;
-
+            std::string buildingName = stringVector[6];
+            std::string ownerName = stringVector[5];
+            std::string isTileOwned = stringVector[4];
             if(ownerName!=""){
-
-                for(int i=6; i<stringVector.size(); i++){
-                    unitNameVct.push_back(stringVector[i]);
-                }
 
 
                 unsigned int xCoord = atoi(stringVector[2].c_str());
@@ -55,8 +49,9 @@ void LoadGame::addUnitsAndBuildings(QString fileName)
                 Course::Coordinate tileCoord = Course::Coordinate(xCoord, yCoord);
                 std::shared_ptr<GraphicsTileBase> tile = objectManager_->getGTile(tileCoord);
                 std::shared_ptr<Player> ownerPointer = eventhandler_->getPlayerFromName(ownerName);
-                eventhandler_->claimTile(tile.get(), ownerPointer);
-
+                if(isTileOwned=="YES"){
+                    eventhandler_->claimTile(tile.get(), ownerPointer);
+                }
 
                 if(buildingName!=""){    //Add buildings
 

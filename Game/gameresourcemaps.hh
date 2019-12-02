@@ -69,6 +69,7 @@ const Course::ResourceMap GOLDMINE_PRODUCTION = {
     {Course::BasicResource::ORE, 4}
 };
 
+
 // Worker - BasicWorker
 const ResourceMapDouble BW_WORKER_EFFICIENCY = {
     {MONEY, 0.25},
@@ -81,6 +82,10 @@ const ResourceMapDouble BW_WORKER_EFFICIENCY = {
 const Course::ResourceMap BW_RECRUITMENT_COST = {
     {MONEY, 10},
     {FOOD, 25}
+};
+
+const Course::ResourceMap UNIT_CONSUMPTION = {
+    {FOOD, 10}
 };
 
 // scout

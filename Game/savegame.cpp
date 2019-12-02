@@ -47,35 +47,36 @@ void SaveGame::saveCurrentGame(QString fileName)
 
         QString tileType = QString::fromStdString(tile->getType());
         std::vector<std::shared_ptr<Course::BuildingBase>> buildings = tile->getBuildings();
+        std::vector<std::shared_ptr<Course::WorkerBase>> units = tile->getWorkers();
         std::shared_ptr<Player> tileOwner = std::dynamic_pointer_cast<Player>(tile->getOwner());
 
         QString ownerName = "";
+        QString tileOwned = "NO";
         QString buildingType = "";
-        QString workerType = "";
 
         int xCoord = tile->getCoordinate().x();
         int yCoord = tile->getCoordinate().y();
 
+        if(units.size()>0){
+            ownerName = QString::fromStdString(units[0]->getOwner()->getName());
+        }
+
         if(tile->getOwner()!=NULL){
             ownerName = QString::fromStdString(tile->getOwner()->getName());
+            tileOwned = "YES";
         }
         if(buildings.size()>0){
             buildingType = QString::fromStdString(buildings[0]->getType());
         }
 
-        out<<"TILE,"<<tileType<<","<<xCoord<<","<<yCoord<<","<<ownerName<<","<<buildingType<<",";
+        out<<"TILE,"<<tileType<<","<<xCoord<<","<<yCoord<<","<<tileOwned<<","<<ownerName<<","<<buildingType<<",";
 
-        if(tileOwner!=NULL){
-            std::vector<std::shared_ptr<GraphicsUnitBase>> AllUnitsOfOwner = tileOwner->getPlayerUnits();
-            for(auto unit: AllUnitsOfOwner){
-                if(unit->getCoordinate()==tile->getCoordinate()){
-                    qDebug()<<"hahmo koordinaateissa"<<unit->getCoordinate().x()<<unit->getCoordinate().y()<<QString::fromStdString(unit->getType());
-                    workerType=QString::fromStdString(unit->getType());
-                    out<<workerType<<",";
-                }
-            }
+        for(auto unit: units){
+            QString unitType = QString::fromStdString(unit->getType());
+            out<<unitType<<",";
         }
         out<<endl;
+
     }
 
 

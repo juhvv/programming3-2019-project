@@ -7,6 +7,7 @@
 #include "units/graphicsunitbase.h"
 #include "buildings/gamebuildingbase.h"
 #include "gameresourcemaps.hh"
+#include "player.hh"
 
 // static const unsigned int TILE_SIZE = 128;  // defines tile size (px)
 

@@ -101,6 +101,18 @@ Course::ResourceMap GraphicsTileBase::generatedResources()
 {
     Course::ResourceMapDouble worker_efficiency;
     Course::ResourceMap total_production;
+    Course::ResourceMap tileNetProduction;
+    Course::ResourceMap UnitConsumption = GameConstResourceMaps::UNIT_CONSUMPTION;
+    /*
+    std::vector<std::shared_ptr<GraphicsUnitBase>> AllUnitsOfOwner = getOwner()getPlayerUnits();
+    for(auto unit: AllUnitsOfOwner){
+        if(unit->getCoordinate()==getCoordinate()){
+            qDebug()<<"hahmo koordinaateissa"<<unit->getCoordinate().x()<<unit->getCoordinate().y()<<QString::fromStdString(unit->getType());
+            QString workerType=QString::fromStdString(unit->getType());
+            qDebug()<<"generoidut resurssit pelaajalta ,, noin"<<workerType;
+        }
+    }
+    */
 
     for( auto work_it = m_workers.begin();
          work_it != m_workers.end();
@@ -126,6 +138,7 @@ Course::ResourceMap GraphicsTileBase::generatedResources()
 
    // qDebug()<<"resursseja laskettu vissii";
     return total_production;
+
 }
 
 void GraphicsTileBase::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene)
