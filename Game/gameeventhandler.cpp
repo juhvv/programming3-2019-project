@@ -41,26 +41,15 @@ Course::ResourceMap GameEventHandler::calculateProduction()
     for(auto tile: tileVector){
         std::shared_ptr<Course::PlayerBase> tileOwner = tile->getOwner();
         std::shared_ptr<Course::PlayerBase> unitOwner = NULL;
-        if(tile->getOwner()!=NULL){
-            //unitOwner = tile->getWorkers()[0]->getOwner();
-            std::shared_ptr<Course::PlayerBase> tileOwner = tile->getOwner();
-        }
-
-   //     if(tile->getWorkers().size()>0 || unitOwner!= tileO && tileOwner == currentPlayer_){
-
-   //     }
-
-        if(tileOwner == currentPlayer_ ){
-            std::shared_ptr<GraphicsTileBase> newerTile = std::dynamic_pointer_cast<GraphicsTileBase>(tile);
-
-            Course::ResourceMap tileProduction = newerTile->generatedResources();
-
-            totalNetProduction = Course::mergeResourceMaps(totalNetProduction, tileProduction);
+        if(tile->getWorkers().size()!=0){
+            if(tile->getWorkers()[0]->getOwner()==currentPlayer_){
+                std::shared_ptr<GraphicsTileBase> newerTile = std::dynamic_pointer_cast<GraphicsTileBase>(tile);
+                Course::ResourceMap tileProduction = newerTile->generatedResources();
+                totalNetProduction = Course::mergeResourceMaps(totalNetProduction, tileProduction);
+            }
         }
     }
-   // qDebug()<<"Nettoruoka"<<totalNetProduction[Course::FOOD];
     return totalNetProduction;
-
 }
 
 void GameEventHandler::calculateAddProduction()
