@@ -18,7 +18,7 @@ const ResourceMap FARM_BUILD_COST = {
 };
 const ResourceMap FARM_PRODUCTION = {
     {BasicResource::MONEY, 1},
-    {BasicResource::FOOD, 5}
+    {BasicResource::FOOD, 10}
 };
 
 

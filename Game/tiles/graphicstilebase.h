@@ -43,7 +43,7 @@ public:
 
     virtual bool generateResources() override;
 
-    Course::ResourceMap generatedResources();
+    Course::ResourceMap generatedResources(std::shared_ptr<Player>& currentPlayer);
     virtual void setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene) override;
 
     virtual QPointF getSceneCoord() const;

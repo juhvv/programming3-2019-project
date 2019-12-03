@@ -44,7 +44,7 @@ Course::ResourceMap GameEventHandler::calculateProduction()
         if(tile->getWorkers().size()!=0){
             if(tile->getWorkers()[0]->getOwner()==currentPlayer_){
                 std::shared_ptr<GraphicsTileBase> newerTile = std::dynamic_pointer_cast<GraphicsTileBase>(tile);
-                Course::ResourceMap tileProduction = newerTile->generatedResources();
+                Course::ResourceMap tileProduction = newerTile->generatedResources(currentPlayer_);
                 totalNetProduction = Course::mergeResourceMaps(totalNetProduction, tileProduction);
             }
         }

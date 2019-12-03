@@ -90,12 +90,11 @@ bool GraphicsTileBase::generateResources()
     return true;
 }
 
-Course::ResourceMap GraphicsTileBase::generatedResources()
+Course::ResourceMap GraphicsTileBase::generatedResources(std::shared_ptr<Player> &currentPlayer)
 {
     Course::ResourceMap tileNetProduction;
     Course::ResourceMap unitConsumption = GameConstResourceMaps::UNIT_CONSUMPTION;
     bool doesTileHaveWorker = false;
-    std::shared_ptr<Player> workerOwner = NULL;
     for(int i=0; i<getWorkers().size(); i++){
         tileNetProduction = Course::mergeResourceMaps(tileNetProduction, unitConsumption);
         if(getWorkers()[i]->getType()=="Worker"){
@@ -106,7 +105,7 @@ Course::ResourceMap GraphicsTileBase::generatedResources()
         if(getBuildings().size()>0){
             tileNetProduction = Course::mergeResourceMaps(tileNetProduction, getBuildings()[0]->getProduction());
         }
-        else{
+        else if(getOwner() == currentPlayer){
             tileNetProduction = Course::mergeResourceMaps(tileNetProduction, BASE_PRODUCTION);
         }
     }
