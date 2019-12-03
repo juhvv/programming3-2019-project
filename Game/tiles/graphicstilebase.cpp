@@ -102,7 +102,7 @@ Course::ResourceMap GraphicsTileBase::generatedResources()
         }
     }
     if(doesTileHaveWorker || getBuildings().size()>0){
-       tileNetProduction = Course::mergeResourceMaps(tileNetProduction, getBuildings()[0]->getProduction());
+ //      tileNetProduction = Course::mergeResourceMaps(tileNetProduction, getBuildings()[0]->getProduction());
     }
     else if(doesTileHaveWorker){
         tileNetProduction = Course::mergeResourceMaps(tileNetProduction, BASE_PRODUCTION);
