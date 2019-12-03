@@ -15,16 +15,9 @@ GraphicsTileBase::GraphicsTileBase(const Course::Coordinate& location,
                                    const unsigned int& max_work,
                                    const Course::ResourceMap& production) :
     GameObjectBase(scene),
-    Course::TileBase (location, eventhandler, objectmanager, max_build, max_work, production),
-    eventhandlerProtected_(eventhandler)
+    Course::TileBase (location, eventhandler, objectmanager, max_build, max_work, production)
 {
 
-}
-
-Course::iGameEventHandler *GraphicsTileBase::getEventHandlerPtr() const
-{
-
-    return eventhandlerProtected_.get();
 }
 
 void GraphicsTileBase::getMenuItems(QMenu &menu)
@@ -35,6 +28,7 @@ void GraphicsTileBase::getMenuItems(QMenu &menu)
             || getOwner() == nullptr) {
         menu.addSeparator();
         // tile can only be claimed if it has no owner
+        // DEBUG CODE DELET THIS
         if (getOwner() == nullptr) {
             QAction *claimAction = menu.addAction("Claim");
             connect(claimAction, &QAction::triggered, this, &GraphicsTileBase::claimTile);
@@ -183,9 +177,10 @@ void GraphicsTileBase::sendInfo()
 
 void GraphicsTileBase::claimTile()
 {
+    /*
     std::shared_ptr<GameEventHandler> eventHndlr =
             std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler());
-    eventHndlr->claimTile(this);
+    eventHndlr->claimTile(this);*/
 }
 
 

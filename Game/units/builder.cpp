@@ -90,11 +90,3 @@ void Builder::getDescriptionBrief(std::string &desc)
 {
     desc += "\n Pete the builder.";
 }
-
-void Builder::buildActionSlot()
-{
-    std::shared_ptr<GameEventHandler> handler =
-            std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler());
-    handler->addBuilding<SawMill>(std::dynamic_pointer_cast<GraphicsTileBase>
-                                  (lockObjectManager()->getTile(getCoordinate())));
-}

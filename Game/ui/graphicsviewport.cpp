@@ -12,36 +12,25 @@ GraphicsViewPort::GraphicsViewPort(QWidget* parent) :
 
 void GraphicsViewPort::wheelEvent(QWheelEvent *event)
 {
-    //this->translate(1, 1);
     QPoint degrees = event->angleDelta();
     if (degrees.y() != 0) {
-        zoom(event->pos(), degrees.y() > 0);
+        zoom(degrees.y() > 0);
     }
 }
 
-void GraphicsViewPort::zoom(QPoint centerLoc, bool isZoomIn)
+void GraphicsViewPort::zoom(bool isZoomIn)
 {
-    /*
-    qDebug() << "Zoomcoord: " << centerLoc;
-
-    QPoint fromScene = mapFromScene(centerLoc);
-    QPointF toScene = mapToScene(centerLoc);
-    qDebug() << "Transformed Coord: " << fromScene;
-    qDebug() << "Mapped from Coord: " << toScene.toPoint();
-    */
-
     if (isZoomIn) {
         if (zoomLevel_ < 2) {
             zoomLevel_ *= 1.05;
             this->scale(1.05, 1.05);
-            //centerOn(toScene.toPoint());
+
         }
     } else {
         if (zoomLevel_ > 0.3) {
             zoomLevel_ *= 0.95;
             this->scale(0.95, 0.95);
-            // centerOn(toScene.toPoint());
+
         }
     }
-
 }

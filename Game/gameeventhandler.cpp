@@ -40,7 +40,7 @@ Course::ResourceMap GameEventHandler::calculateProduction()
     Course::ResourceMap totalNetProduction;
     for(auto tile: tileVector){
         std::shared_ptr<Course::PlayerBase> tileOwner = tile->getOwner();
-        std::shared_ptr<Course::PlayerBase> unitOwner = NULL;
+        std::shared_ptr<Course::PlayerBase> unitOwner = nullptr;
         if(tile->getWorkers().size()!=0){
             if(tile->getWorkers()[0]->getOwner()==currentPlayer_){
                 std::shared_ptr<GraphicsTileBase> newerTile = std::dynamic_pointer_cast<GraphicsTileBase>(tile);
@@ -164,12 +164,12 @@ void GameEventHandler::isGameOver(std::string endMessage)
     }
 
     if(endMessage!=""){
-        signalSendMsg();
+        emit signalSendMsg(endMessage);
     }
 
     if (turnNumber_ == maxTurns_) {
         std::string endMsg = "You run out of turns, so game over!";
-        signalSendMsg(endMsg);
+        emit signalSendMsg(endMsg);
         qDebug() << "Game over";
     }
 }

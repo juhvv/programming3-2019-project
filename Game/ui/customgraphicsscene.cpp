@@ -37,13 +37,7 @@ void CustomGraphicsScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *conte
 
     QMenu menu;
     if (!movementModeFlag_) {
-        /*
-        if (pressed->isMovable()) {
-            QAction *moveAction = menu.addAction("Move");
-            menu.addSeparator();
-            connect(moveAction, &QAction::triggered, this, &CustomGraphicsScene::enterMovementMode);
-        }
-        */
+
         pressed->getMenuItems(menu);
         lastClickedItem_ = pressed;
         menu.exec(contextMenuEvent->screenPos());
@@ -67,16 +61,7 @@ void CustomGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
         CustomGraphicsItem* itemToMoveTo =
                 dynamic_cast<CustomGraphicsItem*>(itemAt(mouseEvent->scenePos(), QTransform()));
-        /*
-        auto it = std::find(tileVec_.begin(), tileVec_.end(), itemToMoveTo);
-        if (it == tileVec_.end()) {
-                unitToBeMoved->cancelMovement();
-                qDebug() << "cant go there";
-                movementModeFlag_ = false;
-                return;
-            }
-        */
-        // GraphicsUnitBase* unit = dynamic_cast<GraphicsUnitBase*>(lastClickedItem_);
+
         std::weak_ptr<GraphicsTileBase> tileMoveTo =
                 std::dynamic_pointer_cast<GraphicsTileBase>(itemToMoveTo->getParentObject().lock());
         if (tileMoveTo.lock() != nullptr && unitToBeMoved->moveToTile(tileMoveTo.lock())) {
@@ -121,7 +106,6 @@ void CustomGraphicsScene::getAdjacentTiles(std::vector<CustomGraphicsItem *> &ti
                     // qDebug() << "selected tile: " << selectedTilePtr->ID;
                     tileVec.push_back(itemPtr);
                 }
-
             }
         }
     }

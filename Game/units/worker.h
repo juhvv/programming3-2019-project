@@ -17,19 +17,12 @@ public:
 
     virtual ~Worker() = default;
 
-    // virtual void getMenuItems(QMenu &menu) override;
-
-    // virtual unsigned int getMovePoints();
-
     virtual void switchTurn() override;
 
     virtual const Course::ResourceMapDouble tileWorkAction() override;
 
-    // virtual bool isSelectable() const override;
-
     virtual void setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene) override;
 
-    // virtual void cancelMovement();
     virtual std::string getType() const override;
 
     virtual void getDescriptionBrief(std::string &desc) override;

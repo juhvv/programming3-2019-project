@@ -27,7 +27,11 @@ public:
     virtual void wheelEvent(QWheelEvent *event) override;
 
 public slots:
-    void zoom(QPoint centerLoc, bool isZoomIn);
+    /**
+     * @brief Zooms the view 5% either in or out
+     * @param isZoomIn Defines direction of zoom, true zooms in
+     */
+    void zoom(bool isZoomIn);
 
 private:
     double zoomLevel_;

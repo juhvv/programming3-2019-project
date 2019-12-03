@@ -47,8 +47,11 @@ void Base::getMenuItems(QMenu &menu)
     std::shared_ptr<ObjectManager> manager =
             std::dynamic_pointer_cast<ObjectManager>(lockObjectManager());
     std::shared_ptr<GraphicsTileBase> curTile = manager->getGTile(getCoordinate());
+
+    // check if tile has any space for workers
     if (curTile->hasSpaceForWorkers(1)) {
         getBuildMenu(*workerHireMenu);
+
     } else {
         workerHireMenu->setDisabled(true);
         workerHireMenu->setTitle("Can't hire units - Tile is full");
@@ -64,7 +67,8 @@ void Base::getBuildMenu(QMenu &bmenu)
     QAction* hireScoutAction = bmenu.addAction("Hire scout");
     QAction* hireWorkerAction = bmenu.addAction("Hire worker");
 
-    if (true) {
+    // currently there are no unit-specific build limitations, so following checks are always true
+    if (/* DISABLES CODE */ (true)) {
         connect(hireBuilderAction, &QAction::triggered, this, &Base::hireUnitSlot<Builder>);
 
     } else {
@@ -72,7 +76,7 @@ void Base::getBuildMenu(QMenu &bmenu)
         hireBuilderAction->setDisabled(true);
     }
 
-    if (true) {
+    if (/* DISABLES CODE */ (true)) {
         connect(hireScoutAction, &QAction::triggered, this, &Base::hireUnitSlot<Scout>);
 
     } else {
@@ -80,7 +84,7 @@ void Base::getBuildMenu(QMenu &bmenu)
         hireScoutAction->setDisabled(true);
     }
 
-    if (true) {
+    if (/* DISABLES CODE */ (true)) {
         connect(hireWorkerAction, &QAction::triggered, this, &Base::hireUnitSlot<Worker>);
 
     } else {
@@ -97,16 +101,5 @@ std::string Base::getType() const
 void Base::getDescriptionBrief(std::string &desc)
 {
     desc += "\n " + getOwner()->getName() + " has built their base here.";
-}
-
-void Base::buildUnit()
-{
-    std::shared_ptr<GameEventHandler> handler =
-            std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler());
-    std::shared_ptr<ObjectManager> manager =
-            std::dynamic_pointer_cast<ObjectManager>(lockObjectManager());
-
-    handler->addUnit<Builder>(manager->getGTile(getCoordinate()));
-    handler->addUnit<Scout>(manager->getGTile(getCoordinate()));
 }
 

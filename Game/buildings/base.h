@@ -49,8 +49,6 @@ public:
     virtual void getDescriptionBrief(std::string &desc) override;
 
 public slots:
-    virtual void buildUnit();
-
     template<typename UnitType>
     void hireUnitSlot() {
         std::shared_ptr<GameEventHandler> handler =

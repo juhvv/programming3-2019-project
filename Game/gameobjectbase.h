@@ -61,7 +61,8 @@ public:
 
     /**
      * @brief Sets object's graphics item. This funcion must be called on
-     * the object before any other function.
+     * \n the object before any other function. This method should be re-implemented
+     * \n by derived classes.
      * @param graphicsItem Object's graphics item
      * @param scene Scene for graphics item
      */
