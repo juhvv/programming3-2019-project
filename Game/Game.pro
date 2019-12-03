@@ -103,7 +103,8 @@ FORMS += \
     mapwindow.ui \
     startwindow.ui \
     savewindow.ui \
-    loadwindow.ui
+    loadwindow.ui \
+    endwindow.ui
 
 DISTFILES +=
 

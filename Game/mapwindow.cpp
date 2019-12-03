@@ -50,6 +50,7 @@ MapWindow::MapWindow(QWidget *parent):
             this, &MapWindow::updateVisibleResources);
     connect(eventhandler_.get(), &GameEventHandler::signalSendMsg, this, &MapWindow::sendMsgSlot);
 
+
     // setup world generator
     Course::WorldGenerator& generaattori = Course::WorldGenerator::getInstance();
     generaattori.addConstructor<GrassTileItem>(4);
@@ -106,6 +107,7 @@ void MapWindow::showLoadWindow()
     connect(loadGamePtr, &LoadGame::sendMsg, this, &MapWindow::sendMsgSlot);
     connect(loadwindow, &LoadWindow::sendLoadFileName, loadGamePtr, &LoadGame::loadGame);
 }
+
 
 void MapWindow::showStartWindow()
 {

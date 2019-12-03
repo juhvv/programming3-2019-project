@@ -24,6 +24,7 @@
 #include "savegame.hh"
 #include "loadgame.hh"
 
+
 namespace Ui {
 class MapWindow;
 }

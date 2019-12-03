@@ -31,7 +31,7 @@ void GameEventHandler::nextTurn()
     }
 
     emit signalUpdateVisibleResources();
-    isGameOver();
+    isGameOver(currentPlayer_->getName());
 }
 
 Course::ResourceMap GameEventHandler::calculateProduction()
@@ -56,6 +56,8 @@ void GameEventHandler::calculateAddProduction()
 {
     Course::ResourceMap totalNetProduction = calculateProduction();
     currentPlayer_->modifyResources(totalNetProduction);
+    std::string currentPlayer = currentPlayer_->getName();
+    isGameOver(currentPlayer+" run out of food, all units died and you lost!");
 }
 
 unsigned int GameEventHandler::getTurnNumber()
@@ -153,15 +155,21 @@ void GameEventHandler::resetData()
     objectMngr_->resetData();
 }
 
-void GameEventHandler::isGameOver()
+void GameEventHandler::isGameOver(std::string endMessage)
 {
     if (currentPlayer_->getResourceMap()[Course::BasicResource::MONEY] > 10000) {
-        // do something
         qDebug() << currentPlayer_->getName().c_str() << " won!";
+        std::string winnerMsg = currentPlayer_->getName()+" WON! With a huge pile of money!";
+        signalSendMsg(winnerMsg);
+    }
+
+    if(endMessage!=""){
+        signalSendMsg();
     }
 
     if (turnNumber_ == maxTurns_) {
-        // do something
+        std::string endMsg = "You run out of turns, so game over!";
+        signalSendMsg(endMsg);
         qDebug() << "Game over";
     }
 }

@@ -85,7 +85,7 @@ public:
 
     void resetData();   // resets stored data
 
-    void isGameOver();  // check if game should end based on the win conditions
+    void isGameOver(std::string endMessage);  // check if game should end based on the win conditions
 
     template<typename unitType>
     void addUnit(std::shared_ptr<GraphicsTileBase> tile, std::shared_ptr<Player> player = nullptr) {

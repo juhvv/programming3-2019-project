@@ -41,7 +41,7 @@
    <string>START</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="game_resources.qrc">
+   <iconset>
     <normaloff>:/resources/vaakuna.png</normaloff>:/resources/vaakuna.png</iconset>
   </property>
   <property name="modal">
@@ -375,7 +375,7 @@
       </property>
      </widget>
     </item>
-    <item row="10" column="4">
+    <item row="9" column="4">
      <widget class="QPushButton" name="startBtn">
       <property name="enabled">
        <bool>true</bool>
@@ -460,8 +460,6 @@
    </layout>
   </widget>
  </widget>
- <resources>
-  <include location="game_resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
