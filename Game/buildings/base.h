@@ -22,14 +22,30 @@ public:
 
     virtual ~Base() = default;
 
+    /**
+     * @copydoc GameObjectBase::setGraphicsItem
+     */
     virtual void setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene) override;
 
+    /**
+     * @copydoc GameObjectBase::getMenuItems
+     */
     virtual void getMenuItems(QMenu &menu) override;
 
+    /**
+     * @brief getBuildMenu gets this building's unit hire menu
+     * @param bmenu Menu which receives hire actions
+     */
     virtual void getBuildMenu(QMenu &bmenu);
 
+    /**
+     * @copydoc GameObjectBase::getType
+     */
     virtual std::string getType() const override;
 
+    /**
+     * @copydoc GameObjectBase::getDescriptionBrief
+     */
     virtual void getDescriptionBrief(std::string &desc) override;
 
 public slots:

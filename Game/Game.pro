@@ -36,7 +36,8 @@ SOURCES += \
     units/scout.cpp \
     units/worker.cpp \
     buildings/gamefarm.cpp \
-    buildings/gameoutpost.cpp
+    buildings/gameoutpost.cpp \
+    tiles/swamptileitem.cpp
     units/worker.cpp
 
 HEADERS += \
@@ -70,7 +71,8 @@ HEADERS += \
     units/scout.h \
     units/worker.h \
     buildings/gamefarm.h \
-    buildings/gameoutpost.h
+    buildings/gameoutpost.h \
+    tiles/swamptileitem.h
     units/worker.h
 
 win32:CONFIG(release, debug|release): LIBS += \

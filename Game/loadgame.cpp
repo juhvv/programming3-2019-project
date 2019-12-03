@@ -100,6 +100,7 @@ void LoadGame::loadGame(QString fileName)
     addTileConstructor<ForestTileItem>("Forest Tile");
     addTileConstructor<GrassTileItem>("Grass tile");
     addTileConstructor<WaterTileItem>("Lake tile");
+    addTileConstructor<SwampTileItem>("Swamp tile");
 
     eventhandler_->resetData();
 

@@ -28,14 +28,6 @@ void WaterTileItem::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGrap
     graphicsItem_ = graphicsItem;
     scene_ = scene;
 
-    //graphicsObject_->setPixmap(QPixmap(":/resources/tilebase.PNG"));
-    /*
-    qreal newX = this->getCoordinate().x() * TILE_SIZE;
-    qreal newY = this->getCoordinate().y() * TILE_SIZE;
-
-    scene_->addItem(graphicsItem_);
-    graphicsItem_->setPos(newX, newY);
-    */
     graphicsItem_->setPixmap(QPixmap(":/resources/water.PNG"));
     graphicsItem_->setZValue(0);
     scene_->update();

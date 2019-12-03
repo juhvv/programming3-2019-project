@@ -52,10 +52,11 @@ MapWindow::MapWindow(QWidget *parent):
 
     // setup world generator
     Course::WorldGenerator& generaattori = Course::WorldGenerator::getInstance();
-    generaattori.addConstructor<GrassTileItem>(2);
-    generaattori.addConstructor<ForestTileItem>(2);
-    generaattori.addConstructor<WaterTileItem>(1);
-    generaattori.addConstructor<MountainTileItem>(1);
+    generaattori.addConstructor<GrassTileItem>(4);
+    generaattori.addConstructor<ForestTileItem>(4);
+    generaattori.addConstructor<WaterTileItem>(2);
+    generaattori.addConstructor<MountainTileItem>(2);
+    generaattori.addConstructor<SwampTileItem>(1);
 
     MapWindow::showStartWindow();
 }
@@ -63,8 +64,6 @@ MapWindow::MapWindow(QWidget *parent):
 MapWindow::~MapWindow()
 {
 }
-
-
 
 void MapWindow::updateVisibleResources()
 {
@@ -119,9 +118,11 @@ void MapWindow::switchTurn()
     eventhandler_->nextTurn();
     std::string curPlayerName = eventhandler_->getCurrentPlayer()->getName();
     msg += curPlayerName;
+
     std::string playerTurnText = eventhandler_->getCurrentPlayer()->getName()
             + " - Turn " + std::to_string(eventhandler_->getTurnNumber());
     m_ui->groupBox->setTitle(playerTurnText.c_str());
+
     sendMsgSlot(msg);
     //updateVisibleResources();
 }

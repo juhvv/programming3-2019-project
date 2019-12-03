@@ -2,15 +2,12 @@
 #ifndef GRAPHICSTILEBASE_H
 #define GRAPHICSTILEBASE_H
 
-// #include "ui/customgraphicsitem.h"
 #include "gameobjectbase.h"
 #include "tiles/tilebase.h"
 #include "units/graphicsunitbase.h"
 #include "buildings/gamebuildingbase.h"
 #include "gameresourcemaps.hh"
 #include "player.hh"
-
-// static const unsigned int TILE_SIZE = 128;  // defines tile size (px)
 
 /**
  * @brief The GraphicsTileBase class GameObjectBase and TileBase derived

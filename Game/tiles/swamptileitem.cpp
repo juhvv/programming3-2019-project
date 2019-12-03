@@ -1,9 +1,7 @@
-#include "mountaintileitem.h"
+#include "swamptileitem.h"
 #include "ui/customgraphicsscene.h"
 
-
-
-MountainTileItem::MountainTileItem(const Course::Coordinate &location,
+SwampTileItem::SwampTileItem(const Course::Coordinate &location,
                                    const std::shared_ptr<Course::iGameEventHandler> &eventhandler,
                                    const std::shared_ptr<Course::iObjectManager> &objectmanager,
                                    CustomGraphicsScene* scene,
@@ -12,31 +10,31 @@ MountainTileItem::MountainTileItem(const Course::Coordinate &location,
                                    const Course::ResourceMap &production) :
     GraphicsTileBase (location, eventhandler, objectmanager, scene,  max_build, max_work, production)
 {
-    tags_ = {objectTags::HAS_ROCK};
+    tags_ = {objectTags::IS_FLAT};
 }
 
-unsigned int MountainTileItem::getMovementCost()  const
+unsigned int SwampTileItem::getMovementCost()  const
 {
     return 2;
 }
 
-std::string MountainTileItem::getType() const
+std::string SwampTileItem::getType() const
 {
-    return "Mountain tile";
+    return "Swamp tile";
 }
 
-void MountainTileItem::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene)
+void SwampTileItem::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene)
 {
     graphicsItem_ = graphicsItem;
     scene_ = scene;
 
-    graphicsItem_->setPixmap(QPixmap(":/resources/mountains.PNG"));
-    graphicsItem_->setOffset(-10,-50);
-    graphicsItem_->setZValue(4);
+    graphicsItem_->setPixmap(QPixmap(":/resources/swamp.PNG"));
+    graphicsItem_->setOffset(-5,-5);
+    graphicsItem_->setZValue(2);
     scene_->update();
 }
 
-void MountainTileItem::getDescriptionBrief(std::string &desc)
+void SwampTileItem::getDescriptionBrief(std::string &desc)
 {
-    desc += "\n Hard to traverse, but essential for obtaining precious metals.";
+    desc += "\n Swampy terrain. But where is Jussi?";
 }

@@ -118,6 +118,15 @@ const ResourceMap GRASSLAND_BP = {
     {ORE, 0},
 };
 
+const ResourceMap SWAMP_BP = {
+    {MONEY, 1},
+    {FOOD, 6},
+    {WOOD, 0},
+    {STONE, 0},
+    {ORE, 0},
+};
+
+
 const ResourceMap MOUNTAIN_BP = {
     {MONEY, 3},
     {FOOD, 0},

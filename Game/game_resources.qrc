@@ -17,5 +17,6 @@
         <file>resources/buildings/outpost.png</file>
         <file>resources/buildings/goldmine.PNG</file>
         <file>resources/units/builder.PNG</file>
+        <file>resources/swamp.PNG</file>
     </qresource>
 </RCC>

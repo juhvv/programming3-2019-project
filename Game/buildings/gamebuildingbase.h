@@ -3,15 +3,20 @@
 
 #include "buildings/buildingbase.h"
 #include "gameobjectbase.h"
-//#include "ui/customgraphicsscene.h"
-//#include "units/graphicsunitbase.h"
 #include "gameresourcemaps.hh"
 
+/**
+ * @brief The GameBuildingBase class is a GameObjectBase and BuildingBase
+ * \n derived base class for buildings
+ */
 class GameBuildingBase : public GameObjectBase, public Course::BuildingBase
 {
 public:
     GameBuildingBase() = delete;
 
+    /**
+      * @brief Constructor
+      */
     explicit GameBuildingBase(
             const std::shared_ptr<Course::iGameEventHandler>& eventhandler,
             const std::shared_ptr<Course::iObjectManager>& objectmanager,
@@ -24,10 +29,19 @@ public:
 
     virtual ~GameBuildingBase() = default;
 
+    /**
+     * @copydoc GameObjectBase::setGraphicsItem
+     */
     virtual void setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene) override;
 
+    /**
+     * @copydoc GameObjectBase::getMenuItems
+     */
     virtual void getMenuItems(QMenu &menu) override;
 
+    /**
+     * @copydoc GameObjectBase::getDescriptionBrief
+     */
     virtual void getDescriptionBrief(std::string &desc) override;
 };
 

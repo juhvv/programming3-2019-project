@@ -13,6 +13,7 @@
 #include "tiles/grasstileitem.h"
 #include "tiles/watertileitem.h"
 #include "tiles/mountaintileitem.h"
+#include "tiles/swamptileitem.h"
 
 #include "buildings/gamebuildingbase.h"
 #include "buildings/base.h"
