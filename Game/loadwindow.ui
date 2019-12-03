@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>LOAD</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="game_resources.qrc">
+    <normaloff>:/resources/vaakuna.png</normaloff>:/resources/vaakuna.png</iconset>
   </property>
   <widget class="QLabel" name="pathLbl">
    <property name="geometry">
@@ -66,6 +70,8 @@
    </property>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="game_resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

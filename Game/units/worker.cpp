@@ -59,7 +59,6 @@ void Worker::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsSce
 {
     GraphicsUnitBase::setGraphicsItem(graphicsItem, scene);
     graphicsItem_->setPixmap(QPixmap(":/resources/units/worker.PNG"));
-    graphicsItem_->setOffset(-50,0);
     scene_->update();
 }
 

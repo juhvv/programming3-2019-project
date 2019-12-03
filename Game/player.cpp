@@ -15,11 +15,7 @@ Player::Player(const std::string &name,
     m_playerResources = startingResources;
 
 }
-/*
-std::string Player::getName(){
-    return m_name;
-}
-*/
+
 int Player::getResourceValue(Course::BasicResource resource)
 {
     return m_playerResources[resource];
@@ -28,11 +24,6 @@ int Player::getResourceValue(Course::BasicResource resource)
 Course::ResourceMap Player::getResourceMap()
 {
     return m_playerResources;
-}
-
-void Player::addGameObject(CustomGraphicsItem *newItem)
-{
-    // playerObjects_.push_back(newItem);
 }
 
 void Player::addUnit(std::shared_ptr<GraphicsUnitBase> newUnit)
@@ -47,7 +38,7 @@ std::shared_ptr<GraphicsUnitBase> Player::getUnitById(unsigned int ID)
             return unit;
         }
     }
-    qDebug() << "Player::getUnitById: no such unit exists.";
+    qDebug() << "Player::getUnitById: " << ID << " no such unit exists.";
     return nullptr;
 }
 
@@ -78,7 +69,6 @@ void Player::getIcon(QPixmap &icon)
 void Player::resetData()
 {
     playerUnits_.clear();
-    playerObjects_.clear();
     playerBuildings_.clear();
 }
 

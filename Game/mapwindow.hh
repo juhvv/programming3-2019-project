@@ -38,14 +38,6 @@ public:
 
     void setGEHandler(std::shared_ptr<Course::iGameEventHandler> nHandler);
 
-    //D void setSize(int width, int height);
-    //D void setScale(int scale);
-    //D void resize();
-
-    //D void drawItem( std::shared_ptr<Course::GameObject> obj);
-    //D void removeItem( std::shared_ptr<Course::GameObject> obj);
-    //D void updateItem( std::shared_ptr<Course::GameObject> obj);
-
 public slots:
     void updateVisibleResources();
     void showSaveWindow();
@@ -61,10 +53,8 @@ private:
     GraphicsViewPort* viewPortPtr_;
     CustomGraphicsScene* scenePtr_;
 
-    //D std::shared_ptr<Course::iGameEventHandler> m_GEHandler = nullptr;
     std::shared_ptr<GameEventHandler> eventhandler_;
     std::shared_ptr<ObjectManager> objectManager_;
-    //D std::shared_ptr<Course::SimpleGameScene> gameScene_ = nullptr;
     std::shared_ptr<UnitConstructor> unitConstructor_;
 
 };

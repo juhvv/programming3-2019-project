@@ -26,7 +26,6 @@ void Builder::getMenuItems(QMenu &menu)
         if (getCurrentTile()->getBuildingCount() == 0
                 && !getCurrentTile()->hasTag(objectTags::NO_BUILD)
                 && getCurrentTile()->getOwner() == getOwner()) {
-            //connect(buildAction, &QAction::triggered, this, &Builder::buildActionSlot);
             getBuildMenu(*buildMenu);
 
         } else {
@@ -78,7 +77,7 @@ void Builder::switchTurn()
 void Builder::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene)
 {
     GraphicsUnitBase::setGraphicsItem(graphicsItem, scene);
-    graphicsItem_->setPixmap(QPixmap(":/resources/units/worker.PNG"));
+    graphicsItem_->setPixmap(QPixmap(":/resources/units/builder.PNG"));
     scene_->update();
 }
 

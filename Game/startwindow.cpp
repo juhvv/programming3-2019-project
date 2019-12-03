@@ -24,7 +24,6 @@ Startwindow::Startwindow(QWidget *parent) :
 
     connect(ui->player1Line, &QLineEdit::textEdited, this, &Startwindow::namesChanged);
     connect(ui->player2Line, &QLineEdit::textEdited, this, &Startwindow::namesChanged);
-
 }
 
 Startwindow::~Startwindow()

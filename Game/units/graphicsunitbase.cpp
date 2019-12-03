@@ -95,7 +95,8 @@ bool GraphicsUnitBase::moveToTile(std::shared_ptr<GraphicsTileBase> tileToMoveTo
 
 bool GraphicsUnitBase::canMoveToTile(GraphicsTileBase *tileToMoveTo)
 {
-    if (tileToMoveTo->getOwner() == getOwner()) {
+    if (tileToMoveTo->getOwner() != getOwner()
+            || tileToMoveTo->getOwner() == getOwner()) {
         return tileToMoveTo->getMovementCost() <= movePoints_
                 && tileToMoveTo->hasSpaceForWorkers(spacesInTileCapacity());
     }

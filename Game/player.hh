@@ -9,21 +9,39 @@
 #include "buildings/gamebuildingbase.h"
 #include <units/graphicsunitbase.h>
 
-
+/**
+ * @brief The Player class stores player's name, icon, units, buildings and resources
+ * \n and provides methods for modifying this data
+ */
 class Player : public Course::PlayerBase
 {
 public:
-
-    Player(const std::string& name,
-           Course::ResourceMap startingResources,
+    /**
+      * @brief constructor
+      * @param name Player name
+      * @param startingResources Initial resources
+      * @param objects Initial game objects
+      */
+    explicit Player(const std::string& name, Course::ResourceMap startingResources,
            const std::vector<std::shared_ptr<Course::GameObject> > objects ={});
 
     virtual ~Player() = default;
 
-    // virtual std::string getName() const override;
+    /**
+     * @brief Sets player's marker
+     * @param index 0 or 1
+     */
     void setMarker(int index);
+
+    /**
+     * @brief Retrieves player's marker icon
+     * @param icon QPixmap object whicsh stores the icon
+     */
     void getIcon(QPixmap &icon);
 
+    /**
+     * @brief Deletes player's units and buildings
+     */
     void resetData();
 
     /**
@@ -38,27 +56,57 @@ public:
      */
     bool modifyResource(Course::BasicResource resource, int amount);
 
+    /**
+     * @brief  Modify Player's resources. Can be used to both sum or subtract.
+     * @param resources Defines modified resources
+     * @return
+     * True - Modification was succesful. \n
+     * False - Modification failed. \n
+     */
     bool modifyResources(Course::ResourceMap resources);
 
+    /**
+     * @brief Returns amount of specified resource
+     * @param resource Resource to be inquired
+     * @return Amount of param resource
+     */
     int getResourceValue(Course::BasicResource resource);
 
+    /**
+     * @brief Returns player's resource map
+     * @return Player's resource map
+     */
     Course::ResourceMap getResourceMap();
 
-    void addGameObject(CustomGraphicsItem *newItem);
-
+    /**
+     * @brief Adds new unit to this player's units
+     * @param newUnit Unit to be added
+     */
     void addUnit(std::shared_ptr<GraphicsUnitBase> newUnit);
 
-    std::shared_ptr<GraphicsUnitBase> getUnitById(unsigned int ID);
-
+    /**
+     * @brief Adds new building for this player
+     * @param newBuilding Building to be added
+     */
     void addNewBuilding(std::shared_ptr<GameBuildingBase> newBuilding);
 
+    /**
+     * @brief Searches this players units for unit with specified ID
+     * @param ID ID to be searched
+     * @return Pointer to unit, nullptr if unit is not found
+     */
+    std::shared_ptr<GraphicsUnitBase> getUnitById(unsigned int ID);
+
+    /**
+     * @brief Returns vector containing this player's all units
+     * @return Vector containing pointers to the units
+     */
     std::vector<std::shared_ptr<GraphicsUnitBase> > getPlayerUnits();
 
 private:
     std::string m_name;
     QPixmap marker_;
     Course::ResourceMap m_playerResources;
-    std::vector<std::shared_ptr<GameObjectBase>> playerObjects_ = {};
     std::vector<std::shared_ptr<GraphicsUnitBase>> playerUnits_ = {};
     std::vector<std::shared_ptr<GameBuildingBase>> playerBuildings_ =  {};
 };

@@ -90,24 +90,19 @@ public:
         if (player == nullptr) {
             player = currentPlayer_;
         }
-        //std::shared_ptr<GraphicsTileBase> tile =
-                //std::dynamic_pointer_cast<GraphicsTileBase>(objectMngr_->getTile(TileId));
 
         std::shared_ptr<unitType> newUnit = unitConstructor_.lock()->constructUnit<unitType>(player);
 
         if (newUnit) {
-            qDebug() << newUnit->getType().c_str();
             std::shared_ptr<GameObjectBase> unitObject = std::dynamic_pointer_cast<GameObjectBase>(newUnit);
             objectMngr_->setGraphicsObject(unitObject);
 
             player->addUnit(newUnit);
             newUnit->moveToTile(tile, true);
-            // tile->addWorker(newUnit);
-            qDebug() << tile->getWorkerCount();
 
         }
         else {
-            qDebug() << "Could not construct new unit";
+            qDebug() << "addUnit: Could not construct new unit";
         }
     }
 

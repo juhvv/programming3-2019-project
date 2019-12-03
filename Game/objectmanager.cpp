@@ -8,7 +8,6 @@ ObjectManager::ObjectManager(CustomGraphicsScene* scenePtr):
     Course::iObjectManager(),
     scenePtr_(scenePtr)
 {
-
 }
 
 void ObjectManager::addTiles(const std::vector<std::shared_ptr<Course::TileBase> > &tiles)

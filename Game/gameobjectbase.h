@@ -21,6 +21,7 @@ namespace objectTags {
 
 /**
  * @brief The GameObjectBase class is base class for all gameobjects used in the game
+ * \n and provides interface for CustomGraphicsItem to interact with GameObjects
  */
 class GameObjectBase : public QObject
 

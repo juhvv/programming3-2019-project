@@ -3,6 +3,7 @@
 
 #include "core/basicresources.h"
 
+// This file contains definitions for resource ma+ps used in the game
 namespace GameConstResourceMaps {
 
 using namespace Course;

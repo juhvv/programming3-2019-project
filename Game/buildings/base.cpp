@@ -53,11 +53,6 @@ void Base::getMenuItems(QMenu &menu)
         workerHireMenu->setDisabled(true);
         workerHireMenu->setTitle("Can't hire units - Tile is full");
     }
-    //connect(workerHireAction, &QAction::triggered, this, &Base::buildUnit);
-
-    //QAction *claimAction = menu.addAction("Claim");
-    // connect(infoAction, &QAction::triggered, this, &GraphicsTileBase::sendInfo);
-    // connect(claimAction, &QAction::triggered, this, &GraphicsTileBase::sendPtr);
 }
 
 void Base::getBuildMenu(QMenu &bmenu)
