@@ -81,6 +81,10 @@ void MapWindow::updateVisibleResources()
     m_ui->foodProductionLbl->setText(QString::number(production[Course::FOOD]));
     m_ui->woodProductionLbl->setText(QString::number(production[Course::WOOD]));
 
+    std::string playerTurnText = eventhandler_->getCurrentPlayer()->getName()
+            + " - Turn " + std::to_string(eventhandler_->getTurnNumber());
+    m_ui->groupBox->setTitle(playerTurnText.c_str());
+
 }
 
 void MapWindow::showSaveWindow()
@@ -119,9 +123,6 @@ void MapWindow::switchTurn()
     std::string curPlayerName = eventhandler_->getCurrentPlayer()->getName();
     msg += curPlayerName;
 
-    std::string playerTurnText = eventhandler_->getCurrentPlayer()->getName()
-            + " - Turn " + std::to_string(eventhandler_->getTurnNumber());
-    m_ui->groupBox->setTitle(playerTurnText.c_str());
 
     sendMsgSlot(msg);
     //updateVisibleResources();

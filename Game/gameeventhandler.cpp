@@ -72,6 +72,11 @@ void GameEventHandler::setCurrentPlayer(std::string currentPlayer)
     }
 }
 
+void GameEventHandler::setTurnNumber(unsigned int turn)
+{
+    turnNumber_=turn;
+}
+
 std::shared_ptr<Player> GameEventHandler::getPlayerFromName(std::string playerName)
 {
     for(int i=0; i<playerVector_.size(); i++){

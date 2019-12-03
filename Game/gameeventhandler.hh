@@ -71,6 +71,8 @@ public:
 
     void setCurrentPlayer(std::string currentPlayer);
 
+    void setTurnNumber(unsigned int turn);
+
     std::shared_ptr<Player> getPlayerFromName(std::string playerName);
 
     void addPlayerVector(std::vector<std::shared_ptr<Player> > playerVector);
