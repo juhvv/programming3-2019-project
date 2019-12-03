@@ -120,20 +120,26 @@ void LoadGame::loadGame(QString fileName)
         std::string stringLine = line.toUtf8().constData();
         std::vector<std::string> stringVector = split(stringLine);
 
+        if(stringVector[0]=="TURN"){
+            std::string stringTurn = stringVector[1];
+            unsigned int turn=atoi(stringTurn.c_str());
+            eventhandler_->setTurnNumber(turn);
+        }
+
         if(stringVector[0]=="RESOURCES"){
             std::string playerName = stringVector[1];
             Course::ResourceMap playerResources;
 
-            int moneyAmount = atoi(stringVector[3].c_str());
-            int foodAmount = atoi(stringVector[4].c_str());
-            int woodAmount = atoi(stringVector[5].c_str());
-            int stoneAmount = atoi(stringVector[6].c_str());
-            //int oreAmount = atoi(stringVector[7].c_str());
+            int moneyAmount = atoi(stringVector[2].c_str());
+            int foodAmount = atoi(stringVector[3].c_str());
+            int woodAmount = atoi(stringVector[4].c_str());
+            int stoneAmount = atoi(stringVector[5].c_str());
+            int oreAmount = atoi(stringVector[6].c_str());
             playerResources.insert(std::pair<Course::BasicResource,int>(Course::MONEY, moneyAmount));
             playerResources.insert(std::pair<Course::BasicResource,int>(Course::FOOD, foodAmount));
             playerResources.insert(std::pair<Course::BasicResource,int>(Course::WOOD, woodAmount));
             playerResources.insert(std::pair<Course::BasicResource,int>(Course::STONE, stoneAmount));
-            playerResources.insert(std::pair<Course::BasicResource,int>(Course::ORE, 10));
+            playerResources.insert(std::pair<Course::BasicResource,int>(Course::ORE, oreAmount));
 
             std::shared_ptr<Player> playerPtr = std::make_shared<Player>(playerName, playerResources);
 

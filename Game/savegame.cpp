@@ -17,11 +17,15 @@ void SaveGame::saveCurrentGame(QString fileName)
     qDebug()<<QDir::currentPath();
 
     std::vector<std::shared_ptr<Player>> playerVector = eventhandler_->getPlayerVector();
+    QString turnNumber = QString::number(eventhandler_->getTurnNumber());
     std::shared_ptr<Player> currentPlayer = eventhandler_->getCurrentPlayer();
 
     QTextStream out(&failu);
 
-    //Save player's resources on first rows with following syntax: "RESOURCES",player's name,resources
+    //Save turn number with following syntax: "TURN", turn number
+    out<<"TURN,"<<turnNumber<<endl;
+
+    //Save player's resources with following syntax: "RESOURCES",player's name,resources
     for(auto player: playerVector){
         QString playername = QString::fromStdString(player->getName());
         out<<"RESOURCES,"<<playername;
