@@ -157,18 +157,19 @@ void GameEventHandler::resetData()
 
 void GameEventHandler::isGameOver(std::string endMessage)
 {
-    if (currentPlayer_->getResourceMap()[Course::BasicResource::MONEY] > 10000) {
+
+    if(endMessage!=""){
+        signalSendMsg(endMessage);
+    }
+
+    else if (currentPlayer_->getResourceMap()[Course::BasicResource::MONEY] > 10000) {
         qDebug() << currentPlayer_->getName().c_str() << " won!";
-        std::string winnerMsg = currentPlayer_->getName()+" WON! With a huge pile of money!";
+        std::string winnerMsg = "<<"+currentPlayer_->getName()+" WON! With a huge pile of money!>>";
         signalSendMsg(winnerMsg);
     }
 
-    if(endMessage!=""){
-        signalSendMsg();
-    }
-
-    if (turnNumber_ == maxTurns_) {
-        std::string endMsg = "You run out of turns, so game over!";
+    else if (turnNumber_ == maxTurns_) {
+        std::string endMsg = "<<NO MORE TURNS, GAME OVER>>";
         signalSendMsg(endMsg);
         qDebug() << "Game over";
     }
