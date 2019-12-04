@@ -17,7 +17,16 @@ class GraphicsTileBase :  public GameObjectBase, public Course::TileBase
 {
 public:
     GraphicsTileBase() = delete;
-
+    /**
+     * @brief Constructor
+     * @param location This tiles coordinates in the game's coordinate system
+     * @param eventhandler Ptr to Eventhandler
+     * @param objectmanager Ptr to Objectmanager
+     * @param scene Ptr to CustomGraphicsScene
+     * @param max_build How many buildings this tile can hold. Should be always 1.
+     * @param max_work How many units this tile can hold.
+     * @param production Resourcemap specifying this tile's production
+     */
     explicit GraphicsTileBase(const Course::Coordinate& location,
                      const std::shared_ptr<Course::iGameEventHandler>& eventhandler,
                      const std::shared_ptr<Course::iObjectManager>& objectmanager,
