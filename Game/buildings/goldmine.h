@@ -3,11 +3,25 @@
 
 #include "buildings/gamebuildingbase.h"
 
+/**
+ * @brief The GoldMine class implements gold mine building that produces gold and ore. Can be built
+ * \n only on tiles that have HAS_ROCK tag.
+ */
 class GoldMine : public GameBuildingBase
 {
 public:
     GoldMine() = delete;
 
+    /**
+     * @brief Constructor
+     * @param eventhandler Ptr to eventhandler
+     * @param objectmanager Ptr to objectmanager
+     * @param owner Building's owner
+     * @param scene Ptr to CustomGraphicsScene
+     * @param tilespaces How many points of space this building takes from a tile
+     * @param buildcost ResourceMap that specifies build cost
+     * @param production ResourceMap that specifies building production
+     */
     explicit GoldMine(
             const std::shared_ptr<Course::iGameEventHandler>& eventhandler,
             const std::shared_ptr<Course::iObjectManager>& objectmanager,
@@ -20,12 +34,19 @@ public:
 
     virtual ~GoldMine() = default;
 
+    /**
+     * @copydoc GameObjectBase::setGraphicsItem
+     */
     virtual void setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene) override;
 
-    // virtual void getMenuItems(QMenu &menu) override;
-
+    /**
+     * @copydoc GameObjectBase::getType
+     */
     virtual std::string getType() const override;
 
+    /**
+     * @copydoc GameObjectBase::getDescriptionBrief
+     */
     virtual void getDescriptionBrief(std::string &desc) override;
 };
 

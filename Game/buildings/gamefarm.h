@@ -4,12 +4,25 @@
 #include "gamebuildingbase.h"
 #include "core/resourcemaps.h"
 
-
+/**
+ * @brief The Farm class implements farm building that produces food. Can be built
+ * \n only on tiles that have IS_FLAT tag.
+ */
 class Farm : public GameBuildingBase
 {
 public:
     Farm() = delete;
 
+    /**
+     * @brief Constructor
+     * @param eventhandler Ptr to eventhandler
+     * @param objectmanager Ptr to objectmanager
+     * @param owner Building's owner
+     * @param scene Ptr to CustomGraphicsScene
+     * @param tilespaces How many points of space this building takes from a tile
+     * @param buildcost ResourceMap that specifies build cost
+     * @param production ResourceMap that specifies building production
+     */
     explicit Farm(
             const std::shared_ptr<Course::iGameEventHandler>& eventhandler,
             const std::shared_ptr<Course::iObjectManager>& objectmanager,
@@ -22,10 +35,19 @@ public:
 
     virtual ~Farm() = default;
 
+    /**
+     * @copydoc GameObjectBase::setGraphicsItem
+     */
     virtual void setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene) override;
 
+    /**
+     * @copydoc GameObjectBase::getType
+     */
     virtual std::string getType() const override;
 
+    /**
+     * @copydoc GameObjectBase::getDescriptionBrief
+     */
     virtual void getDescriptionBrief(std::string &desc) override;
 };
 
