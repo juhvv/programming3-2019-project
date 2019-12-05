@@ -15,8 +15,15 @@ public:
     GameBuildingBase() = delete;
 
     /**
-      * @brief Constructor
-      */
+     * @brief Constructor
+     * @param eventhandler Ptr to eventhandler
+     * @param objectmanager Ptr to objectmanager
+     * @param owner Building's owner
+     * @param scene Ptr to CustomGraphicsScene
+     * @param tilespaces How many points of space this building takes from a tile
+     * @param buildcost ResourceMap that specifies build cost
+     * @param production ResourceMap that specifies building production
+     */
     explicit GameBuildingBase(
             const std::shared_ptr<Course::iGameEventHandler>& eventhandler,
             const std::shared_ptr<Course::iObjectManager>& objectmanager,

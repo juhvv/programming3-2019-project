@@ -5,11 +5,24 @@
 #include "gameresourcemaps.hh"
 #include "gameeventhandler.hh"
 
+/**
+ * @brief The Base class implements players base building. It provides functionality for
+ * \n creating units. It is automatically built for each player when game starts.
+ */
 class Base : public GameBuildingBase
 {
 public:
     Base() = delete;
-
+    /**
+     * @brief Constructor
+     * @param eventhandler Ptr to eventhandler
+     * @param objectmanager Ptr to objectmanager
+     * @param owner Building's owner
+     * @param scene Ptr to CustomGraphicsScene
+     * @param tilespaces How many points of space this building takes from a tile
+     * @param buildcost ResourceMap that specifies build cost
+     * @param production ResourceMap that specifies building production
+     */
     explicit Base(
             const std::shared_ptr<Course::iGameEventHandler>& eventhandler,
             const std::shared_ptr<Course::iObjectManager>& objectmanager,
@@ -49,6 +62,9 @@ public:
     virtual void getDescriptionBrief(std::string &desc) override;
 
 public slots:
+    /**
+     * @brief Create unit at tile of this building. Template parameter specifies unit type.
+     */
     template<typename UnitType>
     void hireUnitSlot() {
         std::shared_ptr<GameEventHandler> handler =

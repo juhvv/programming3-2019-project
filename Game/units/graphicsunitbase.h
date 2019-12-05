@@ -20,11 +20,14 @@ namespace Units {
 
 /**
  * @brief The GraphicsUnitBase class is base class for different unit classes.
+ * \n It provides implementation of unit movement that can be re-implemented
+ * \n by derived classes.
  */
 class GraphicsUnitBase : public Course::WorkerBase, public GameObjectBase
 {
 public:
     GraphicsUnitBase() = delete ;
+
     explicit GraphicsUnitBase(const std::shared_ptr<Course::iGameEventHandler>& eventhandler,
                         const std::shared_ptr<Course::iObjectManager>& objectmanager,
                         const std::shared_ptr<Course::PlayerBase>& owner,
