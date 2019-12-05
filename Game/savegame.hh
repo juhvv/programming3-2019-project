@@ -23,6 +23,10 @@ public:
              std::shared_ptr<ObjectManager> objectmanager);
 
 public slots:
+    /**
+      * @brief saves current game in a .txt file
+      * @param fileName path and filename to .txt file where game will be saved
+      */
     void saveCurrentGame(QString fileName);
 
 private:

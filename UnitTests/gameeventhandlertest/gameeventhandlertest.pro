@@ -26,13 +26,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 
-#SOURCES += gameeventhandlertest.cpp \
-#    ../../Game/gameeventhandler.cpp
+SOURCES += gameeventhandlertest.cpp \
+    ../../Game/gameeventhandler.cpp
 
-#DEFINES += SRCDIR=\\\"$$PWD/\\\"
-#
-#HEADERS += \
- #   ../../Game/gameeventhandler.hh
+DEFINES += SRCDIR=\\\"$$PWD/\\\"
+
+HEADERS += \
+   ../../Game/gameeventhandler.hh
 
 #HEADERS  += \
 #    ../../Course/CourseLib/core/playerbase.h

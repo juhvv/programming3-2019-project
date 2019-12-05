@@ -25,65 +25,61 @@ std::vector<std::string> LoadGame::split(const std::string &stringToBeSplitted)
 
 void LoadGame::addUnitsAndBuildings(QString fileName)
 {
-
-    //QString testFileName = "/home/vapola/ohjelmointi3/rojekti/sami-seka-juho/Game/tallennukset/uusukko7.txt";
+    //Load the file
     QFile loadFile(fileName);
     loadFile.open(QIODevice::ReadOnly | QIODevice::Text);
     QTextStream in(&loadFile);
 
-
-
-    while (!in.atEnd()){
+    while (!in.atEnd()){        //Iterate through the file
         QString line = in.readLine();
         std::string stringLine = line.toUtf8().constData();
         std::vector<std::string> stringVector = split(stringLine);
-        if(stringVector[0]=="TILE"){
+
+        if(stringVector[0]=="TILE"){        //We only care about "TILE" lines of save file in this method
             std::string buildingName = stringVector[6];
             std::string ownerName = stringVector[5];
             std::string isTileOwned = stringVector[4];
-            if(ownerName!=""){
+            unsigned int xCoord = atoi(stringVector[2].c_str());
+            unsigned int yCoord = atoi(stringVector[3].c_str());
+            Course::Coordinate tileCoord = Course::Coordinate(xCoord, yCoord);
+            std::shared_ptr<GraphicsTileBase> tile = objectManager_->getGTile(tileCoord);
+            std::shared_ptr<Player> ownerPointer = eventhandler_->getPlayerFromName(ownerName);
 
+            //Claim the tile. This "if" because ownerName can be name of the player
+            //even when the tile is not owned, then ownerName means owner of units on the tile
+            if(isTileOwned=="YES"){
+                eventhandler_->claimTile(tile.get(), ownerPointer);
+            }
 
-                unsigned int xCoord = atoi(stringVector[2].c_str());
-                unsigned int yCoord = atoi(stringVector[3].c_str());
-                Course::Coordinate tileCoord = Course::Coordinate(xCoord, yCoord);
-                std::shared_ptr<GraphicsTileBase> tile = objectManager_->getGTile(tileCoord);
-                std::shared_ptr<Player> ownerPointer = eventhandler_->getPlayerFromName(ownerName);
-                if(isTileOwned=="YES"){
-                    eventhandler_->claimTile(tile.get(), ownerPointer);
+            if(buildingName!=""){    //Creates and adds buildings to eventhandler
+
+                if(buildingName=="Base"){
+                    eventhandler_->addBuilding<Base>(tile, ownerPointer);
                 }
-
-                if(buildingName!=""){    //Add buildings
-
-                    if(buildingName=="Base"){
-                        eventhandler_->addBuilding<Base>(tile, ownerPointer);
-                    }
-                    if(buildingName=="Gold mine"){
-                        eventhandler_->addBuilding<GoldMine>(tile, ownerPointer);
-                    }
-                    if(buildingName=="Sawmill"){
-                        eventhandler_->addBuilding<SawMill>(tile, ownerPointer);
-                    }
-                    if(buildingName=="Outpost"){
-                        eventhandler_->addBuilding<Outpost>(tile, ownerPointer);
-                    }
-                    if(buildingName=="Farm"){
-                        eventhandler_->addBuilding<Farm>(tile, ownerPointer);
-                    }
-
+                if(buildingName=="Gold mine"){
+                    eventhandler_->addBuilding<GoldMine>(tile, ownerPointer);
                 }
-                for(int i=6; i<stringVector.size(); i++){
-                    std::string unitName = stringVector[i];
-                    if(unitName=="Builder"){
-                        eventhandler_->addUnit<Builder>(tile, ownerPointer);
-                    }
-                    if(unitName=="Scout"){
-                        eventhandler_->addUnit<Scout>(tile, ownerPointer);
-                    }
-                    if(unitName=="Worker"){
-                        eventhandler_->addUnit<Worker>(tile, ownerPointer);
-                    }
+                if(buildingName=="Sawmill"){
+                    eventhandler_->addBuilding<SawMill>(tile, ownerPointer);
+                }
+                if(buildingName=="Outpost"){
+                    eventhandler_->addBuilding<Outpost>(tile, ownerPointer);
+                }
+                if(buildingName=="Farm"){
+                    eventhandler_->addBuilding<Farm>(tile, ownerPointer);
+                }
+            }
 
+            for(int i=6; i<stringVector.size(); i++){   //Creates and adds units to eventhandler
+                std::string unitName = stringVector[i];
+                if(unitName=="Builder"){
+                    eventhandler_->addUnit<Builder>(tile, ownerPointer);
+                }
+                if(unitName=="Scout"){
+                    eventhandler_->addUnit<Scout>(tile, ownerPointer);
+                }
+                if(unitName=="Worker"){
+                    eventhandler_->addUnit<Worker>(tile, ownerPointer);
                 }
             }
         }
@@ -96,17 +92,16 @@ void LoadGame::addUnitsAndBuildings(QString fileName)
 
 void LoadGame::loadGame(QString fileName)
 {
+    //Add constructors of tiles to multimap, because in the save file they are referred with tile names
     addTileConstructor<MountainTileItem>("Mountain tile");
     addTileConstructor<ForestTileItem>("Forest Tile");
     addTileConstructor<GrassTileItem>("Grass tile");
     addTileConstructor<WaterTileItem>("Lake tile");
     addTileConstructor<SwampTileItem>("Swamp tile");
 
-    eventhandler_->resetData();
+    eventhandler_->resetData();     //Delete data of currently loaded game: tiles, players...
 
     QString loadFileName = fileName;
-    //QString loadFileName = "/home/vapola/ohjelmointi3/rojekti/sami-seka-juho/Game/tallennukset/uusukko7.txt";
-
     std::vector<std::shared_ptr<Course::TileBase>> tileVector;
 
     QFile loadFile(loadFileName);
@@ -116,18 +111,18 @@ void LoadGame::loadGame(QString fileName)
 
     int index = 0;
 
-    while (!in.atEnd()) {
+    while (!in.atEnd()) {       //Iterate through the file
         QString line = in.readLine();
         std::string stringLine = line.toUtf8().constData();
         std::vector<std::string> stringVector = split(stringLine);
 
-        if(stringVector[0]=="TURN"){
+        if(stringVector[0]=="TURN"){         //Load current turn number
             std::string stringTurn = stringVector[1];
             unsigned int turn=atoi(stringTurn.c_str());
             eventhandler_->setTurnNumber(turn);
         }
 
-        if(stringVector[0]=="RESOURCES"){
+        if(stringVector[0]=="RESOURCES"){   //Load and make player objects, their names and resources
             std::string playerName = stringVector[1];
             Course::ResourceMap playerResources;
 
@@ -144,20 +139,21 @@ void LoadGame::loadGame(QString fileName)
 
             std::shared_ptr<Player> playerPtr = std::make_shared<Player>(playerName, playerResources);
 
-            playerPtr->setMarker(index);
+            playerPtr->setMarker(index);    //This sets player's marker, which is the coloured box around player's owned tiles
 
             playerVector_.push_back(playerPtr);
-            index++;
+            index++;    //Increase index value for setMarker selection: if it would be the same, the box would be same colour for both players
         }
 
-        eventhandler_->addPlayerVector(playerVector_);
+        eventhandler_->addPlayerVector(playerVector_);      //Add generated player vector to eventhandler
 
+        //Set current player to eventhandler
         if(stringVector[0]=="CURRENTPLAYER"){
             eventhandler_->addPlayerVector(playerVector_);
             eventhandler_->setCurrentPlayer(stringVector[1]);
         }
 
-
+        //Add tile and push it to tilevector
         if(stringVector[0]=="TILE"){
 
             std::string tileType = stringVector[1];
@@ -170,10 +166,11 @@ void LoadGame::loadGame(QString fileName)
                     constructorPointer = it.second;
                 }
             }
+            //Create and push tile to tileVector
             tileVector.push_back(constructorPointer(Course::Coordinate(xCoord, yCoord), eventhandler_, objectManager_));
         }
     }
-    objectManager_->addTiles(tileVector);
-    addUnitsAndBuildings(fileName);
+    objectManager_->addTiles(tileVector);  //Add generated tiles to eventhandler
+    addUnitsAndBuildings(fileName);        //Adds units, buildings and claim tiles
 
 }

@@ -46,25 +46,17 @@ public:
     LoadGame(std::shared_ptr<GameEventHandler> &eventhandler,
              std::shared_ptr<ObjectManager> &objectmanager);
 
-    std::vector<std::string> split(const std::string &stringToBeSplitted);
-
     using TileConstructorPointer = std::function<std::shared_ptr<Course::TileBase>(
         Course::Coordinate,
         std::shared_ptr<Course::iGameEventHandler>,
         std::shared_ptr<Course::iObjectManager>)>;
 
-    /*
-    using BuildingConstructorPointer = std::function<std::shared_ptr<Course::BuildingBase>(
-        std::shared_ptr<Course::iGameEventHandler>,
-        std::shared_ptr<Course::iObjectManager>,
-        std::shared_ptr<Course::PlayerBase>)>;
-
-    using UnitConstructorPointer = std::function<std::shared_ptr<Course::WorkerBase>(
-        std::shared_ptr<Course::iGameEventHandler>,
-        std::shared_ptr<Course::iObjectManager>,
-        std::shared_ptr<Course::PlayerBase>)>;
-    */
-
+    /**
+     * @brief Adds a Tile's constructor in multimap to be finded with tileType
+     * Use the Tile's type as the template parameter: addConstructor<Forest>();
+     * @param tileType is name of the tile, that can be later used to retrieve tile constructor
+     * from multimap
+     */
     template<typename T>
     void addTileConstructor(std::string tileType)
     {
@@ -75,45 +67,43 @@ public:
         tileConctructorNames_.insert(std::make_pair(tileType, ctor));
     }
 
-    /*
-    template<typename T>
-    void addBuildingConstructor(std::string buildingType)
-    {
-        BuildingConstructorPointer buildingctor = std::make_shared<T,
-                std::shared_ptr<Course::iGameEventHandler>,
-                std::shared_ptr<Course::iObjectManager>,
-                std::shared_ptr<Course::PlayerBase> >;
-        buildingConctructorNames_.insert(std::make_pair(buildingType, buildingctor));
-    }
+    /**
+      * @brief splits string to vector using "," as delimiter
+      * @param stringToBeSplitted string to be splitted to vector
+      * @return splitted string as a vector
+      */
+    std::vector<std::string> split(const std::string &stringToBeSplitted);
 
-
-    template<typename T>
-    void addUnitConstructor(std::string unitType)
-    {
-        UnitConstructorPointer unitctor = std::make_shared<T,
-                std::shared_ptr<Course::iGameEventHandler>,
-                std::shared_ptr<Course::iObjectManager>,
-                std::shared_ptr<Course::PlayerBase> >;
-        unitConctructorNames_.insert(std::make_pair(unitType, unitctor));
-    }
-
-    */
+    /**
+      * @brief set owner to tiles, and loads units and buildings
+      * @param fileName path and filename to .txt file where game will be loaded
+      */
     void addUnitsAndBuildings(QString fileName);
 
 
 
 public slots:
+    /**
+      * @brief loads players, tiles and turn number
+      * @param fileName path and filename to .txt file where game will be loaded
+      */
     void loadGame(QString fileName);
 
 signals:
+    /**
+      * @brief signal that is connected to updateVisibleResources in mapwindow
+      */
     void updateVisibleLabels();
+    /**
+      * @brief signal that is connected to sendMsgSlot in mapwindow, sends message
+      * @param msg message to be sended
+      */
     void sendMsg(std::string& msg);
 
 private:
     std::shared_ptr<GameEventHandler> eventhandler_;
     std::shared_ptr<ObjectManager> objectManager_;
     std::vector<std::shared_ptr<Player>> playerVector_;
-
     std::multimap<std::string, TileConstructorPointer> tileConctructorNames_ ;
 
 };
