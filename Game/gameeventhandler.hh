@@ -162,6 +162,11 @@ public:
         std::shared_ptr<unitType> newUnit = unitConstructor_.lock()->constructUnit<unitType>(player);
 
         if (newUnit) {
+            if (!player->modifyResources(newUnit->RECRUITMENT_COST)) {
+                sendMsg("You can't afford that!");
+                return;
+            }
+            updateVisibleResources();
             std::shared_ptr<GameObjectBase> unitObject = std::dynamic_pointer_cast<GameObjectBase>(newUnit);
             objectMngr_->setGraphicsObject(unitObject);
 
@@ -188,6 +193,12 @@ public:
         std::shared_ptr<buildingType> startBuilding =
                 unitConstructor_.lock()->constructBuilding<buildingType>(player);
         std::shared_ptr<GameObjectBase> gameObject = std::dynamic_pointer_cast<GameObjectBase>(startBuilding);
+
+        if (!player->modifyResources(startBuilding->BUILD_COST)) {
+            sendMsg("You can't afford that!");
+            return;
+        }
+        updateVisibleResources();
 
         tile->addBuilding(startBuilding);
         player->addNewBuilding(startBuilding);

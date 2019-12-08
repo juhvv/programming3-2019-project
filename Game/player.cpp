@@ -52,6 +52,11 @@ std::vector<std::shared_ptr<GraphicsUnitBase> > Player::getPlayerUnits()
     return playerUnits_;
 }
 
+std::vector<std::shared_ptr<GameBuildingBase> > Player::getPlayerBuildings() const
+{
+    return playerBuildings_;
+}
+
 void Player::setMarker(int index)
 {
     if (index == 0) {

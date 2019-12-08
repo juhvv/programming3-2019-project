@@ -105,6 +105,12 @@ public:
      */
     std::vector<std::shared_ptr<GraphicsUnitBase> > getPlayerUnits();
 
+    /**
+     * @brief Returns vector containing this player's all buildings
+     * @return Vector containing pointers to the buildings
+     */
+    std::vector<std::shared_ptr<GameBuildingBase> > getPlayerBuildings() const;
+
 private:
     std::string m_name;
     QPixmap marker_;
