@@ -57,7 +57,9 @@ void GameEventHandler::calculateAddProduction()
     Course::ResourceMap totalNetProduction = calculateProduction();
     currentPlayer_->modifyResources(totalNetProduction);
     std::string currentPlayer = currentPlayer_->getName();
-    isGameOver(currentPlayer+" run out of food, all units died and you lost!");
+    if(currentPlayer_->getResourceMap()[Course::FOOD]<0){
+        isGameOver(currentPlayer+" run out of food, all units died and you lost!");
+    }
 }
 
 unsigned int GameEventHandler::getTurnNumber()
