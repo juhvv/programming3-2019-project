@@ -10,9 +10,16 @@ using namespace Course;
 
 const ResourceMap EMPTY = {};
 
+//Starting resources for players
+const ResourceMap STARTING_RESOURCES = {
+    {BasicResource::WOOD, 100},
+    {BasicResource::MONEY, 100},
+    {BasicResource::FOOD, 100},
+};
+
 // Building - Farm
 const ResourceMap FARM_BUILD_COST = {
-    {BasicResource::WOOD, 20}
+    {BasicResource::WOOD, -20}
 };
 const ResourceMap FARM_PRODUCTION = {
     {BasicResource::FOOD, 15}
@@ -21,10 +28,6 @@ const ResourceMap FARM_PRODUCTION = {
 
 // Building - HeadQuarters
 const ResourceMap HQ_BUILD_COST = {
-    {BasicResource::MONEY, 750},
-    {BasicResource::FOOD, 1000},
-    {BasicResource::WOOD, 500},
-    {BasicResource::STONE, 250}
 };
 const ResourceMap HQ_PRODUCTION = {
 };
@@ -32,7 +35,7 @@ const ResourceMap HQ_PRODUCTION = {
 
 // Building - Outpost
 const ResourceMap OUTPOST_BUILD_COST = {
-    {BasicResource::WOOD, 20}
+    {BasicResource::WOOD, -20}
 };
 
 const ResourceMap OUTPOST_PRODUCTION = {
@@ -40,7 +43,7 @@ const ResourceMap OUTPOST_PRODUCTION = {
 
 // sawmill
 const Course::ResourceMap SAWMILL_BUILD_COST = {
-    {Course::BasicResource::WOOD, 20}
+    {Course::BasicResource::WOOD, -20}
 };
 const Course::ResourceMap SAWMILL_PRODUCTION = {
     {Course::BasicResource::WOOD, 10}
@@ -48,7 +51,7 @@ const Course::ResourceMap SAWMILL_PRODUCTION = {
 
 // goldmine
 const Course::ResourceMap GOLDMINE_BUILD_COST = {
-    {Course::BasicResource::WOOD, 50}
+    {Course::BasicResource::WOOD, -50}
 };
 const Course::ResourceMap GOLDMINE_PRODUCTION = {
     {Course::BasicResource::MONEY, 10},
@@ -65,8 +68,7 @@ const ResourceMapDouble BW_WORKER_EFFICIENCY = {
 };
 
 const Course::ResourceMap BW_RECRUITMENT_COST = {
-    {MONEY, 10},
-    {FOOD, 25}
+    {FOOD, -20}
 };
 
 //Consumpion of food per unit per turn
@@ -76,12 +78,12 @@ const Course::ResourceMap UNIT_CONSUMPTION = {
 
 // scout
 const Course::ResourceMap SCOUT_COST = {
-    {MONEY, 10},
+    {MONEY, -10},
 };
 
 // builder
 const Course::ResourceMap BUILDER_COST = {
-    {MONEY, 20},
+    {MONEY, -20},
 };
 
 

@@ -166,7 +166,6 @@ void MapWindow::nextButtonMode(bool buttonMode)
         m_ui->turnSwitchBtn->setEnabled(true);
     }
     else{
-        qDebug()<<"aseta disabloiduksi";
         m_ui->turnSwitchBtn->setEnabled(false);
     }
 }
