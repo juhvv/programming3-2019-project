@@ -58,7 +58,6 @@ handler_tester::handler_tester()
 
     uConstructor_->setEventHandler(test_handler_);
     uConstructor_->setObjectManager(objectMngr_);
-    generateTestMap();
 }
 
 handler_tester::~handler_tester()
@@ -129,12 +128,14 @@ void handler_tester::getPlayers_tst()
 
 void handler_tester::addPlayers_tst()
 {
+    generateTestMap();
     std::vector<std::pair<std::string, int>> newPlayerData
             = {{"player1", 0}, {"player2", 1}};
     test_handler_->setCurrentPlayer("player1");
     test_handler_->addNewPlayers(newPlayerData, MapSize::NORMAL);
 
     // test building creation
+    QVERIFY(test_handler_->getPlayerVector().size() == 2);
     QVERIFY(test_handler_->getPlayerFromName("player1")->getPlayerBuildings()[0]->getType() ==
             "Base");
 
@@ -156,7 +157,7 @@ void handler_tester::generateTestMap()
 {
     std::vector<std::shared_ptr<Course::TileBase>> tileVec = {};
     for (int x = 0; x < MapSize::NORMAL; ++x) {
-        for (int y; y < MapSize::NORMAL; ++y) {
+        for (int y = 0; y < MapSize::NORMAL; ++y) {
             std::shared_ptr<GrassTileItem> newTile =
                     std::make_shared<GrassTileItem>(Course::Coordinate(x,y), test_handler_, objectMngr_);
             tileVec.push_back(std::dynamic_pointer_cast<Course::TileBase>(newTile));
