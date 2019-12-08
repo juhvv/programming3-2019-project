@@ -112,11 +112,11 @@ void GameEventHandler::addNewPlayers(std::vector<std::pair<std::string, int>> na
     Course::Coordinate startCoord = Course::Coordinate(mapSize * 0.1, mapSize * 0.1);
 
     Course::ResourceMap startResources;
-    startResources.insert(std::pair<Course::BasicResource,int>(Course::MONEY, 500));
-    startResources.insert(std::pair<Course::BasicResource,int>(Course::FOOD, 1500));
-    startResources.insert(std::pair<Course::BasicResource,int>(Course::WOOD, 200));
-    startResources.insert(std::pair<Course::BasicResource,int>(Course::STONE, 250));
-    startResources.insert(std::pair<Course::BasicResource,int>(Course::ORE, 300));
+    startResources.insert(std::pair<Course::BasicResource,int>(Course::MONEY, 100));
+    startResources.insert(std::pair<Course::BasicResource,int>(Course::FOOD, 100));
+    startResources.insert(std::pair<Course::BasicResource,int>(Course::WOOD, 100));
+    startResources.insert(std::pair<Course::BasicResource,int>(Course::STONE, 0));
+    startResources.insert(std::pair<Course::BasicResource,int>(Course::ORE, 0));
 
     for(long unsigned int i=0; i<nameVct.size(); i++){
         std::string nameOfPlayer = nameVct[i].first;
@@ -165,7 +165,7 @@ void GameEventHandler::isGameOver(std::string endMessage)
         emit signalSendMsg(endMessage);
     }
 
-    else if (currentPlayer_->getResourceMap()[Course::BasicResource::MONEY] > 10000) {
+    else if (currentPlayer_->getResourceMap()[Course::BasicResource::MONEY] > 1000) {
         qDebug() << currentPlayer_->getName().c_str() << " won!";
         std::string winnerMsg = "<<"+currentPlayer_->getName()+" WON! With a huge pile of money!>>";
         signalSendMsg(winnerMsg);
@@ -200,11 +200,6 @@ void GameEventHandler::claimTile(GraphicsTileBase *tile, std::shared_ptr<Player>
         player->getIcon(pixmap);
         objectMngr_->setOwnerMarker(tile, &pixmap);
     }
-
-
-    //Just testing that resources work
-    //currentPlayer_->modifyResource(Course::MONEY, -10);
-    //signalUpdateVisibleResources();
 }
 
 
