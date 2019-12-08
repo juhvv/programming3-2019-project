@@ -119,6 +119,7 @@ void GameEventHandler::addNewPlayers(std::vector<std::pair<std::string, int>> na
     for(long unsigned int i=0; i<nameVct.size(); i++){
         std::string nameOfPlayer = nameVct[i].first;
         std::shared_ptr<Player> playerPtr = std::make_shared<Player>(nameOfPlayer, startResources);
+        // sets marker
         playerPtr->setMarker(nameVct[i].second);
         playerVector_.push_back(playerPtr);
         currentPlayer_ = playerPtr;

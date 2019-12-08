@@ -30,6 +30,8 @@ public:
     /**
      * @brief Sets player's marker
      * @param index 0 or 1
+     * @note Since there are currently only 2 different markers, all index values above
+     * \n 0 will set marker 2 while 0 sets marker 1.
      */
     void setMarker(int index);
 
