@@ -60,7 +60,6 @@ void GameEventHandler::calculateAddProduction()
     std::string currentPlayer = currentPlayer_->getName();
     if((currentPlayer_->getResourceMap()[Course::FOOD]+totalNetProduction[Course::FOOD])<0){
         isGameOver(currentPlayer+" run out of food, all units died and you lost!");
-        qDebug()<<"peli loppuu...";
     }
 }
 

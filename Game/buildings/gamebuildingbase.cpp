@@ -38,6 +38,7 @@ void GameBuildingBase::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomG
 
 void GameBuildingBase::getMenuItems(QMenu &menu)
 {
+    menu;
     // implement actions for all buildings here
 }
 
