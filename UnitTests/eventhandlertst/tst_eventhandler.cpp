@@ -4,6 +4,7 @@
 // add necessary includes here
 #include "gameeventhandler.hh"
 #include "mapwindow.hh"
+#include "buildings/gamefarm.h"
 
 class handler_tester : public QObject
 {
@@ -14,35 +15,66 @@ public:
     ~handler_tester();
 
 private slots:
-    void test_case1();
 
     // resource modification test
     void modResource_tst();
     void modResources_tst();
 
+    /**
+     * @brief turn switch test
+     */
     void nextTurn_tst();
 
+    /**
+     * @brief test turn number setting and getting
+     */
     void turnNumbers_tst();
 
+    /**
+     * @brief Tests current player setting and getting and player searching
+     */
     void getPlayers_tst();
 
+    /**
+     * @brief Tests addPlayer-method (game initialisation)
+     */
     void addPlayers_tst();
 
+    /**
+     * @brief Test resetting data
+     */
+    void resetData_tst();
+
+    /**
+     * @brief Test new unit and building construction
+     */
+    void addObject_tst();
+
+    /**
+     * @brief cleanup method
+     */
     void cleanup();
 
 private:
+    /**
+     * @brief Generates normal size test map of grass tiles
+     */
     void generateTestMap();
+
     std::shared_ptr<Player> p1_;
     std::shared_ptr<Player> p2_;
+
     std::shared_ptr<ObjectManager> objectMngr_;
     std::shared_ptr<GameEventHandler> test_handler_;
     std::shared_ptr<UnitConstructor> uConstructor_;
+
     Course::ResourceMap startResources_;
     CustomGraphicsScene* scene_;
 };
 
 handler_tester::handler_tester()
 {
+    // set start resources
     startResources_.insert(std::pair<Course::BasicResource,int>(Course::MONEY, 0));
     startResources_.insert(std::pair<Course::BasicResource,int>(Course::FOOD, 0));
     startResources_.insert(std::pair<Course::BasicResource,int>(Course::WOOD, 0));
@@ -51,11 +83,13 @@ handler_tester::handler_tester()
 
     p1_ = std::make_shared<Player>("p1", startResources_);
     p2_ = std::make_shared<Player>("p1", startResources_);
+
     scene_ = new CustomGraphicsScene();
     objectMngr_ = std::make_shared<ObjectManager>(scene_);
     uConstructor_ = std::make_shared<UnitConstructor>();
     test_handler_ = std::make_shared<GameEventHandler>(objectMngr_, uConstructor_);
 
+    // setup unit constructor
     uConstructor_->setEventHandler(test_handler_);
     uConstructor_->setObjectManager(objectMngr_);
 }
@@ -63,11 +97,6 @@ handler_tester::handler_tester()
 handler_tester::~handler_tester()
 {
     delete scene_;
-}
-
-void handler_tester::test_case1()
-{
-
 }
 
 void handler_tester::modResource_tst()
@@ -145,6 +174,44 @@ void handler_tester::addPlayers_tst()
     QVERIFY(test_handler_->getPlayerVector()[0] != nullptr &&
             test_handler_->getPlayerVector()[1] != nullptr);
 }
+
+void handler_tester::resetData_tst()
+{
+    std::vector<std::shared_ptr<Player>> testPlayers = {p1_, p2_};
+    test_handler_->addPlayerVector(testPlayers);
+    test_handler_->setCurrentPlayer(p1_->getName());
+
+    test_handler_->resetData();
+    QVERIFY(test_handler_->getPlayerVector().size() == 0);
+    QVERIFY(objectMngr_->getAllTiles().size() == 0);
+    QVERIFY(test_handler_->getCurrentPlayer() == nullptr);
+}
+
+void handler_tester::addObject_tst()
+{
+    generateTestMap();
+    std::vector<std::pair<std::string, int>> newPlayerData
+            = {{"player1", 0}, {"player2", 1}};
+    test_handler_->setCurrentPlayer("player1");
+    test_handler_->addNewPlayers(newPlayerData, MapSize::NORMAL);
+
+    test_handler_->addUnit<Worker>(objectMngr_->getGTile(Course::Coordinate(1,1)));
+    QVERIFY(test_handler_->getCurrentPlayer()->getPlayerUnits()[0]->getType() == "Worker");
+
+    test_handler_->claimTile(objectMngr_->getGTile(Course::Coordinate(9,9)).get());
+    test_handler_->addBuilding<Farm>(objectMngr_->getGTile(Course::Coordinate(9,9)));
+    QVERIFY(test_handler_->getCurrentPlayer()->getPlayerBuildings()[1]->getType() == "Farm");
+
+    test_handler_->getCurrentPlayer()->modifyResource(Course::BasicResource::MONEY, -100);
+
+    test_handler_->addUnit<Worker>(objectMngr_->getGTile(Course::Coordinate(1,1)));
+    QVERIFY(test_handler_->getCurrentPlayer()->getPlayerUnits().size() == 1);
+
+    test_handler_->claimTile(objectMngr_->getGTile(Course::Coordinate(10,10)).get());
+    test_handler_->addBuilding<Farm>(objectMngr_->getGTile(Course::Coordinate(10,10)));
+    QVERIFY(test_handler_->getCurrentPlayer()->getPlayerBuildings().size() == 2);
+}
+
 
 void handler_tester::cleanup()
 {

@@ -27,12 +27,7 @@ void GraphicsTileBase::getMenuItems(QMenu &menu)
     if (std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler())->getCurrentPlayer() == getOwner()
             || getOwner() == nullptr) {
         menu.addSeparator();
-        // tile can only be claimed if it has no owner
-        // DEBUG CODE DELET THIS
-        if (getOwner() == nullptr) {
-            QAction *claimAction = menu.addAction("Claim");
-            connect(claimAction, &QAction::triggered, this, &GraphicsTileBase::claimTile);
-        }
+
         for (auto building : getBuildings()) {
             std::shared_ptr<GameBuildingBase> buildingPtr = std::dynamic_pointer_cast<GameBuildingBase>(building);
             buildingPtr->getMenuItems(menu);
@@ -46,9 +41,11 @@ void GraphicsTileBase::getMenuItems(QMenu &menu)
 bool GraphicsTileBase::isSelectable() const
 {
     return true;
+    /*
     std::shared_ptr<GameEventHandler> eventHndlr =
             std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler());
     return !(eventHndlr->getCurrentPlayer() != getOwner() && getOwner() != nullptr);
+    */
 }
 
 bool GraphicsTileBase::isMovable() const

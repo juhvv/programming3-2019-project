@@ -161,14 +161,18 @@ public:
      */
     template<typename unitType>
     void addUnit(std::shared_ptr<GraphicsTileBase> tile, std::shared_ptr<Player> player = nullptr) {
+
+        bool ignoreCost = true; // if player is specified, unit cost is ignored
+
         if (player == nullptr) {
+            ignoreCost = false;
             player = currentPlayer_;
         }
 
         std::shared_ptr<unitType> newUnit = unitConstructor_.lock()->constructUnit<unitType>(player);
 
         if (newUnit) {
-            if (!player->modifyResources(newUnit->RECRUITMENT_COST)) {
+            if ((!ignoreCost) && !player->modifyResources(newUnit->RECRUITMENT_COST)) {
                 sendMsg("You can't afford that!");
                 return;
             }
@@ -193,14 +197,17 @@ public:
     template <typename buildingType>
     void addBuilding(std::shared_ptr<GraphicsTileBase> tile, std::shared_ptr<Player> player = nullptr)
     {
+        bool ignoreCost = true; // if player is specified, unit cost is ignored
+
         if (player == nullptr) {
+            ignoreCost = false;
             player = currentPlayer_;
         }
         std::shared_ptr<buildingType> startBuilding =
                 unitConstructor_.lock()->constructBuilding<buildingType>(player);
         std::shared_ptr<GameObjectBase> gameObject = std::dynamic_pointer_cast<GameObjectBase>(startBuilding);
 
-        if (!player->modifyResources(startBuilding->BUILD_COST)) {
+        if ((!ignoreCost) && !player->modifyResources(startBuilding->BUILD_COST)) {
             sendMsg("You can't afford that!");
             return;
         }

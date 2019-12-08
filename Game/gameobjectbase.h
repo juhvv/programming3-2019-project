@@ -66,7 +66,7 @@ public:
      * @param graphicsItem Object's graphics item
      * @param scene Scene for graphics item
      */
-    virtual void setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene);
+    virtual void setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene) = 0;
 
     /**
      * @brief Inserts this object's description to the parameter

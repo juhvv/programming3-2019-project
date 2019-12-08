@@ -27,7 +27,7 @@ void GraphicsViewPort::zoom(bool isZoomIn)
 
         }
     } else {
-        if (zoomLevel_ > 0.3) {
+        if (zoomLevel_ > 0.6) {
             zoomLevel_ *= 0.95;
             this->scale(0.95, 0.95);
 

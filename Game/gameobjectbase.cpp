@@ -16,12 +16,7 @@ GameObjectBase::~GameObjectBase()
         delete graphicsItem_;
     }
 }
-/*
-void GameObjectBase::getMenuItems(QMenu &menu)
-{
 
-}
-*/
 bool GameObjectBase::isMovable() const
 {
     return true;
@@ -30,11 +25,6 @@ bool GameObjectBase::isMovable() const
 bool GameObjectBase::isSelectable() const
 {
     return false;
-}
-
-void GameObjectBase::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene)
-{
-
 }
 
 void GameObjectBase::getDescriptionBrief(std::string &desc)
@@ -46,6 +36,7 @@ void GameObjectBase::sendInfo()
 {
 
 }
+
 
 CustomGraphicsItem *GameObjectBase::getGraphicsItem() const
 {

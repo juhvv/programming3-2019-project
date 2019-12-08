@@ -6,7 +6,7 @@ GameEventHandler::GameEventHandler(std::shared_ptr<ObjectManager> objectMngr,
                                    std::weak_ptr<UnitConstructor> unitConstructor):
     Course::iGameEventHandler(),
     turnNumber_(1),
-    maxTurns_(30),
+    maxTurns_(100),
     objectMngr_(objectMngr),
     unitConstructor_(unitConstructor)
 {
@@ -142,7 +142,7 @@ void GameEventHandler::addNewPlayers(std::vector<std::pair<std::string, int>> na
         qDebug() << "GameEventHandler::addNewPlayers :"
                     "Final tile type for " << currentPlayer_->getName().c_str() << ": "
                  << startTile->getType().c_str();
-        addBuilding<Base>(startTile);
+        addBuilding<Base>(startTile, currentPlayer_);
         claimTile(startTile.get());
 
         startCoord.set_x(mapSize * 0.87);
@@ -157,7 +157,7 @@ void GameEventHandler::resetData()
     turnNumber_ = 1;
     for (auto player : playerVector_) {
         player->resetData();
-        qDebug() << player.use_count();
+        //qDebug() << player.use_count();
     }
     playerVector_.clear();
     currentPlayer_ = nullptr;
