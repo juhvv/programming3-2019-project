@@ -29,6 +29,7 @@ void LoadGame::addUnitsAndBuildings(QString fileName)
     QFile loadFile(fileName);
     loadFile.open(QIODevice::ReadOnly | QIODevice::Text);
     QTextStream in(&loadFile);
+    eventhandler_->nextTurnButtonMode(true);
 
     while (!in.atEnd()){        //Iterate through the file
         QString line = in.readLine();
@@ -70,7 +71,7 @@ void LoadGame::addUnitsAndBuildings(QString fileName)
                 }
             }
 
-            for(int i=6; i<stringVector.size(); i++){   //Creates and adds units to eventhandler
+            for(long unsigned int i=6; i<stringVector.size(); i++){   //Creates and adds units to eventhandler
                 std::string unitName = stringVector[i];
                 if(unitName=="Builder"){
                     eventhandler_->addUnit<Builder>(tile, ownerPointer);

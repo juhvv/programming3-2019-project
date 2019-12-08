@@ -11,10 +11,8 @@ SaveGame::SaveGame(std::shared_ptr<GameEventHandler> eventhandler,
 
 void SaveGame::saveCurrentGame(QString fileName)
 {
-    qDebug()<<fileName;
     QFile saveFileName(fileName);
     saveFileName.open(QIODevice::ReadWrite);
-    qDebug()<<QDir::currentPath();
 
     std::vector<std::shared_ptr<Player>> playerVector = eventhandler_->getPlayerVector();
     QString turnNumber = QString::number(eventhandler_->getTurnNumber());

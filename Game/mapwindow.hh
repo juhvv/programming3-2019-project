@@ -73,6 +73,12 @@ public slots:
      */
     void sendMsgSlot(std::string &msg);
 
+    /**
+     * @brief Changes mode of next button pressable or unpressable
+     * @param buttonMode true changes button pressable, false makes button unpressable
+     */
+    void nextButtonMode(bool buttonMode);
+
 private:
     Ui::MapWindow* m_ui;
 

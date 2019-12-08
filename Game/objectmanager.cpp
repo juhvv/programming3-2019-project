@@ -73,7 +73,6 @@ void ObjectManager::setOwnerMarker(GraphicsTileBase *tile, const QPixmap* marker
     scenePtr_->addItem(markerItem);
     markerItem->setPos(tile->getSceneCoord());
     scenePtr_->update();
-    qDebug() << tile->getOwner()->getName().c_str();
 }
 
 void ObjectManager::setGraphicsObject(std::shared_ptr<GameObjectBase> &gameObject)

@@ -111,6 +111,12 @@ public:
     std::shared_ptr<Player> getPlayerFromName(std::string playerName);
 
     /**
+     * @brief Changes modality of next turn button
+     * @param enableButton if true, enables button, if false, disables it
+     */
+    void nextTurnButtonMode(bool buttonMode);
+
+    /**
      * @brief Sets the eventhandler's list of players
      * @param playerVector New players as sharedptrs in a vector
      */
@@ -146,7 +152,7 @@ public:
      * @brief Check if game should end based on the win conditions
      * @param endMessage Message that is displayed when game ends.
      */
-    void isGameOver(std::string endMessage);
+    void isGameOver(std::string endMessage="");
 
     /**
      * @brief Adds new unit, which is specified by template parameter, to a player.
@@ -225,6 +231,12 @@ signals:
      * @param msg Message to be displayed as a string
      */
     void signalSendMsg(std::string &msg);
+
+    /**
+     * @brief Signal that is emitted when mode of next button is wanted to be changed
+     * @param buttonMode true changes button pressable, false makes button unpressable
+     */
+    void signalNextButtonMode(bool buttonMode);
 
 private:
     unsigned int turnNumber_;   // current turn number

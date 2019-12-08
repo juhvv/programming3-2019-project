@@ -27,19 +27,15 @@ const ResourceMap HQ_BUILD_COST = {
     {BasicResource::STONE, 250}
 };
 const ResourceMap HQ_PRODUCTION = {
-    {BasicResource::MONEY, 10},
-    {BasicResource::FOOD, 2},
 };
 
 
 // Building - Outpost
 const ResourceMap OUTPOST_BUILD_COST = {
-    {BasicResource::WOOD, 20},
+    {BasicResource::WOOD, 20}
 };
 
 const ResourceMap OUTPOST_PRODUCTION = {
-    {BasicResource::MONEY, -5},
-    {BasicResource::FOOD, -2}
 };
 
 // sawmill
