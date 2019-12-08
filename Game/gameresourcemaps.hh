@@ -10,6 +10,13 @@ using namespace Course;
 
 const ResourceMap EMPTY = {};
 
+//Starting resources for players
+const ResourceMap STARTING_RESOURCES = {
+    {BasicResource::WOOD, 100},
+    {BasicResource::MONEY, 100},
+    {BasicResource::FOOD, 100},
+};
+
 // Building - Farm
 const ResourceMap FARM_BUILD_COST = {
     {BasicResource::WOOD, -20}
@@ -21,10 +28,6 @@ const ResourceMap FARM_PRODUCTION = {
 
 // Building - HeadQuarters
 const ResourceMap HQ_BUILD_COST = {
-    {BasicResource::MONEY, 750},
-    {BasicResource::FOOD, 1000},
-    {BasicResource::WOOD, 500},
-    {BasicResource::STONE, 250}
 };
 const ResourceMap HQ_PRODUCTION = {
 };

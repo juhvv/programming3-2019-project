@@ -40,8 +40,6 @@ Course::ResourceMap GameEventHandler::calculateProduction()
     std::vector<std::shared_ptr<Course::TileBase>> tileVector = objectMngr_->getAllTiles();
     Course::ResourceMap totalNetProduction;
     for(auto tile: tileVector){
-        std::shared_ptr<Course::PlayerBase> tileOwner = tile->getOwner();
-        std::shared_ptr<Course::PlayerBase> unitOwner = nullptr;
         if(tile->getWorkers().size()!=0){
             if(tile->getWorkers()[0]->getOwner()==currentPlayer_){
                 std::shared_ptr<GraphicsTileBase> newerTile = std::dynamic_pointer_cast<GraphicsTileBase>(tile);
@@ -116,16 +114,9 @@ void GameEventHandler::addNewPlayers(std::vector<std::pair<std::string, int>> na
 {
     Course::Coordinate startCoord = Course::Coordinate(mapSize * 0.1, mapSize * 0.1);
 
-    Course::ResourceMap startResources;
-    startResources.insert(std::pair<Course::BasicResource,int>(Course::MONEY, 100));
-    startResources.insert(std::pair<Course::BasicResource,int>(Course::FOOD, 100));
-    startResources.insert(std::pair<Course::BasicResource,int>(Course::WOOD, 100));
-    startResources.insert(std::pair<Course::BasicResource,int>(Course::STONE, 0));
-    startResources.insert(std::pair<Course::BasicResource,int>(Course::ORE, 0));
-
     for(long unsigned int i=0; i<nameVct.size(); i++){
         std::string nameOfPlayer = nameVct[i].first;
-        std::shared_ptr<Player> playerPtr = std::make_shared<Player>(nameOfPlayer, startResources);
+        std::shared_ptr<Player> playerPtr = std::make_shared<Player>(nameOfPlayer, GameConstResourceMaps::STARTING_RESOURCES);
         // sets marker
         playerPtr->setMarker(nameVct[i].second);
         playerVector_.push_back(playerPtr);
