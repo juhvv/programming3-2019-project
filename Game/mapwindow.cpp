@@ -49,7 +49,7 @@ MapWindow::MapWindow(QWidget *parent):
     connect(eventhandler_.get(), &GameEventHandler::signalUpdateVisibleResources,
             this, &MapWindow::updateVisibleResources);
     connect(eventhandler_.get(), &GameEventHandler::signalSendMsg, this, &MapWindow::sendMsgSlot);
-
+    connect(eventhandler_.get(), &GameEventHandler::signalNextButtonMode, this, &MapWindow::nextButtonMode);
 
     // setup world generator
     Course::WorldGenerator& generaattori = Course::WorldGenerator::getInstance();
@@ -69,19 +69,26 @@ MapWindow::~MapWindow()
 void MapWindow::updateVisibleResources()
 {
     std::shared_ptr<Player> currentPlayer = eventhandler_->getCurrentPlayer();
+    //Just assign resource values
     QString goldValue= QString::number(currentPlayer->getResourceValue(Course::MONEY));
     QString foodValue= QString::number(currentPlayer->getResourceValue(Course::FOOD));
     QString woodValue= QString::number(currentPlayer->getResourceValue(Course::WOOD));
 
+    //Calculates what would production be with current state of workers and buildings
     Course::ResourceMap production = eventhandler_->calculateProduction();
 
+    //Update visible resources for current player
     m_ui->goldValueLbl->setText(goldValue);
     m_ui->foodValueLbl->setText(foodValue);
     m_ui->woodValueLbl->setText(woodValue);
+
+    //These update production of resources  in turn that is shown in mapwindow for current player,
+    //in current state of workers and buildings
     m_ui->goldProductionLbl->setText(QString::number(production[Course::MONEY]));
     m_ui->foodProductionLbl->setText(QString::number(production[Course::FOOD]));
     m_ui->woodProductionLbl->setText(QString::number(production[Course::WOOD]));
 
+    //Shows who is the current player on mapwindow
     std::string playerTurnText = eventhandler_->getCurrentPlayer()->getName()
             + " - Turn " + std::to_string(eventhandler_->getTurnNumber());
     m_ui->groupBox->setTitle(playerTurnText.c_str());
@@ -121,13 +128,10 @@ void MapWindow::switchTurn()
 {
     std::string msg = "\nTurn ";
     msg += std::to_string(eventhandler_->getTurnNumber()) + " ended, now it is turn of ";
-    eventhandler_->nextTurn();
+    eventhandler_->nextTurn();      //Calls eventhandler to change turn
     std::string curPlayerName = eventhandler_->getCurrentPlayer()->getName();
     msg += curPlayerName;
-
-
-    sendMsgSlot(msg);
-    //updateVisibleResources();
+    sendMsgSlot(msg);   //Shows message in mapwindow that turn is changed
 }
 
 void MapWindow::startNewGame(playerInfo info, unsigned int seed, MapSize::Size size)
@@ -151,8 +155,18 @@ void MapWindow::startNewGame(playerInfo info, unsigned int seed, MapSize::Size s
 
 void MapWindow::sendMsgSlot(std::string &msg)
 {
-    m_ui->turnSwitchBtn->setDisabled(false);
     m_ui->textBox->insertPlainText((msg + "\n").c_str());
     QScrollBar *sb = m_ui->textBox->verticalScrollBar();
     sb->setValue(sb->maximum());
+}
+
+void MapWindow::nextButtonMode(bool buttonMode)
+{
+    if(buttonMode==true){
+        m_ui->turnSwitchBtn->setEnabled(true);
+    }
+    else{
+        qDebug()<<"aseta disabloiduksi";
+        m_ui->turnSwitchBtn->setEnabled(false);
+    }
 }

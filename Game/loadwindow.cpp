@@ -25,9 +25,6 @@ void LoadWindow::loadGameBtnPushed()
 
 void LoadWindow::browseBtnPushed()
 {
-    qDebug()<<"jessus!";
-
-
     QString path = QFileDialog::getOpenFileName(this, tr("Select save file"),"" ,tr("Text Files (*.txt)"));
     ui->pathEdit->setText(path);
 }

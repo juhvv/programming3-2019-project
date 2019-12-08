@@ -22,6 +22,7 @@ void GameEventHandler::nextTurn()
         }
     }
     calculateAddProduction();
+    isGameOver();
     ++turnNumber_;
     if(currentPlayer_==playerVector_[0]){
         currentPlayer_=playerVector_[1];
@@ -31,7 +32,7 @@ void GameEventHandler::nextTurn()
     }
 
     emit signalUpdateVisibleResources();
-    isGameOver(currentPlayer_->getName());
+
 }
 
 Course::ResourceMap GameEventHandler::calculateProduction()
@@ -57,7 +58,10 @@ void GameEventHandler::calculateAddProduction()
     Course::ResourceMap totalNetProduction = calculateProduction();
     currentPlayer_->modifyResources(totalNetProduction);
     std::string currentPlayer = currentPlayer_->getName();
-    isGameOver(currentPlayer+" run out of food, all units died and you lost!");
+    if((currentPlayer_->getResourceMap()[Course::FOOD]+totalNetProduction[Course::FOOD])<0){
+        isGameOver(currentPlayer+" run out of food, all units died and you lost!");
+        qDebug()<<"peli loppuu...";
+    }
 }
 
 unsigned int GameEventHandler::getTurnNumber()
@@ -67,7 +71,7 @@ unsigned int GameEventHandler::getTurnNumber()
 
 void GameEventHandler::setCurrentPlayer(std::string currentPlayer)
 {
-    for(int i=0; i<playerVector_.size(); i++){
+    for(long unsigned int i=0; i<playerVector_.size(); i++){
         if(playerVector_[i]->getName()==currentPlayer){
             currentPlayer_=playerVector_[i];
         }
@@ -81,12 +85,16 @@ void GameEventHandler::setTurnNumber(unsigned int turn)
 
 std::shared_ptr<Player> GameEventHandler::getPlayerFromName(std::string playerName)
 {
-    for(int i=0; i<playerVector_.size(); i++){
+    for(long unsigned int i=0; i<playerVector_.size(); i++){
         if(playerVector_[i]->getName()==playerName){
             return playerVector_[i];
         }
     }
     return nullptr;
+}
+
+void GameEventHandler::nextTurnButtonMode(bool buttonMode){
+    emit signalNextButtonMode(buttonMode);
 }
 
 void GameEventHandler::addPlayerVector(std::vector<std::shared_ptr<Player> > playerVector)
@@ -110,11 +118,11 @@ void GameEventHandler::addNewPlayers(std::vector<std::pair<std::string, int>> na
     Course::Coordinate startCoord = Course::Coordinate(mapSize * 0.1, mapSize * 0.1);
 
     Course::ResourceMap startResources;
-    startResources.insert(std::pair<Course::BasicResource,int>(Course::MONEY, 500));
-    startResources.insert(std::pair<Course::BasicResource,int>(Course::FOOD, 1500));
-    startResources.insert(std::pair<Course::BasicResource,int>(Course::WOOD, 200));
-    startResources.insert(std::pair<Course::BasicResource,int>(Course::STONE, 250));
-    startResources.insert(std::pair<Course::BasicResource,int>(Course::ORE, 300));
+    startResources.insert(std::pair<Course::BasicResource,int>(Course::MONEY, 100));
+    startResources.insert(std::pair<Course::BasicResource,int>(Course::FOOD, 100));
+    startResources.insert(std::pair<Course::BasicResource,int>(Course::WOOD, 100));
+    startResources.insert(std::pair<Course::BasicResource,int>(Course::STONE, 0));
+    startResources.insert(std::pair<Course::BasicResource,int>(Course::ORE, 0));
 
     for(long unsigned int i=0; i<nameVct.size(); i++){
         std::string nameOfPlayer = nameVct[i].first;
@@ -158,20 +166,25 @@ void GameEventHandler::resetData()
 
 void GameEventHandler::isGameOver(std::string endMessage)
 {
-
-    if(endMessage!=""){
+    std::string emptyString = "";
+    qDebug()<<"loppuviesti: "<<endMessage.length()<<QString::fromStdString(endMessage);
+    if(endMessage!=emptyString){
+            qDebug()<<"endmessage liipalaapa";
         emit signalSendMsg(endMessage);
+        nextTurnButtonMode(false);
     }
 
-    else if (currentPlayer_->getResourceMap()[Course::BasicResource::MONEY] > 10000) {
+    else if (currentPlayer_->getResourceMap()[Course::BasicResource::MONEY] > 1000) {
         qDebug() << currentPlayer_->getName().c_str() << " won!";
         std::string winnerMsg = "<<"+currentPlayer_->getName()+" WON! With a huge pile of money!>>";
         signalSendMsg(winnerMsg);
+        nextTurnButtonMode(false);
     }
 
     else if (turnNumber_ == maxTurns_) {
         std::string endMsg = "<<NO MORE TURNS, GAME OVER>>";
-        qDebug() << "Game over";
+        signalSendMsg(endMsg);
+        nextTurnButtonMode(false);
     }
 }
 
@@ -198,11 +211,6 @@ void GameEventHandler::claimTile(GraphicsTileBase *tile, std::shared_ptr<Player>
         player->getIcon(pixmap);
         objectMngr_->setOwnerMarker(tile, &pixmap);
     }
-
-
-    //Just testing that resources work
-    //currentPlayer_->modifyResource(Course::MONEY, -10);
-    //signalUpdateVisibleResources();
 }
 
 

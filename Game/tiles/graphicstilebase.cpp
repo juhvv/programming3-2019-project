@@ -89,7 +89,7 @@ Course::ResourceMap GraphicsTileBase::generatedResources(std::shared_ptr<Player>
     Course::ResourceMap tileNetProduction;
     Course::ResourceMap unitConsumption = GameConstResourceMaps::UNIT_CONSUMPTION;
     bool doesTileHaveWorker = false;
-    for(int i=0; i<getWorkers().size(); i++){
+    for(long unsigned int i=0; i<getWorkers().size(); i++){
         tileNetProduction = Course::mergeResourceMaps(tileNetProduction, unitConsumption);
         if(getWorkers()[i]->getType()=="Worker"){
             doesTileHaveWorker = true;
@@ -104,47 +104,6 @@ Course::ResourceMap GraphicsTileBase::generatedResources(std::shared_ptr<Player>
         }
     }
     return tileNetProduction;
-
-
-
-
-    /*
-    std::vector<std::shared_ptr<GraphicsUnitBase>> AllUnitsOfOwner = std::dynamic_pointer_cast<Player>(getOwner())->getPlayerUnits();
-
-    for(auto unit: AllUnitsOfOwner){
-        if(unit->getCoordinate()==getCoordinate()){
-            qDebug()<<"hahmo koordinaateissa"<<unit->getCoordinate().x()<<unit->getCoordinate().y()<<QString::fromStdString(unit->getType());
-            QString workerType=QString::fromStdString(unit->getType());
-            qDebug()<<"generoidut resurssit pelaajalta ,, noin"<<workerType;
-        }
-    }
-    */
-    /*
-    for( auto work_it = m_workers.begin();
-         work_it != m_workers.end();
-         ++work_it)
-    {
-        Course::ResourceMapDouble current_efficiency = work_it->lock()->tileWorkAction();
-
-        worker_efficiency = Course::mergeResourceMapDoubles(worker_efficiency, current_efficiency);
-    }
-
-    total_production = Course::multiplyResourceMap(BASE_PRODUCTION, worker_efficiency);
-
-    for( auto build_it = m_buildings.begin();
-         build_it != m_buildings.end();
-         ++build_it)
-    {
-        Course::ResourceMap current_production = build_it->lock()->getProduction();
-
-        total_production = Course::mergeResourceMaps(total_production,
-                                             current_production);
-    }
-
-
-   // qDebug()<<"resursseja laskettu vissii";
-   */
-
 }
 
 void GraphicsTileBase::setGraphicsItem(CustomGraphicsItem *graphicsItem, CustomGraphicsScene *scene)

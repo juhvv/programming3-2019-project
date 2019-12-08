@@ -12,13 +12,10 @@ const ResourceMap EMPTY = {};
 
 // Building - Farm
 const ResourceMap FARM_BUILD_COST = {
-    {BasicResource::MONEY, 50},
-    {BasicResource::FOOD, 100},
-    {BasicResource::WOOD, 25}
+    {BasicResource::WOOD, 20}
 };
 const ResourceMap FARM_PRODUCTION = {
-    {BasicResource::MONEY, 1},
-    {BasicResource::FOOD, 10}
+    {BasicResource::FOOD, 15}
 };
 
 
@@ -30,48 +27,35 @@ const ResourceMap HQ_BUILD_COST = {
     {BasicResource::STONE, 250}
 };
 const ResourceMap HQ_PRODUCTION = {
-    {BasicResource::MONEY, 10},
-    {BasicResource::FOOD, 2},
 };
 
 
 // Building - Outpost
 const ResourceMap OUTPOST_BUILD_COST = {
-    {BasicResource::MONEY, -100},
-    {BasicResource::FOOD, 200},
-    {BasicResource::WOOD, 200},
-    {BasicResource::STONE, 25}
+    {BasicResource::WOOD, 20}
 };
 
 const ResourceMap OUTPOST_PRODUCTION = {
-    {BasicResource::MONEY, -5},
-    {BasicResource::FOOD, -2}
 };
 
 // sawmill
 const Course::ResourceMap SAWMILL_BUILD_COST = {
-    {Course::BasicResource::MONEY, 50},
-    {Course::BasicResource::FOOD, 100},
-    {Course::BasicResource::WOOD, 25}
+    {Course::BasicResource::WOOD, 20}
 };
 const Course::ResourceMap SAWMILL_PRODUCTION = {
-    {Course::BasicResource::MONEY, 1},
-    {Course::BasicResource::WOOD, 5}
+    {Course::BasicResource::WOOD, 10}
 };
 
 // goldmine
 const Course::ResourceMap GOLDMINE_BUILD_COST = {
-    {Course::BasicResource::MONEY, 100},
-    {Course::BasicResource::FOOD, 100},
-    {Course::BasicResource::WOOD, 45}
+    {Course::BasicResource::WOOD, 50}
 };
 const Course::ResourceMap GOLDMINE_PRODUCTION = {
-    {Course::BasicResource::MONEY, 6},
-    {Course::BasicResource::ORE, 4}
+    {Course::BasicResource::MONEY, 10},
 };
 
 
-// Worker - BasicWorker
+// Worker - BasicWorker, not used in the game
 const ResourceMapDouble BW_WORKER_EFFICIENCY = {
     {MONEY, 0.25},
     {FOOD, 1.00},
@@ -85,62 +69,41 @@ const Course::ResourceMap BW_RECRUITMENT_COST = {
     {FOOD, 25}
 };
 
+//Consumpion of food per unit per turn
 const Course::ResourceMap UNIT_CONSUMPTION = {
     {FOOD, -5}
 };
 
 // scout
 const Course::ResourceMap SCOUT_COST = {
-    {MONEY, 20},
-    {FOOD, 25}
+    {MONEY, 10},
 };
 
 // builder
 const Course::ResourceMap BUILDER_COST = {
-    {MONEY, 100},
-    {FOOD, 30}
+    {MONEY, 20},
 };
 
 
 const ResourceMap FOREST_BP = {
-    {MONEY, 1},
-    {FOOD, 3},
-    {WOOD, 5},
-    {STONE, 1},
-    {ORE, 0},
+    {WOOD, 5}
 };
 
 const ResourceMap GRASSLAND_BP = {
-    {MONEY, 2},
-    {FOOD, 5},
-    {WOOD, 1},
-    {STONE, 1},
-    {ORE, 0},
+    {FOOD, 10}
 };
 
 const ResourceMap SWAMP_BP = {
-    {MONEY, 1},
-    {FOOD, 6},
-    {WOOD, 0},
-    {STONE, 0},
-    {ORE, 0},
+    {FOOD, 12}
 };
 
 
 const ResourceMap MOUNTAIN_BP = {
-    {MONEY, 3},
-    {FOOD, 0},
-    {WOOD, 1},
-    {STONE, 5},
-    {ORE, 3},
+    {MONEY, 5},
 };
 
 const ResourceMap WATER_BP = {
-    {MONEY, 1},
-    {FOOD, 3},
-    {WOOD, 0},
-    {STONE, 0},
-    {ORE, 0},
+    {FOOD, 5},
 };
 
 }
