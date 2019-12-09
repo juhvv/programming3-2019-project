@@ -202,7 +202,8 @@ void handler_tester::addObject_tst()
     test_handler_->addBuilding<Farm>(objectMngr_->getGTile(Course::Coordinate(9,9)));
     QVERIFY(test_handler_->getCurrentPlayer()->getPlayerBuildings()[1]->getType() == "Farm");
 
-    test_handler_->getCurrentPlayer()->modifyResource(Course::BasicResource::MONEY, -100);
+    test_handler_->getCurrentPlayer()->modifyResource(Course::BasicResource::FOOD, -70);
+    test_handler_->getCurrentPlayer()->modifyResource(Course::BasicResource::WOOD, -70);
 
     test_handler_->addUnit<Worker>(objectMngr_->getGTile(Course::Coordinate(1,1)));
     QVERIFY(test_handler_->getCurrentPlayer()->getPlayerUnits().size() == 1);

@@ -55,32 +55,32 @@ void LoadGame::addUnitsAndBuildings(QString fileName)
             if(buildingName!=""){    //Creates and adds buildings to eventhandler
 
                 if(buildingName=="Base"){
-                    eventhandler_->addBuilding<Base>(tile, ownerPointer);
+                    eventhandler_->addBuilding<Base>(tile, ownerPointer, true);
                 }
                 if(buildingName=="Gold mine"){
-                    eventhandler_->addBuilding<GoldMine>(tile, ownerPointer);
+                    eventhandler_->addBuilding<GoldMine>(tile, ownerPointer, true);
                 }
                 if(buildingName=="Sawmill"){
-                    eventhandler_->addBuilding<SawMill>(tile, ownerPointer);
+                    eventhandler_->addBuilding<SawMill>(tile, ownerPointer, true);
                 }
                 if(buildingName=="Outpost"){
-                    eventhandler_->addBuilding<Outpost>(tile, ownerPointer);
+                    eventhandler_->addBuilding<Outpost>(tile, ownerPointer, true);
                 }
                 if(buildingName=="Farm"){
-                    eventhandler_->addBuilding<Farm>(tile, ownerPointer);
+                    eventhandler_->addBuilding<Farm>(tile, ownerPointer, true);
                 }
             }
 
             for(long unsigned int i=6; i<stringVector.size(); i++){   //Creates and adds units to eventhandler
                 std::string unitName = stringVector[i];
                 if(unitName=="Builder"){
-                    eventhandler_->addUnit<Builder>(tile, ownerPointer);
+                    eventhandler_->addUnit<Builder>(tile, ownerPointer, true);
                 }
                 if(unitName=="Scout"){
-                    eventhandler_->addUnit<Scout>(tile, ownerPointer);
+                    eventhandler_->addUnit<Scout>(tile, ownerPointer, true);
                 }
                 if(unitName=="Worker"){
-                    eventhandler_->addUnit<Worker>(tile, ownerPointer);
+                    eventhandler_->addUnit<Worker>(tile, ownerPointer, true);
                 }
             }
         }

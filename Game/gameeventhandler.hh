@@ -158,14 +158,13 @@ public:
      * @brief Adds new unit, which is specified by template parameter, to a player.
      * @param tile Location for new unit as sharedptr to tile
      * @param player New unit's owner. If not provided, current player is set as owner.
+     * @param ignoreCost If set true, unit cost will be ignored
      */
     template<typename unitType>
-    void addUnit(std::shared_ptr<GraphicsTileBase> tile, std::shared_ptr<Player> player = nullptr) {
-
-        bool ignoreCost = true; // if player is specified, unit cost is ignored
+    void addUnit(std::shared_ptr<GraphicsTileBase> tile, std::shared_ptr<Player> player = nullptr,
+                 bool ignoreCost = false) {
 
         if (player == nullptr) {
-            ignoreCost = false;
             player = currentPlayer_;
         }
 
@@ -193,11 +192,12 @@ public:
      * @brief Adds new building, which is specified by template parameter, to a player.
      * @param tile Location for new building as sharedptr to tile
      * @param player New building's owner. If not provided, current player is set as owner.
+     * @param ignoreCost If set true, building cost will be ignored
      */
     template <typename buildingType>
-    void addBuilding(std::shared_ptr<GraphicsTileBase> tile, std::shared_ptr<Player> player = nullptr)
+    void addBuilding(std::shared_ptr<GraphicsTileBase> tile, std::shared_ptr<Player> player = nullptr,
+                     bool ignoreCost = false)
     {
-        bool ignoreCost = true; // if player is specified, unit cost is ignored
 
         if (player == nullptr) {
             ignoreCost = false;

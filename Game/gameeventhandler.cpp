@@ -132,7 +132,7 @@ void GameEventHandler::addNewPlayers(std::vector<std::pair<std::string, int>> na
         qDebug() << "GameEventHandler::addNewPlayers :"
                     "Final tile type for " << currentPlayer_->getName().c_str() << ": "
                  << startTile->getType().c_str();
-        addBuilding<Base>(startTile, currentPlayer_);
+        addBuilding<Base>(startTile, currentPlayer_, true);
         claimTile(startTile.get());
 
         startCoord.set_x(mapSize * 0.87);
