@@ -1,13 +1,8 @@
 # Programming 3 Exercise project "Conquest of Pirkanmaa"
+# Fall 2019
+## Juho Viljamaa and Sami Vapola
+This repository contains the excercise project done during course "Programming 3" (TIE-02402). The "Course" submodule's code was provided by course staff. This project received a grade of 5.
 
-## Submodule / CourseLibrary
-Submodule for CourseLibrary is currently configured to use ssh. If you haven't yet setup an ssh-key. Go do it at  https://course-gitlab.tuni.fi/profile/keys
+The subject of the course project was to design and implement a board game (dubbed as "Colonizing Pirkanmaa" by course staff). There were not many strict requirements for the game, instead the students were to design most of the game.
 
-The page contains also instructions for generating and using existing ssh-keys.
-
-Don't change anything in CourseLibrary ( You won't be able to submit changes made in it )
-
-If you find any bugs and/or missing features you can report them in GitLab  https://course-gitlab.tuni.fi/tie-02402-ohj3_2019-2020/courselibrary/issues
-
-# Documentation can be found in directory Documentation
-
+# Documentation can be found in directory Dokumentaatio
