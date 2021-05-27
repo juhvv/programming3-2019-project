@@ -1,0 +1,12 @@
+<map id="Course::GameObject" name="Course::GameObject">
+<area shape="rect" id="node2" href="$classCourse_1_1PlaceableGameObject.html" title="The PlaceableGameObject class represents GameObjects that can be placed on Tile Objects. " alt="" coords="393,373,595,553"/>
+<area shape="rect" id="node9" href="$classCourse_1_1TileBase.html" title="The TileBase class is a base&#45;class for different Tile&#45;objects in the game. &#160;. " alt="" coords="620,307,792,619"/>
+<area shape="rect" id="node3" href="$classCourse_1_1BuildingBase.html" title="The BuildingBase class is a base&#45;class for different buildings in the game. " alt="" coords="146,667,330,891"/>
+<area shape="rect" id="node7" href="$classCourse_1_1WorkerBase.html" title="The WorkerBase class is an abstract base&#45;class for Worker&#45;objects. " alt="" coords="413,674,596,883"/>
+<area shape="rect" id="node4" href="$classCourse_1_1Farm.html" title="The Farm class represents a farm&#45;building in the game. " alt="" coords="5,961,108,1082"/>
+<area shape="rect" id="node5" href="$classCourse_1_1HeadQuarters.html" title="The HeadQuarters class represents a player&#39;s HeadQuarters&#45;building. " alt="" coords="132,953,285,1089"/>
+<area shape="rect" id="node6" href="$classCourse_1_1Outpost.html" title="The Outpost class represents a player&#39;s Outpost&#45;building. " alt="" coords="310,946,433,1097"/>
+<area shape="rect" id="node8" href="$classCourse_1_1BasicWorker.html" title="The BasicWorker class represents a &quot;normal worker&quot; in the game. " alt="" coords="457,939,614,1104"/>
+<area shape="rect" id="node10" href="$classCourse_1_1Forest.html" title="The Forest class represents Forest in the gameworld. " alt="" coords="641,711,750,847"/>
+<area shape="rect" id="node11" href="$classCourse_1_1Grassland.html" title="The Grassland class represents Grassland in the gameworld. " alt="" coords="774,703,942,854"/>
+</map>

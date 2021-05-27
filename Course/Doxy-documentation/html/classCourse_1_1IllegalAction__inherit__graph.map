@@ -1,0 +1,5 @@
+<map id="Course::IllegalAction" name="Course::IllegalAction">
+<area shape="rect" id="node4" href="$classCourse_1_1NotEnoughSpace.html" title="The NotEnoughSpace class is an Exception&#45;class for errors where GameObjects are being placed onto Til..." alt="" coords="5,425,180,517"/>
+<area shape="rect" id="node5" href="$classCourse_1_1OwnerConflict.html" title="The OwnerConflict class is an Exception&#45;class for errors where an operation is conflicting with a Gam..." alt="" coords="205,425,359,517"/>
+<area shape="rect" id="node2" href="$classCourse_1_1BaseException.html" title="The Exception class is a base&#45;class for custom exceptions in project. " alt="" coords="107,131,267,237"/>
+</map>

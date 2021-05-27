@@ -1,0 +1,4 @@
+<map id="Course::TileBase::generateResources" name="Course::TileBase::generateResources">
+<area shape="rect" id="node2" href="$classCourse_1_1GameObject.html#acca0f382d148f6060a1e9325e3240efc" title="This is the primary method for locking GameEventHandler inside different GameObject&#45;classes. " alt="" coords="235,5,380,47"/>
+<area shape="rect" id="node3" href="$classCourse_1_1GameObject.html#a3c923e5d874cada8661d37002073c111" title="Returns GameObject&#39;s owner. " alt="" coords="235,71,380,112"/>
+</map>
